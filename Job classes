@@ -1,0 +1,41 @@
+Here's a very early set of notes for job class skills/ design. Obviously some havent been added yet. This is more for anyone who might
+be curious about the job classes, or wants to throw an opinion in. I'll be implementing these into the code myself, and I'll also use this as a changelog to record the stuff I'm adding in.
+
+Knight:
+	Active:
+		Stab: weak melee, single target.
+		Bulwark: Prevent all damage for one turn.
+	Passive:
+		Armor+2: Armor items grant an additonal armor boost.
+		
+Barbarian:
+	Active:
+		Chop: Strong melee, single target.
+		Cleave: Moderate melee, three targets in front of you. (crude text demonstration below)
+		          0 = player, X = spaces hit.
+		          ____________
+		          |___|___|_X_|
+		          |___|_0_|_X_|
+		          |___|___|_X_|
+		          
+		
+	Passive:
+		Berserker's Blood: Deal more damage based on a percentage of your missing health.
+		
+Rogue:
+	Active:
+		Backstab: High damage melee, one target, deals significantly reduced damage if the target is facing you.
+		Stealth: Reduces your chance to be detected for three rounds, cannot be activated next to enemies.
+		Vanish: Activate stealth for one turn, and allows you to move an addtional two tiles.
+		Shadow Strike: Weak damage, applies poison, does not break stealth.
+	Passive:
+		Trapsense: Gives a chance to detect traps while adjacent to their spaces.
+		Greed: Sometimes gain extra loot from chests. (For better or worse, muahahaha!).
+		
+Monk:
+	Active:
+		Jab: Moderate melee, one target.
+		Flurry: Attack a single target with multiple jabs.
+	Passive:
+		Way of the Monk: You cannot use weapons or armor, your fists scale in potency with your level.
+		Crane defense: Attacks that hit you for more than 10 damage are reduced to 10 damage.
