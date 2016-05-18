@@ -1,11 +1,13 @@
 Here's a very early set of notes for job class skills/ design. Obviously some havent been added yet. This is more for anyone who might
 be curious about the job classes, or wants to throw an opinion in. I'll be implementing these into the code myself, and I'll also use 
 this as a changelog to record the stuff I'm adding in.
+* = recent additions/changes.
 
 Knight:
 	Active:
 		Stab: weak melee, single target.
 		Bulwark: Prevent all damage for one turn.
+		*Shield Bash: Deal light damage and regain hp based on armor.
 	Passive:
 		Armor+2: Armor items grant an additonal armor boost.
 		
@@ -40,3 +42,12 @@ Monk:
 	Passive:
 		Way of the Monk: You cannot use weapons or armor, your fists scale in potency with your level.
 		Crane defense: Attacks that hit you for more than 10 damage are reduced to 10 damage.
+		
+*Wizard:
+	*Active:
+		*Fireball: Deal moderate damage in a 2x2 tile range. Can be cast from 5 tiles away.
+		*Ice Lance: Deal high damage to one target. Can be cast from 5 tiles away.
+		*Teleport: Moves you to a random pathable tile in the dungeon.
+	*Passive:
+		*Mage Armor: Gain armor based on a fraction of your int.
+		
