@@ -3,6 +3,10 @@ be curious about the job classes, or wants to throw an opinion in. I'll be imple
 this as a changelog to record the stuff I'm adding in.
 * = recent additions/changes.
 
+5/20/16:
+	Added in initial builds for all classes except rogue, some abilities not yet implemented. 
+	Heavy iterations still in progress.
+
 Knight:
 	Active:
 		Stab: weak melee, single target.
