@@ -7,9 +7,9 @@ Knight:
 	Active:
 		Stab: weak melee, single target.
 		Bulwark: Prevent all damage for one turn.
-		*Shield Bash: Deal light damage and regain hp based on armor.
+		Shield Bash: Deal light damage and regain hp based on armor.
 	Passive:
-		Armor+2: Armor items grant an additonal armor boost.
+		Armor+2: Armor items grant an additonal armor boost. (Not yet implemented)
 		
 Barbarian:
 	Active:
@@ -25,7 +25,7 @@ Barbarian:
 	Passive:
 		Berserker's Blood: Deal more damage based on a percentage of your missing health.
 		
-Rogue:
+Rogue: (Not yet implemented)
 	Active:
 		Backstab: High damage melee, one target, deals significantly reduced damage if the target is facing you.
 		Stealth: Reduces your chance to be detected for three rounds, cannot be activated next to enemies.
@@ -40,14 +40,14 @@ Monk:
 		Jab: Moderate melee, one target.
 		Flurry: Attack a single target with multiple jabs.
 	Passive:
-		Way of the Monk: You cannot use weapons or armor, your fists scale in potency with your level.
+		Way of the Monk: You cannot use weapons or armor, your fists scale in potency with your level. (Not yet implemented)
 		Crane defense: Attacks that hit you for more than 10 damage are reduced to 10 damage.
 		
-*Wizard:
-	*Active:
-		*Fireball: Deal moderate damage in a 2x2 tile range. Can be cast from 5 tiles away.
-		*Ice Lance: Deal high damage to one target. Can be cast from 5 tiles away.
-		*Teleport: Moves you to a random pathable tile in the dungeon.
-	*Passive:
-		*Mage Armor: Gain armor based on a fraction of your int.
+Wizard:
+	Active:
+		Fireball: Deal moderate damage in a 2x2 tile range. Can be cast from 5 tiles away.
+		Ice Lance: Deal high damage to one target. Can be cast from 5 tiles away.
+		Teleport: Moves you to a random pathable tile in the dungeon. (Not yet implemented)
+	Passive:
+		Mage Armor: Gain armor based on a fraction of your int.
 		
