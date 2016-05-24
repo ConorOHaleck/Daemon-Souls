@@ -6,6 +6,9 @@ this as a changelog to record the stuff I'm adding in.
 5/20/16:
 	Added in initial builds for all classes except rogue, some abilities not yet implemented. 
 	Heavy iterations still in progress.
+	
+5/24/16:
+	Reworked the rogue class, the code implementation will come soon.
 
 Knight:
 	Active:
@@ -31,13 +34,14 @@ Barbarian:
 		
 Rogue: (Not yet implemented)
 	Active:
-		Backstab: High damage melee, one target, deals significantly reduced damage if the target is facing you.
-		Stealth: Reduces your chance to be detected for three rounds, cannot be activated next to enemies.
-		Vanish: Activate stealth for one turn, and allows you to move an addtional two tiles.
-		Shadow Strike: Weak damage, applies poison, does not break stealth.
+		*Backstab: Move two tiles, damaging any creature you pass through. You must be able to move to an empty space.
+		*Shiv: Deal light damage and apply poison.
+		*Feint: Gives you a 30% chance to dodge attacks for 3 rounds.
+		*Smoke Bomb: 100% chance to dodge the next single attack.
 	Passive:
 		Trapsense: Gives a chance to detect traps while adjacent to their spaces.
 		Greed: Sometimes gain extra loot from chests. (For better or worse, muahahaha!).
+		*Riposte: Automatically counterattack whenever you dodge an attack.
 		
 Monk:
 	Active:
