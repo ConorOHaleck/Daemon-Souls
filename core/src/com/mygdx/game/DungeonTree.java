@@ -7,6 +7,7 @@ public class DungeonTree {
 	DungeonNode value;
 	DungeonTree left;
 	DungeonTree right;
+	Rectangle hallway;
 	
 	public DungeonTree(Rectangle data)
 	{
@@ -23,7 +24,48 @@ public class DungeonTree {
 	
 	public void link()
 	{
+		Rectangle leftRect;
+		Rectangle rightRect;
+		Rectangle topRect;
+		Rectangle botRect;
+		if (this.left.value.data.getX() > this.right.value.data.getX())
+		{
+			rightRect = this.left.value.data;
+			leftRect = this.right.value.data;
+		}
+		else
+		{
+			rightRect = this.right.value.data;
+			leftRect = this.left.value.data;
+		}
 		
+		if (this.left.value.data.getY() > this.right.value.data.getY())
+		{
+			topRect = this.left.value.data;
+			botRect = this.right.value.data;
+		}
+		else
+		{
+			botRect = this.right.value.data;
+			topRect = this.left.value.data;
+		}
+		
+		if (topRect.getY() <= botRect.getY()+botRect.getHeight())
+		{
+			//generate horizontal hallway rect
+			hallway = new Rectangle(leftRect.getX()+leftRect.getWidth(), topRect.getY(), rightRect.getX() - leftRect.getX() + leftRect.getWidth(), 1);
+		}
+		
+		if (rightRect.getX() <= leftRect.getX()+leftRect.getWidth())
+		{
+			//generate vertical hallway rect
+			hallway = new Rectangle(rightRect.getX(), topRect.getY(), 1, topRect.getY() - botRect.getY() + botRect.getHeight());
+		}
+		
+		else
+		{
+			//generate L-shape rect
+		}
 	}
 	
 	private class DungeonNode
@@ -38,8 +80,10 @@ public class DungeonTree {
 		public void genRoom()
 		{
 			//lop off some width/height of the rectangle randomly
-			
 			//give it a random position within its former bounds
+			data.setWidth(data.getWidth() * .7f);
+			data.setHeight(data.getHeight() * .7f);
+			
 		}
 	}
 }
