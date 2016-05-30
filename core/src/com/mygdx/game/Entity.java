@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Entity {
@@ -29,7 +30,7 @@ public class Entity {
 	
 	public void Draw(SpriteBatch bat)
 	{
-		bat.draw(img, xPos, yPos);
+		bat.draw(this.img, this.xPos, this.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0, 0, 0, 140, 160, false, false);
 		
 	}
 }

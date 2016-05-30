@@ -1,7 +1,10 @@
 package com.mygdx.game;
+
+import com.badlogic.gdx.graphics.Texture;
+
 // A note to anyone changing this, the print statements are all for reference only, feel free to remove them if they become intrusive.
 //This is obviously not complete
-public class Creature extends Entity{
+public class Creature extends Entity {
 	// base stats
 	private int strength;
 	private int agility;

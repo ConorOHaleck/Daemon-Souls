@@ -1,8 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Monk extends Player {
 	
-	public Monk(String name) {
+	public Monk(String name, Texture img) {
+		super(img);
 		this.setStrength(14);
 		this.setAgility(18);
 		this.setIntelligence(6);
