@@ -1,25 +1,37 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.math.Rectangle;
 
 public class DungeonTree {
 
 	DungeonNode value;
-	DungeonTree left;
-	DungeonTree right;
+	DungeonTree left = null;
+	DungeonTree right = null;
 	Rectangle hallway;
+	Random rng;
 	
-	public DungeonTree(Rectangle data)
+	public DungeonTree(Rectangle data, Random rng)
 	{
 		this.value = new DungeonNode(data);
 	}
 	
 	public void split(int depth)
 	{
-		this.left = new DungeonTree(new Rectangle(value.data.getX(), value.data.getY(), value.data.getWidth() /2, value.data.getHeight() /2));
-		this.right = new DungeonTree(new Rectangle(value.data.getX()+ value.data.getWidth() /2, value.data.getY() + value.data.getHeight() /2, value.data.getWidth() /2, value.data.getHeight() /2));
-		left.split(depth-1);
-		right.split(depth-1);
+		if (depth > 0)
+		{
+			this.left = new DungeonTree(new Rectangle(value.data.getX(), value.data.getY(), value.data.getWidth() /2, value.data.getHeight() /2), rng);
+			this.right = new DungeonTree(new Rectangle(value.data.getX()+ value.data.getWidth() /2, value.data.getY() + value.data.getHeight() /2, value.data.getWidth() /2, value.data.getHeight() /2), rng);
+			left.split(depth-1);
+			right.split(depth-1);
+		}
+		else
+		{
+			System.out.println("Split successful!");
+			return;
+		}
 	}
 	
 	public void link()
@@ -68,6 +80,8 @@ public class DungeonTree {
 		}
 	}
 	
+	
+	
 	private class DungeonNode
 	{
 		Rectangle data;
@@ -81,10 +95,40 @@ public class DungeonTree {
 		{
 			//lop off some width/height of the rectangle randomly
 			//give it a random position within its former bounds
-			data.setWidth(data.getWidth() * .7f);
-			data.setHeight(data.getHeight() * .7f);
-			
+			data.setWidth(data.getWidth() * rng.nextFloat());
+			data.setHeight(data.getHeight() * rng.nextFloat());
 		}
+	}
+	
+	public ArrayList<DungeonTree> traverse (DungeonTree root, ArrayList<DungeonTree> nodes){ 
+	   
+		nodes.add(root);
+		if (root.left != null){
+	        traverse(root.left, nodes);
+	    }
+	    //System.out.println(root.value);
+	    if (root.right != null){
+	        traverse(root.right, nodes);
+	    }
+	    System.out.println(root);
+	    return nodes;
+	}
+	
+	public ArrayList<Rectangle> getLeafData(ArrayList<DungeonTree> rects) {
+		
+		traverse(this, rects);
+		
+		//if (this.left != null)
+		//{
+		//	rects.add(this.value.data);
+		//}
+		
+		//else 
+		//{
+		//	rects.add(this.left.getLeafData(rects).get(0));
+		//	rects.add(this.right.getLeafData(rects).get(0));
+		//}
+		return null;
 	}
 }
 
