@@ -9,5 +9,6 @@ public class Sprites {
 	
 	public static final Texture DUNGEON_FLOOR_PLAIN = new Texture("max.jpg");
 	public static final Texture PLAYER = new Texture("playerFix.png");
+	public static final Texture DUNGEON_FLOOR_EMPTY = new Texture("empty.png");
 
 }
