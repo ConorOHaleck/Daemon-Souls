@@ -23,8 +23,9 @@ public class Tile extends Entity {
 		this.img = img;
 	}
 	
-	public Tile(int posX, int posY) {
+	public Tile(boolean walkable, int posX, int posY) {
 		// TODO Auto-generated constructor stub
+		this.walkable = walkable;
 		this.x = posX;
 		this.y = posY;
 	}
@@ -45,6 +46,16 @@ public class Tile extends Entity {
 		// TODO Auto-generated method stub
 		return walkable;
 	}
+
+
+	public int getX() {
+		// TODO Auto-generated method stub
+		return this.x;
+	}
 	
+	public int getY() {
+		// TODO Auto-generated method stub
+		return this.y;
+	}
 	
 }

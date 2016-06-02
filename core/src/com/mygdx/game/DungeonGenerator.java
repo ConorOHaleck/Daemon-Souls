@@ -11,7 +11,7 @@ public class DungeonGenerator {
 	
 	public static ArrayList<Rectangle> generateRectangles()
 	{
-		DungeonTree data = new DungeonTree(new Rectangle(100,50,500,400), new Random());
+		DungeonTree data = new DungeonTree(new Rectangle(0,0,200,200), new Random());
 		data.split(4, .55f, .65f);
 		data.link();
 		ArrayList<DungeonTree> tree = data.traverse(data, new ArrayList<DungeonTree>());
@@ -35,33 +35,31 @@ public class DungeonGenerator {
 	
 	public static Map generateDungeon()
 	{
-		DungeonTree data = new DungeonTree(new Rectangle(0,0,700,500), new Random());
-		data.split(2, .45f, .65f);
-		data.link();
-		ArrayList<DungeonTree> tree = data.traverse(data, new ArrayList<DungeonTree>());
+		//DungeonTree data = new DungeonTree(new Rectangle(0,0,700,500), new Random());
+		//data.split(2, .45f, .65f);
+		//data.link();
+		//ArrayList<DungeonTree> tree = data.traverse(data, new ArrayList<DungeonTree>());
 		ArrayList<Rectangle> dungeonRects = generateRectangles();
 		Map dungeonMap = new Map();
 
 		
-		for (int i = 0; i < 25; i++)
+		for (int x = 0; x < 200; x++)
 		{
-			
-			for (int j = 0; j < 25; j++)
-			{	boolean matchFound = false;
-				for (int k = 0; k < dungeonRects.size(); k++)
+			for (int y = 0; y < 200; y++)
+			{	
+				boolean tileFound = false;
+				for (int i = 0; i < dungeonRects.size(); i++)
 				{
-					
-					if (dungeonRects.get(k).contains(i, j))
+					if (dungeonRects.get(i).contains(x,y))
 					{
-						Tile toAdd = new Tile(true);
-						dungeonMap.addTile(toAdd);
-						matchFound = true;
+						dungeonMap.addTile(new Tile(true, x, y));
+						tileFound = true;
 					}
 				}
-				if (!matchFound)
+				
+				if (!tileFound)
 				{
-					Tile toAdd = new Tile(false);
-					dungeonMap.addTile(toAdd);
+					dungeonMap.addTile(new Tile(false, x, y));
 				}
 			}
 		}
