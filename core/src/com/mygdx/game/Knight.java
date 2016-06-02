@@ -1,9 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Knight extends Player {
 
-	
-	public Knight(String name) {
+	public Knight(String name, Texture img) {
+		super(img);
 		this.setStrength(14);
 		this.setAgility(4);
 		this.setIntelligence(6);
@@ -11,7 +13,7 @@ public class Knight extends Player {
 		
 		this.setHealth(this.getVigor()*2);
 		this.setMaxHp(this.getVigor()*2);
-		this.setArmor(2);
+		this.setArmor(5);
 		
 		this.setName(name);
 	}

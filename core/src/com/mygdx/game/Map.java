@@ -23,6 +23,24 @@ public class Map {
 		return this.tiles;
 	}
 	
+	public Tile getTile(float x, float y) {
+		Tile tile;
+		
+		for (int i = 0; i < tiles.size(); i++) {
+			tile = tiles.get(i);
+			if (tile.xPos == x && tile.yPos == y) {
+				return tile;
+				
+			} else {
+				System.out.println("Tile not found");
+				return null;
+			}
+		}
+		System.out.println("Tile not found");
+		return null;
+		
+	}
+	
 	public void Draw(SpriteBatch bat)
 	{
 <<<<<<< HEAD

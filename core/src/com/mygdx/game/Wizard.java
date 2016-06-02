@@ -1,8 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Wizard extends Player{
 	
-	public Wizard(String name) {
+	public Wizard(String name, Texture img) {
+		super(img);
 		this.setStrength(4);
 		this.setAgility(6);
 		this.setIntelligence(18);
