@@ -22,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		Gdx.graphics.setTitle("extremely good video game");
 		batch = new SpriteBatch();
-		img = new Texture("Kirby.png");
+		img = new Texture("badlogic.jpg");
 		testPlayer = new Wizard("Sir test", img);
 		testEnemy =  new Enemy(img);
 		generateFloor();

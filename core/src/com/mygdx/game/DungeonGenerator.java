@@ -9,20 +9,6 @@ public class DungeonGenerator {
 	Map floor;
 	DungeonTree data;
 	
-<<<<<<< HEAD
-	public static Map generateDungeon()
-	{
-		DungeonTree data = new DungeonTree(new Rectangle(0,0,50,50), new Random());
-		data.split(3);
-		data.link();
-		ArrayList<DungeonTree> tiles = data.traverse(data, new ArrayList<DungeonTree>());
-		
-		for (int i = 0; i < tiles.size(); i++)
-		{
-			
-		}
-		return null;
-=======
 	public static ArrayList<Rectangle> generateRectangles()
 	{
 		DungeonTree data = new DungeonTree(new Rectangle(0,0,200,200), new Random());
@@ -79,6 +65,5 @@ public class DungeonGenerator {
 		}
 
 		return dungeonMap;
->>>>>>> f982a337410325946f46c0b4d7773daef57d3757
 	}
 }
