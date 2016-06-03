@@ -33,5 +33,10 @@ public class Monk extends Player {
 		this.jab(target);
 		this.jab(target);
 	}
+	
+	public void serenity() {
+		int heal =  (int) (0.8*this.getVigor());
+		this.heal(heal);
+	}
 
 }

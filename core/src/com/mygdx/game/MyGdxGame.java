@@ -12,9 +12,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	Texture img;
 	static Map testDungeon;  
 	static Wizard testPlayer;
-	static Enemy testEnemy;
+	static Imp testEnemy;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
+	public static final int IMP = 0;
 	private static int gameState = 0;
 	
 	public int step = 0;
@@ -24,7 +25,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		testPlayer = new Wizard("Sir test", img);
-		testEnemy =  new Enemy(img);
+		testEnemy =  new Imp(img);
 		generateFloor();
 	}
 
@@ -99,25 +100,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		if (getGameState() == ENEMY_TURN) {
 			
-			if (step >= 0 && step <= 10) {
-				testEnemy.move(1f, 0);
-				step++;
+			if (testEnemy.tryAttack() == IMP) {
+				testEnemy.cut(testPlayer);
+				setGameState(PLAYER_TURN);
 				
-			} else if (step > 10 && step <= 20) {
-				testEnemy.move(0, 1f);
-				step++;
-				
-			} else if (step > 20 && step <= 30) {
-				testEnemy.move(-1f, 0);
-				step++;
-				
-			} else if (step > 30 && step <= 40) {
-				testEnemy.move(0, -1f);
-				step++;
-				
-			} else if (step > 40) {
-				step = 0;
+			} else {
+				testEnemy.chase();
 			}
+			
 		}
 
 		batch.end();

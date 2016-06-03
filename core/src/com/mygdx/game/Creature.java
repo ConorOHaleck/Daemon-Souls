@@ -2,9 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 
-// A note to anyone changing this, the print statements are all for reference only, feel free to remove them if they become intrusive.
-//This is obviously not complete
-public class Creature extends Entity {
+//A note to anyone changing this, the print statements are all for reference only, feel free to remove them if they become intrusive.
+public class Creature extends Entity{
 	// base stats
 	private int strength;
 	private int agility;
@@ -22,14 +21,23 @@ public class Creature extends Entity {
 	//skills
 	private int bulwarkActive = DISABLED;
 	private int berserkerBloodActive= DISABLED;
+	private int rageActive = DISABLED;
 	private int monkDefense = DISABLED;
 	private int mageArmor = DISABLED;
+	private int rageDuration = 0;
+	private int bulwarkDuration = 0;
 	
 	//flags
 	public static final int JUST_ACTIVATED = 4;
 	public static final int TO_REMOVE = 3;
 	public static final int ENABLED = 1;
 	public static final int DISABLED = 0;
+	
+	//remember old stats for temp buffs
+	public int statStr;
+	public int statAgi;
+	public int statInt;
+	public int statVig;
 	
 	public Creature() {
 	}
@@ -60,10 +68,10 @@ public class Creature extends Entity {
 		health += healing;
 		if (health >= this.getMaxHp()) {
 			this.setHealth(maxHp);
-			//System.out.println(this.getName() + " hp: " + health);
+			System.out.println(this.getName() + " hp: " + this.getHealth());
 		} else {
 			this.setHealth(health);
-			//System.out.println(this.getName() + " hp: " + health);
+			System.out.println(this.getName() + " hp: " + this.getHealth());
 		}
 	}
 	
@@ -81,6 +89,12 @@ public class Creature extends Entity {
 			int arm = this.mageArmor();
 			this.armor = arm;
 			this.defenseUpdate();
+		}
+		
+		if (getRageActive() == ENABLED) {
+			double damg = damage;
+			damage = (int) (damage *2);
+			return damage;
 		}
 		return damage;
 		
@@ -142,6 +156,18 @@ public class Creature extends Entity {
 		return (int) (0.3*this.intelligence);
 	}
 	
+	public void rageActive() {
+		this.setRageActive(ENABLED);
+		this.statStr = this.getStrength();
+		double str = this.statStr;
+		int newStr = (int) (str*1.5);
+		this.setStrength(newStr);
+	}
+	
+	public void rageDeactive() {
+		this.setRageActive(DISABLED);
+		this.setStrength(this.statStr);
+	}
 	
 	
 	
@@ -227,5 +253,29 @@ public class Creature extends Entity {
 
 	public void setMageArmor(int mageArmor) {
 		this.mageArmor = mageArmor;
+	}
+
+	public int getRageDuration() {
+		return rageDuration;
+	}
+
+	public void setRageDuration(int rageDuration) {
+		this.rageDuration = rageDuration;
+	}
+
+	public int getBulwarkDuration() {
+		return bulwarkDuration;
+	}
+
+	public void setBulwarkDuration(int bulwarkDuration) {
+		this.bulwarkDuration = bulwarkDuration;
+	}
+
+	public int getRageActive() {
+		return rageActive;
+	}
+
+	public void setRageActive(int rageActive) {
+		this.rageActive = rageActive;
 	}
 }

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Enemy extends Creature {
+	Class<Imp> MonsterImp = Imp.class;
 
 	public Enemy() {
 		// TODO Auto-generated constructor stub
@@ -27,6 +28,36 @@ public class Enemy extends Creature {
 		this.mapX = 0;
 		this.mapY = 0;
 		this.img = img;
+	}
+	
+	public void chase() {
+		
+		if (this.xPos < MyGdxGame.testPlayer.xPos) {
+			this.move(1, 0);
+		
+		} else if (this.xPos > MyGdxGame.testPlayer.xPos) {
+			this.move(-1, 0);
+			
+		} else if (this.yPos > MyGdxGame.testPlayer.yPos) {
+			this.move(0, -1);
+			
+		} else if (this.yPos < MyGdxGame.testPlayer.yPos) {
+			this.move(0, 1);
+		}
+	}
+	
+	public int tryAttack() { //k, so the idea here was to check what kind of monster was here and return the appropriate flag, Connor if you want to handle it diferently, go ahead.
+		
+		if (Math.abs(MyGdxGame.testPlayer.xPos - this.xPos) <= Tile.WIDTH && Math.abs(this.yPos - MyGdxGame.testPlayer.yPos) <= Tile.HEIGHT) {
+			//System.out.println("Target Found");
+			System.out.println(Math.abs(this.xPos - MyGdxGame.testPlayer.xPos));
+			//System.out.println(Tile.WIDTH);
+			
+			return MyGdxGame.IMP;
+		}
+		System.out.println("Attack Failed");
+		MyGdxGame.setGameState(MyGdxGame.PLAYER_TURN);
+		return -1;
 	}
 
 

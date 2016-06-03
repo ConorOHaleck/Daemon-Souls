@@ -28,6 +28,7 @@ public class Knight extends Player {
 	public void bulwark() {
 		System.out.println(this.getName() + " activates Bulwark!");
 		this.setBulwarkActive(ENABLED);
+		this.setBulwarkDuration(1);
 	}
 	
 	public void shieldBash(Creature target) {
