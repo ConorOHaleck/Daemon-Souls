@@ -6,26 +6,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Entity {
 	Texture img;
-	Float xPos;
-	Float yPos;
+	int xPos;
+	int yPos;
 	
 	public Entity()
 	{
-		xPos = 0.0f;
-		yPos = 0.0f;
+		xPos = 0;
+		yPos = 0;
 	}
 	
-	public Entity(Texture img, float x, float y)
+	public Entity(Texture img, int x, int y)
 	{
 		this.img = img;
 		this.xPos = x;
 		this.yPos = y;
 	}
 	
-	public void setPos(Float x, Float y)
+	public void setPos(int i, int j)
 	{
-		xPos = x;
-		yPos = y;
+		xPos = i;
+		yPos = j;
 	}
 	
 	public void Draw(SpriteBatch bat)

@@ -9,9 +9,11 @@ public class DungeonGenerator {
 	Map floor;
 	DungeonTree data;
 	
+	
+	//Generates a dungeon and returns its geometric rectangle objects. Useful for debugging and discovering where "rooms" are.
 	public static ArrayList<Rectangle> generateRectangles()
 	{
-		DungeonTree data = new DungeonTree(new Rectangle(0,0,200,200), new Random());
+		DungeonTree data = new DungeonTree(new Rectangle(0,0, Map.MAP_WIDTH,200), new Random());
 		data.split(4, .55f, .65f);
 		data.link();
 		ArrayList<DungeonTree> tree = data.traverse(data, new ArrayList<DungeonTree>());
@@ -33,6 +35,7 @@ public class DungeonGenerator {
 		return dungeonRects;
 	}
 	
+	//Generates a dungeon using the BSP algorithm and returns its corresponding Map object.
 	public static Map generateDungeon()
 	{
 		//DungeonTree data = new DungeonTree(new Rectangle(0,0,700,500), new Random());
@@ -43,7 +46,7 @@ public class DungeonGenerator {
 		Map dungeonMap = new Map();
 
 		
-		for (int x = 0; x < 200; x++)
+		for (int x = 0; x < Map.MAP_WIDTH; x++)
 		{
 			for (int y = 0; y < 200; y++)
 			{	
@@ -52,9 +55,13 @@ public class DungeonGenerator {
 				{
 					if (dungeonRects.get(i).contains(x,y))
 					{
-						dungeonMap.addTile(new Tile(true, x, y));
 						tileFound = true;
 					}
+				}
+				
+				if (tileFound)
+				{
+					dungeonMap.addTile(new Tile(true, x, y));
 				}
 				
 				if (!tileFound)

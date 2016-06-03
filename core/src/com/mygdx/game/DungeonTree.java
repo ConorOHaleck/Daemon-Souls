@@ -35,13 +35,11 @@ public class DungeonTree {
 		{
 			if (rng.nextInt(2) == 0)
 			{
-				System.out.println("Split factor:" + factor);
 				this.left = new DungeonTree(new Rectangle(node.bounds.getX(), node.bounds.getY(), node.bounds.getWidth() * factor, node.bounds.getHeight()), rng);
 				this.right = new DungeonTree(new Rectangle(node.bounds.getX()+this.left.node.bounds.getWidth(), node.bounds.getY(), node.bounds.getWidth()-this.left.node.bounds.getWidth(), node.bounds.getHeight()), rng);
 			}
 			else 
 			{
-				System.out.println("Split factor:" + factor);
 				this.left = new DungeonTree(new Rectangle(node.bounds.getX(), node.bounds.getY(), node.bounds.getWidth(), node.bounds.getHeight() * factor), rng);
 				this.right = new DungeonTree(new Rectangle(node.bounds.getX(), node.bounds.getY()+this.left.node.bounds.getHeight(), node.bounds.getWidth(), node.bounds.getHeight()-this.left.node.bounds.getHeight()), rng);
 

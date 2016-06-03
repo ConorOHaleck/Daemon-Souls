@@ -29,16 +29,32 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	public void generateFloor() {
-		testDungeon = new Map();
-		Tile testTile = new Tile(Sprites.DUNGEON_FLOOR_PLAIN);
-		for (int i = 0; i < 500; i++)
+		DungeonGenerator mapGen = new DungeonGenerator();
+		
+		testDungeon = mapGen.generateDungeon();
+		
+		for (int i = 0; i < testDungeon.tiles.size(); i++)
 		{
-			testDungeon.getTiles().add(testTile);
+			if (testDungeon.getTiles().get(i).walkable())
+			{
+				testDungeon.getTiles().get(i).setImg(Sprites.DUNGEON_FLOOR_PLAIN);
+			}
+			else
+			{
+				testDungeon.getTiles().get(i).setImg(Sprites.DUNGEON_FLOOR_EMPTY);
+			}
 		}
 		
-		for (int i = 1; i < 20; i++) {
-			testDungeon.getTiles().get(i).setCanCollide(false);
+		for (int x = 0; x < 200; x++)
+		{
+			for (int y = 0; y < 200; y++)
+			{
+				testDungeon.getTileAt(x, y);
+			}
 		}
+		//for (int i = 1; i < 20; i++) {
+		//	testDungeon.getTiles().get(i).setCanCollide(false);
+		//}
 	}
 
 	@Override

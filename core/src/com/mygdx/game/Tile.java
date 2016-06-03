@@ -21,18 +21,23 @@ public class Tile extends Entity {
 	
 	public Tile(Texture img)
 	{
-		this.img = img;
+		this.setImg(img);
 	}
 	
 	public Texture getTexture()
 	{
-		return img;
+		return getImg();
 	}
 
 	public boolean isCanCollide() {
 		return canCollide;
 	}
 
+	public boolean walkable()
+	{
+		return walkable;
+	}
+	
 	public void setCanCollide(boolean canCollide) {
 		this.canCollide = canCollide;
 	}
@@ -45,6 +50,14 @@ public class Tile extends Entity {
 	public int getY() {
 		// TODO Auto-generated method stub
 		return this.y;
+	}
+
+	public Texture getImg() {
+		return img;
+	}
+
+	public void setImg(Texture img) {
+		this.img = img;
 	}
 	
 	
