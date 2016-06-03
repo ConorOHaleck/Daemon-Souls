@@ -9,6 +9,9 @@ this as a changelog to record the stuff I'm adding in.
 	
 5/24/16:
 	Reworked the rogue class, the code implementation will come soon.
+	
+6/3/2016:
+	Removed rogue, added new skils for barbarian and monk.
 
 Knight:
 	Active:
@@ -27,26 +30,17 @@ Barbarian:
 		          |___|___|_X_|
 		          |___|_0_|_X_|
 		          |___|___|_X_|
+		*RAAAAAAAAGEEEEE!!!!!: Gain a 50% increase to strength, but take double damage for 3 rounds.
 		          
 		
 	Passive:
 		Berserker's Blood: Deal more damage based on a percentage of your missing health.
 		
-Rogue: (Not yet implemented)
-	Active:
-		*Backstab: Move two tiles, damaging any creature you pass through. You must be able to move to an empty space.
-		*Shiv: Deal light damage and apply poison.
-		*Feint: Gives you a 30% chance to dodge attacks for 3 rounds.
-		*Smoke Bomb: 100% chance to dodge the next single attack.
-	Passive:
-		Trapsense: Gives a chance to detect traps while adjacent to their spaces.
-		Greed: Sometimes gain extra loot from chests. (For better or worse, muahahaha!).
-		*Riposte: Automatically counterattack whenever you dodge an attack.
-		
 Monk:
 	Active:
 		Jab: Moderate melee, one target.
 		Flurry: Attack a single target with multiple jabs.
+		*Serenity: Heal yourself for 75% of your constitution. 
 	Passive:
 		Way of the Monk: You cannot use weapons or armor, your fists scale in potency with your level. (Not yet implemented)
 		Crane defense: Attacks that hit you for more than 10 damage are reduced to 10 damage.
