@@ -84,19 +84,19 @@ public class Assets {
 
 		// Initialize Floor Tiles
 		for (AtlasRegion image : floor.getRegions()) {
-			Floor floor = new Floor(image);
+			Floor floor = new Floor(image, 0, 0);
 			floorTiles.add(floor);
 		}
 
 		// Initialize Wall Tiles
 		for (AtlasRegion image : wall.getRegions()) {
-			Wall wall = new Wall(image);
+			Wall wall = new Wall(image, 0, 0);
 			wallTiles.add(wall);
 		}
 		
 		//Initialize Creature 'Tiles'
 		for (AtlasRegion image : creatures.getRegions()){
-			Creature creature = new Creature(image);
+			Creature creature = new Creature(image, 0, 0);
 			creatureTiles.add(creature);
 		}
 	}
