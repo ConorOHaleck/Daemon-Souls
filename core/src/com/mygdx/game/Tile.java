@@ -1,5 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class Tile extends Entity {
 	
@@ -24,6 +25,16 @@ public class Tile extends Entity {
 		this.setImg(img);
 	}
 	
+	public Tile(Texture img, int x, int y)
+	{
+		super(img, x, y);
+	}
+	
+	public Tile(AtlasRegion image, int i, int j) {
+		// TODO Auto-generated constructor stub
+		super(image, i, j);
+	}
+
 	public Texture getTexture()
 	{
 		return getImg();
