@@ -29,22 +29,17 @@ public class Player extends Creature {
 		Tile oldTile;
 		Tile newTile;
 		
-		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
-		oldTile.setOccupant(null);
+		int x2 = xPos;
+		int y2 = yPos;	
+		int newX = x2 += Tile.WIDTH * x;
+		int newY = y2 += Tile.WIDTH * y;
 		
-		mapX +=x;
-		mapY +=y;
+		newTile = MyGdxGame.testDungeon.getTileAt((newX/Tile.WIDTH), (newY/Tile.WIDTH));
 		
-		//float x2 = xPos;
-		//float y2 = yPos;
-		
-		//float newX = x2 += Tile.WIDTH * x;
-		//float newY = y2 += Tile.WIDTH * y;
-		
-		//Tile nTile = MyGdxGame.testDungeon.getTile(newX, newY);
-		
-		//if (nTile.isCanCollide() == false) {
+		if (newTile.isCanCollide() == false) {
 			
+			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
+			oldTile.setOccupant(null);
 		
 		xPos += Tile.WIDTH * x;
 		yPos += Tile.HEIGHT * y;
@@ -61,15 +56,20 @@ public class Player extends Creature {
 		//System.out.println("PlayerX: " + (this.xPos/Tile.WIDTH));
 		//System.out.println("PlayerY: " + (this.yPos/Tile.HEIGHT));
 			
-		//} else {
+			mapX +=x;
+			mapY +=y;
+					
+			xPos += Tile.WIDTH * x;
+			yPos += Tile.HEIGHT * y;
 			
-		//}
-		
-		MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
+			newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
+			newTile.setOccupant(MyGdxGame.testPlayer);
+			
+			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
+		}	
 	}
 	
 	public void ability1(Player player) {
-		//System.out.println("One");
 		int targetX;
 		int targetY;
 		Creature target = null;
@@ -77,35 +77,23 @@ public class Player extends Creature {
 		if (this.getFacing() == RIGHT) {
 			targetX = (this.xPos/Tile.WIDTH) + 1;
 			targetY = (this.yPos/Tile.HEIGHT);
-		//	System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 			
 		} else if (MyGdxGame.testPlayer.getFacing() == UP) {
 			targetX = (this.xPos/Tile.WIDTH);
 			targetY = (this.yPos/Tile.HEIGHT) + 1;
-			//System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 			
 		} else if (MyGdxGame.testPlayer.getFacing() == LEFT) {
 			targetX = (this.xPos/Tile.WIDTH) - 1;
 			targetY = (this.yPos/Tile.HEIGHT);
-			//System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 			
 			
 		} else if (MyGdxGame.testPlayer.getFacing() == DOWN) {
 			targetX = (this.xPos/Tile.WIDTH);
 			targetY = (this.yPos/Tile.HEIGHT) - 1;
-			//System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 		}
 		
 		if (KnightClass.isInstance(MyGdxGame.testPlayer)) {         
@@ -145,8 +133,15 @@ public class Player extends Creature {
 			
 		} else if (WizClass.isInstance(MyGdxGame.testPlayer)) {       //To finish when I do ranged combat
 			System.out.println("Fireball");
-			//determine target
-			//MyGdxGame.testPlayer.fireball(targets go here);
+			
+			if (MyGdxGame.testPlayer.getFireballCD() <= 0) {
+				MyGdxGame.setControlState(MyGdxGame.TARGETING_RANGED);
+				MyGdxGame.setReticleType(MyGdxGame.FIREBALL);
+			
+			} else {
+				System.out.println("That ability is on cooldown.");
+			}
+			
 			
 		} else {
 			System.out.println("Error");
@@ -163,68 +158,75 @@ public class Player extends Creature {
 		if (this.getFacing() == RIGHT) {
 			targetX = (this.xPos/Tile.WIDTH) + 1;
 			targetY = (this.yPos/Tile.HEIGHT);
-		//	System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 			
 		} else if (MyGdxGame.testPlayer.getFacing() == UP) {
 			targetX = (this.xPos/Tile.WIDTH);
 			targetY = (this.yPos/Tile.HEIGHT) + 1;
-			//System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 			
 		} else if (MyGdxGame.testPlayer.getFacing() == LEFT) {
 			targetX = (this.xPos/Tile.WIDTH) - 1;
 			targetY = (this.yPos/Tile.HEIGHT);
-			//System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
-			
 			
 		} else if (MyGdxGame.testPlayer.getFacing() == DOWN) {
 			targetX = (this.xPos/Tile.WIDTH);
 			targetY = (this.yPos/Tile.HEIGHT) - 1;
-			//System.out.println("TargetX: " + targetX);
-			//System.out.println("TargetY: " + targetY);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
-			//System.out.println(target);
 		}
 		
 		if (KnightClass.isInstance(MyGdxGame.testPlayer)) {
 			System.out.println("Shield Bash");
 			
-			try {
-				((Knight) player).shieldBash(target);
-				
-			} catch (NullPointerException e) {
-				System.out.println("The attack missed!");
+			if (MyGdxGame.testPlayer.getBashCd() <= 0) {
+				try {
+					((Knight) player).shieldBash(target);
+					MyGdxGame.testPlayer.setBashCd(2);
+					
+				} catch (NullPointerException e) {
+					System.out.println("The attack missed!");
+				}
+			
+			} else {
+				System.out.println("That ability is on cooldown.");
 			}
+			
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 			
 		} else if (BarbClass.isInstance(MyGdxGame.testPlayer)) {
 			System.out.println("Cleave");
-			((Barbarian) player).cleave(); 
+			
+			if (MyGdxGame.testPlayer.getCleaveCD() <= 0) {
+				((Barbarian) player).cleave(); 
+				MyGdxGame.testPlayer.setCleaveCD(1);
+			
+			} else {
+				System.out.println("That ability is on cooldown.");
+			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN); //This looks different because target acquisition for cleave is handled differently.
 			
 		} else if (MonkClass.isInstance(MyGdxGame.testPlayer)) {
 			System.out.println("Flurry");
 			
-			try {
-				((Monk) player).flurry(target);
-				
-			} catch (NullPointerException e) {
-				System.out.println("The attack missed!");
+			if (MyGdxGame.testPlayer.getFlurryCD() <= 0) {
+				try {
+					((Monk) player).flurry(target);
+					MyGdxGame.testPlayer.setFlurryCD(2);
+					
+				} catch (NullPointerException e) {
+					System.out.println("The attack missed!");
+				}
+			
+			} else {
+				System.out.println("That ability is on cooldown.");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 			
 		} else if (WizClass.isInstance(MyGdxGame.testPlayer)) {        //To finish when I do ranged combat
 			System.out.println("Ice Lance");
-			//determine target
-			//MyGdxGame.testPlayer.iceLance(target goes here);
+			MyGdxGame.setControlState(MyGdxGame.TARGETING_RANGED);
+			MyGdxGame.setReticleType(MyGdxGame.ICE_LANCE);
 			
 		} else {
 			System.out.println("Error");
@@ -236,7 +238,14 @@ public class Player extends Creature {
 		
 		if (KnightClass.isInstance(MyGdxGame.testPlayer)) {
 			System.out.println("Bulwark");
-			((Knight) player).bulwark();
+			
+			if (MyGdxGame.testPlayer.getBulwarkCD() <= 0) {
+				((Knight) player).bulwark();
+				MyGdxGame.testPlayer.setBulwarkCD(3);
+			
+			} else {
+				System.out.println("That ability is on cooldown.");
+			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 			
 		} else if (BarbClass.isInstance(MyGdxGame.testPlayer)) {
@@ -246,7 +255,14 @@ public class Player extends Creature {
 			
 		} else if (MonkClass.isInstance(MyGdxGame.testPlayer)) {
 			System.out.println("Serenity");
-			((Monk) player).serenity();
+			
+			if (MyGdxGame.testPlayer.getSerenityCD() <= 0) {
+				((Monk) player).serenity();
+				MyGdxGame.testPlayer.setSerenityCD(3);
+			
+			} else {
+				System.out.println("That ability is on cooldown.");
+			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 			
 		} else if (WizClass.isInstance(MyGdxGame.testPlayer)) {            //I'll deal with this later
