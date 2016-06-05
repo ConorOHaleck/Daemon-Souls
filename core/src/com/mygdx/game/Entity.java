@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class Entity {
 	Texture img;
@@ -18,6 +19,13 @@ public class Entity {
 	public Entity(Texture img, int x, int y)
 	{
 		this.img = img;
+		this.xPos = x;
+		this.yPos = y;
+	}
+	
+	public Entity(AtlasRegion img, int x, int y)
+	{
+		this.img = img.getTexture();
 		this.xPos = x;
 		this.yPos = y;
 	}

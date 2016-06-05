@@ -5,10 +5,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
 
+//Class full of static methods for generating new dungeon floors
 public class DungeonGenerator {
-	Map floor;
-	DungeonTree data;
-	
 	
 	//Generates a dungeon and returns its geometric rectangle objects. Useful for debugging and discovering where "rooms" are.
 	public static ArrayList<Rectangle> generateRectangles()
