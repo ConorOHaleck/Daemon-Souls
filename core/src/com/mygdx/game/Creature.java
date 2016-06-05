@@ -28,6 +28,14 @@ public class Creature extends Entity{
 	private int rageDuration = 0;
 	private int bulwarkDuration = 0;
 	
+	//cooldowns
+	private int cleaveCD = 0;
+	private int fireballCD = 0;
+	private int bulwarkCD = 0;
+	private int bashCd = 0;
+	private int flurryCD = 0;
+	private int serenityCD = 0;
+	
 	//flags
 	public static final int JUST_ACTIVATED = 4;
 	public static final int TO_REMOVE = 3;
@@ -282,5 +290,53 @@ public class Creature extends Entity{
 
 	public void setRageActive(int rageActive) {
 		this.rageActive = rageActive;
+	}
+
+	public int getCleaveCD() {
+		return cleaveCD;
+	}
+
+	public void setCleaveCD(int cleaveCD) {
+		this.cleaveCD = cleaveCD;
+	}
+
+	public int getFireballCD() {
+		return fireballCD;
+	}
+
+	public void setFireballCD(int fireballCD) {
+		this.fireballCD = fireballCD;
+	}
+
+	public int getBulwarkCD() {
+		return bulwarkCD;
+	}
+
+	public void setBulwarkCD(int bulwarkCD) {
+		this.bulwarkCD = bulwarkCD;
+	}
+
+	public int getBashCd() {
+		return bashCd;
+	}
+
+	public void setBashCd(int bashCd) {
+		this.bashCd = bashCd;
+	}
+
+	public int getFlurryCD() {
+		return flurryCD;
+	}
+
+	public void setFlurryCD(int flurryCD) {
+		this.flurryCD = flurryCD;
+	}
+
+	public int getSerenityCD() {
+		return serenityCD;
+	}
+
+	public void setSerenityCD(int serenityCD) {
+		this.serenityCD = serenityCD;
 	}
 }

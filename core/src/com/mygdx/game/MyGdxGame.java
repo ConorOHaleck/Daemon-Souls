@@ -11,13 +11,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	Texture reticleImg;
 	static Map testDungeon;  
-	static Barbarian testPlayer;
+	static Wizard testPlayer;
 	static Imp testEnemy;
+	static Reticle playerReticle;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
+	public static final int PLAYER_MOVEMENT = 0;
+	public static final int TARGETING_RANGED = 1;
+	public static final int FIREBALL = 0;
+	public static final int ICE_LANCE = 1;
 	public static final int IMP = 0;
 	private static int gameState = 0;
+	private static int controlState = 0;
+	private static int reticleType = 0;
 	OrthographicCamera playerCam;
 	
 	@Override
@@ -31,8 +39,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.update();
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		testPlayer = new Barbarian("Sir test", img);
+		reticleImg = new Texture("Dunno 2.0.jpg");
+		testPlayer = new Wizard("Sir test", img);
 		testEnemy =  new Imp(img);
+		playerReticle = new Reticle(reticleImg);
 		generateFloor();
 	}
 
@@ -84,40 +94,100 @@ public class MyGdxGame extends ApplicationAdapter {
 		//batch.draw(img, 25, 200);
 		
 		if (getGameState() == PLAYER_TURN) {
-			if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-				testPlayer.setFacing(Player.LEFT);
-				testPlayer.move(-1f, 0);
+			
+			if (getControlState() == PLAYER_MOVEMENT) {
+				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+					testPlayer.setFacing(Player.LEFT);
+					testPlayer.move(-1f, 0);
+				}
+
+				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+					testPlayer.setFacing(Player.RIGHT);
+					testPlayer.move(1f, 0);
+				}
+
+				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+					testPlayer.setFacing(Player.DOWN);
+					testPlayer.move(0, -1f);
+				}
+
+				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+					testPlayer.setFacing(Player.UP);
+					testPlayer.move(0, 1f);
+				}
 				
-			}
+				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+					testPlayer.ability1(testPlayer);
+				}
+				
+				if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+					testPlayer.ability2(testPlayer);
+				}
+				
+				if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+					testPlayer.ability3(testPlayer);
+				}
+				
+				if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+					MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
+				}
+				playerCam.position.set(testPlayer.xPos, testPlayer.yPos, 0);
+				playerCam.update();
+				
+			} else if (getControlState() == TARGETING_RANGED) {
+				
+				
+				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+					playerReticle.move(-1f, 0);
+				}
 
-			if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-				testPlayer.setFacing(Player.RIGHT);
-				testPlayer.move(1f, 0);
-			}
+				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+					playerReticle.move(1f, 0);
+				}
 
-			if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-				testPlayer.setFacing(Player.DOWN);
-				testPlayer.move(0, -1f);
-			}
+				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+					playerReticle.move(0, -1f);
+				}
 
-			if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-				testPlayer.setFacing(Player.UP);
-				testPlayer.move(0, 1f);
+				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+					playerReticle.move(0, 1f);
+				}
+				
+				if (getReticleType() == FIREBALL) {
+					playerReticle.drawFour(batch);
+					
+					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+						testPlayer.fireball();
+					}
+					
+					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+						testPlayer.ability2(testPlayer);
+					}
+					
+					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+						testPlayer.ability3(testPlayer);
+					}
+					
+				} else if (getReticleType() == ICE_LANCE) {
+					playerReticle.drawOne(batch);
+					
+					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+						testPlayer.ability1(testPlayer);
+					}
+					
+					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+						testPlayer.iceLance();
+					}
+					
+					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+						testPlayer.ability3(testPlayer);
+					}
+				}
+				
+				if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+					MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
+				}
 			}
-			
-			if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-				testPlayer.ability1(testPlayer);
-			}
-			
-			if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-				testPlayer.ability2(testPlayer);
-			}
-			
-			if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-				testPlayer.ability3(testPlayer);
-			}
-			playerCam.position.set(testPlayer.xPos, testPlayer.yPos, 0);
-			playerCam.update();
 		}
 		
 		if (getGameState() == ENEMY_TURN) {
@@ -161,5 +231,46 @@ public class MyGdxGame extends ApplicationAdapter {
 				player.rageDeactive();
 			}
 		}
+		
+		if (player.getBashCd() > 0) {                    //I'll clean this up later
+			player.setBashCd(player.getBashCd() - 1);
+		}
+		
+		if (player.getFireballCD() > 0) {
+			player.setFireballCD(player.getFireballCD() - 1);
+		}
+		
+		if (player.getBulwarkCD() > 0) {
+			player.setBulwarkCD(player.getBulwarkCD() - 1);
+		}
+		
+		if (player.getCleaveCD() > 0) {
+			player.setCleaveCD(player.getCleaveCD() - 1);
+		}
+		
+		if (player.getFlurryCD() > 0) {
+			player.setFlurryCD(player.getFlurryCD() - 1);
+		}
+		
+		if (player.getSerenityCD() > 0) {
+			player.setSerenityCD(player.getSerenityCD() - 1);
+		}
+	}
+
+	public static int getControlState() {
+		return controlState;
+	}
+
+	public static void setControlState(int controlState) {
+		MyGdxGame.controlState = controlState;
+	}
+
+	public static int getReticleType() {
+		return reticleType;
+	}
+
+	public static void setReticleType(int reticleType) {
+		playerReticle.setPos(testPlayer.xPos, testPlayer.yPos);
+		MyGdxGame.reticleType = reticleType;
 	}
 }

@@ -78,9 +78,7 @@ public class Barbarian extends Player{
 			target3= (Creature) MyGdxGame.testDungeon.getTileAt(targetX - 1, targetY).getOccupant();
 			//System.out.println(target);
 		}
-		int i = 0;
 		ArrayList<Creature> targetList = new ArrayList<Creature>();
-		ArrayList<Creature> targetConfirmList = new ArrayList<Creature>();
 		targetList.add(target);
 		targetList.add(target2);
 		targetList.add(target3);

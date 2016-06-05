@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 
 public class Wizard extends Player{
@@ -19,44 +21,60 @@ public class Wizard extends Player{
 		this.setMageArmor(ENABLED);
 	}
 	
+	public void iceLance() {
+		int targetX;
+		int targetY;
+		Creature target = null;
+		targetX = (MyGdxGame.playerReticle.xPos/Tile.WIDTH);
+		targetY = (MyGdxGame.playerReticle.yPos/Tile.HEIGHT);
+		target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
+		this.iceLance(target);
+		MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
+		MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
+	}
+	
 	public void iceLance(Creature target) {
-		int damage = (int) (1.5*this.getIntelligence());
+		int damage = (int) (0.75*this.getIntelligence());
 		System.out.println(this.getName() + " fires a lance of ice!");
 		target.getHit(damage);
 	}
 	
 	public void fireball() {
-		// same procedure as cleave
+		int targetX;
+		int targetY;
+		Creature target = null;
+		Creature target2 = null;
+		Creature target3 = null;
+		Creature target4 = null;
+		targetX = (MyGdxGame.playerReticle.xPos/Tile.WIDTH);
+		targetY = (MyGdxGame.playerReticle.yPos/Tile.HEIGHT);
+		
+		target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
+		target2 = (Creature) MyGdxGame.testDungeon.getTileAt(targetX + 1, targetY).getOccupant();
+		target3 = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY + 1).getOccupant();
+		target4 = (Creature) MyGdxGame.testDungeon.getTileAt(targetX + 1, targetY + 1).getOccupant();
+		
+		ArrayList<Creature> targetList = new ArrayList<Creature>();
+		targetList.add(target);
+		targetList.add(target2);
+		targetList.add(target3);
+		targetList.add(target4);
+		
+		for (Creature t : targetList) {
+			if (t != null) {
+				this.fireball(t);
+			}
+		}
+		
+		MyGdxGame.testPlayer.setFireballCD(3);
+		MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
+		MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 	}
 	
 	public void fireball(Creature target) {
 		int damage = (int) (0.8*this.getIntelligence());
-		System.out.println(this.getName() + "tosses out a huge fireball!");
-		target.getHit(damage);
-	}
-	
-	public void fireball(Creature target1, Creature target2) {
-		int damage = (int) (0.8*this.getIntelligence());
-		System.out.println(this.getName() + "tosses out a huge fireball!");
-		target1.getHit(damage);
-		target2.getHit(damage);
-	}
-	
-	public void fireball(Creature target1, Creature target2, Creature target3) {
-		int damage = (int) (0.8*this.getIntelligence());
 		System.out.println(this.getName() + " tosses out a huge fireball!");
-		target1.getHit(damage);
-		target2.getHit(damage);
-		target3.getHit(damage);
-	}
-	
-	public void fireball(Creature target1, Creature target2, Creature target3, Creature target4) {
-		int damage = (int) (0.8*this.getIntelligence());
-		System.out.println(this.getName() + "tosses out a huge fireball!");
-		target1.getHit(damage);
-		target2.getHit(damage);
-		target3.getHit(damage);
-		target4.getHit(damage);
+		target.getHit(damage);
 	}
 
 }
