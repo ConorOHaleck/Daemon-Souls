@@ -1,10 +1,10 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Monk extends Player {
 	
-	public Monk(String name, Texture img) {
+	public Monk(String name, TextureRegion img) {
 		super(img);
 		this.setStrength(14);
 		this.setAgility(18);

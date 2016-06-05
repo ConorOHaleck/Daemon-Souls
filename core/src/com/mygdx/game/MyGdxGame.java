@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	TextureRegion img;
 	static Map testDungeon;  
 	static Barbarian testPlayer;
 	static Imp testEnemy;
@@ -22,6 +23,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		Assets.initAssets(); //Must call before accessing tiles.
+		Assets.initBarbarianM();//Must call (appropriate method) before accessing player assets.
 		Gdx.graphics.setTitle("extremely good video game");
 		  float w = Gdx.graphics.getWidth();                                      
 	       float h = Gdx.graphics.getHeight();   
@@ -30,7 +33,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.zoom = 15;
 		playerCam.update();
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img =  Assets.playerImage.get(0);
 		testPlayer = new Barbarian("Sir test", img);
 		testEnemy =  new Imp(img);
 		generateFloor();
@@ -81,7 +84,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
 		testEnemy.Draw(batch);
-		//batch.draw(img, 25, 200);
+		batch.draw(Assets.playerImage.get(0), 25, 200);
 		
 		if (getGameState() == PLAYER_TURN) {
 			if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {

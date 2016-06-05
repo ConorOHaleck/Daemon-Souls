@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Enemy extends Creature {
 	Class<Imp> MonsterImp = Imp.class;
@@ -34,7 +35,7 @@ public class Enemy extends Creature {
 		MyGdxGame.setGameState(MyGdxGame.PLAYER_TURN);
 	}
 
-	public Enemy(Texture img) {
+	public Enemy(TextureRegion img) {
 		// TODO Auto-generated constructor stub
 		this.mapX = 0;
 		this.mapY = 0;

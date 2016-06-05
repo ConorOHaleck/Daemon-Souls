@@ -1,9 +1,5 @@
 package com.mygdx.game;
-import java.util.ArrayList;
-
-import com.badlogic.gdx.Gdx;
-
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Player extends Creature {
 	Class<Knight> KnightClass = Knight.class;
 	Class<Barbarian> BarbClass = Barbarian.class;
@@ -262,7 +258,7 @@ public class Player extends Creature {
 		}
 	}
 
-	public Player(Texture img) {
+	public Player(TextureRegion img) {
 		// TODO Auto-generated constructor stub
 		this.mapX = 0;
 		this.mapY = 0;

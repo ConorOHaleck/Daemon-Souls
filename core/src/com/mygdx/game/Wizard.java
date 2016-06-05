@@ -1,10 +1,10 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Wizard extends Player{
 	
-	public Wizard(String name, Texture img) {
+	public Wizard(String name, TextureRegion img) {
 		super(img);
 		this.setStrength(4);
 		this.setAgility(6);

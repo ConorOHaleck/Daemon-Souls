@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Entity {
-	Texture img;
+	TextureRegion img;
 	int xPos;
 	int yPos;
 	
@@ -16,7 +17,7 @@ public class Entity {
 		yPos = 0;
 	}
 	
-	public Entity(Texture img, int x, int y)
+	public Entity(TextureRegion img, int x, int y)
 	{
 		this.img = img;
 		this.xPos = x;
@@ -25,7 +26,7 @@ public class Entity {
 	
 	public Entity(AtlasRegion img, int x, int y)
 	{
-		this.img = img.getTexture();
+		this.img = img;
 		this.xPos = x;
 		this.yPos = y;
 	}
@@ -38,7 +39,7 @@ public class Entity {
 	
 	public void Draw(SpriteBatch bat)
 	{
-		bat.draw(this.img, this.xPos, this.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0, 0, 0, 140, 160, false, false);
+		bat.draw(this.img, this.xPos, this.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 90, true);
 		
 	}
 }

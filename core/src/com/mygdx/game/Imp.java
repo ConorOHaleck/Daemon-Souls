@@ -1,10 +1,11 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Imp extends Enemy {
 	
-	public Imp(Texture img) {
+	public Imp(TextureRegion img) {
 		super(img);
 		this.setStrength(6);
 		this.setAgility(4);

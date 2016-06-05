@@ -2,11 +2,11 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Barbarian extends Player{
 	
-	public Barbarian(String name, Texture img) {
+	public Barbarian(String name, TextureRegion img) {
 		super(img);
 		this.setStrength(18);
 		this.setAgility(6);

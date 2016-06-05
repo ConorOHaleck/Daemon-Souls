@@ -2,10 +2,11 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Floor extends Tile {
 
-	public Floor(Texture img) {
+	public Floor(TextureRegion img) {
 		super(img);
 		this.setCanCollide(true);
 	}

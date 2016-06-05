@@ -1,12 +1,13 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Tile extends Entity {
 	
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
-	private Texture img;
+	private TextureRegion img;
 	private boolean canCollide = false;
 	private int x;
 	private int y;
@@ -21,12 +22,12 @@ public class Tile extends Entity {
 		this.y = posY;
 	}
 	
-	public Tile(Texture img)
+	public Tile(TextureRegion img)
 	{
 		this.setImg(img);
 	}
 	
-	public Tile(Texture img, int x, int y)
+	public Tile(TextureRegion img, int x, int y)
 	{
 		super(img, x, y);
 	}
@@ -36,7 +37,7 @@ public class Tile extends Entity {
 		super(image, i, j);
 	}
 
-	public Texture getTexture()
+	public TextureRegion getTexture()
 	{
 		return getImg();
 	}
@@ -64,12 +65,12 @@ public class Tile extends Entity {
 		return this.y;
 	}
 
-	public Texture getImg() {
+	public TextureRegion getImg() {
 		return img;
 	}
 
-	public void setImg(Texture img) {
-		this.img = img;
+	public void setImg(TextureRegion img2) {
+		this.img = img2;
 	}
 	
 	public Entity getOccupant() {
