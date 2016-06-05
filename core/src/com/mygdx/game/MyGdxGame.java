@@ -11,20 +11,19 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	static Map testDungeon;  
-	static Wizard testPlayer;
+	static Barbarian testPlayer;
 	static Imp testEnemy;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
 	public static final int IMP = 0;
 	private static int gameState = 0;
 	
-	public int step = 0;
 	@Override
 	public void create () {
 		Gdx.graphics.setTitle("extremely good video game");
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		testPlayer = new Wizard("Sir test", img);
+		testPlayer = new Barbarian("Sir test", img);
 		testEnemy =  new Imp(img);
 		generateFloor();
 	}
@@ -46,13 +45,20 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 		}
 		
-		for (int x = 0; x < 200; x++)
+		Tile startTile = testDungeon.getTileAt(0, 0);
+		startTile.setOccupant(testPlayer);
+		
+		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
+		enemyTile.setOccupant(testEnemy);
+				
+		
+		/*for (int x = 0; x < 200; x++)
 		{
 			for (int y = 0; y < 200; y++)
 			{
 				testDungeon.getTileAt(x, y);
 			}
-		}
+		} */
 		//for (int i = 1; i < 20; i++) {
 		//	testDungeon.getTiles().get(i).setCanCollide(false);
 		//}
@@ -70,31 +76,35 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		if (getGameState() == PLAYER_TURN) {
 			if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+				testPlayer.setFacing(Player.LEFT);
 				testPlayer.move(-1f, 0);
 			}
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+				testPlayer.setFacing(Player.RIGHT);
 				testPlayer.move(1f, 0);
 			}
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+				testPlayer.setFacing(Player.DOWN);
 				testPlayer.move(0, -1f);
 			}
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+				testPlayer.setFacing(Player.UP);
 				testPlayer.move(0, 1f);
 			}
 			
 			if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-				testPlayer.ability1();
+				testPlayer.ability1(testPlayer);
 			}
 			
 			if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-				testPlayer.ability2();
+				testPlayer.ability2(testPlayer);
 			}
 			
 			if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-				testPlayer.ability3();
+				testPlayer.ability3(testPlayer);
 			}
 		}
 		
@@ -108,6 +118,8 @@ public class MyGdxGame extends ApplicationAdapter {
 				testEnemy.chase();
 			}
 			
+			newTurn(testPlayer);
+			
 		}
 
 		batch.end();
@@ -119,5 +131,23 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public static void setGameState(int gameState) {
 		MyGdxGame.gameState = gameState;
+	}
+	
+	public static void newTurn(Creature player) {
+		if (player.isBulwarkActive() == Creature.ENABLED) {
+			player.setBulwarkDuration(player.getBulwarkDuration() - 1);
+			
+			if (player.getBulwarkDuration() <= 0) {
+				player.setBulwarkActive(Creature.DISABLED);
+			}
+			
+		} else if (player.getRageActive() == Creature.ENABLED) {
+			player.setRageDuration(player.getRageDuration() - 1);
+			
+			if (player.getRageDuration() <= 0) {
+				player.setRageActive(Creature.DISABLED);
+				player.rageDeactive();
+			}
+		}
 	}
 }

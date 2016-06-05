@@ -15,10 +15,21 @@ public class Enemy extends Creature {
 
 	public void move(float x, float y)
 	{
+		Tile oldTile;
+		Tile newTile;
+		
+		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
+		oldTile.setOccupant(null);
+		
 		mapX +=x;
 		mapY +=y;
 		xPos += Tile.WIDTH * x;
 		yPos += Tile.HEIGHT * y;
+		
+		newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
+		newTile.setOccupant(MyGdxGame.testEnemy);
+		//System.out.println("EnemyX: " + (this.xPos/Tile.WIDTH));
+		//System.out.println("EnemyY: " + (this.yPos/Tile.HEIGHT));
 
 		MyGdxGame.setGameState(MyGdxGame.PLAYER_TURN);
 	}
@@ -46,16 +57,16 @@ public class Enemy extends Creature {
 		}
 	}
 	
-	public int tryAttack() { //k, so the idea here was to check what kind of monster was here and return the appropriate flag, Connor if you want to handle it diferently, go ahead.
+	public int tryAttack() { //k, so the idea here was to check what kind of monster was here and return the appropriate flag, Connor if you want to handle it differently, go ahead.
 		
 		if (Math.abs(MyGdxGame.testPlayer.xPos - this.xPos) <= Tile.WIDTH && Math.abs(this.yPos - MyGdxGame.testPlayer.yPos) <= Tile.HEIGHT) {
 			//System.out.println("Target Found");
-			System.out.println(Math.abs(this.xPos - MyGdxGame.testPlayer.xPos));
+			//System.out.println(Math.abs(this.xPos - MyGdxGame.testPlayer.xPos));
 			//System.out.println(Tile.WIDTH);
 			
 			return MyGdxGame.IMP;
 		}
-		System.out.println("Attack Failed");
+		//System.out.println("Attack Failed");
 		MyGdxGame.setGameState(MyGdxGame.PLAYER_TURN);
 		return -1;
 	}

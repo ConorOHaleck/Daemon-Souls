@@ -17,8 +17,8 @@ public class Imp extends Enemy {
 		
 		this.setName("Imp");
 		
-		this.xPos = (float) 15*Tile.WIDTH;
-		this.yPos = 0f;
+		this.xPos = (int) (15*Tile.WIDTH);
+		this.yPos = (int) (0);
 	}
 	
 	public void cut(Creature target) {

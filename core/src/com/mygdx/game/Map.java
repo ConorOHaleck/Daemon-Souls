@@ -19,10 +19,10 @@ public class Map {
 	//Otherwise, you'll get garbage.
 	public Tile getTileAt(int xpos, int ypos)
 	{
-		System.out.println("Testing tile index retrieval");
-		System.out.println("Input X: " + xpos + " Y: " + ypos);
-		System.out.println("Tile X: " + tiles.get(ypos + xpos *MAP_WIDTH).getX());
-		System.out.println("Tile Y: " + tiles.get(ypos + xpos * MAP_WIDTH).getY());
+		//System.out.println("Testing tile index retrieval");
+		//System.out.println("Input X: " + xpos + " Y: " + ypos);
+		//System.out.println("Tile X: " + tiles.get(ypos + xpos *MAP_WIDTH).getX());
+		//System.out.println("Tile Y: " + tiles.get(ypos + xpos * MAP_WIDTH).getY());
 		return tiles.get(ypos + xpos * MAP_WIDTH);
 	}
 	

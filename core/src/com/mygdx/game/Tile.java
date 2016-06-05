@@ -10,6 +10,7 @@ public class Tile extends Entity {
 	private int x;
 	private int y;
 	private boolean walkable = false;
+	private Entity occupant;
 	
 	
 	public Tile(boolean walkable, int posX, int posY) {
@@ -58,6 +59,14 @@ public class Tile extends Entity {
 
 	public void setImg(Texture img) {
 		this.img = img;
+	}
+	
+	public Entity getOccupant() {
+		return occupant;
+	}
+	
+	public void setOccupant(Entity occupant) {
+		this.occupant = occupant;
 	}
 	
 	
