@@ -1,4 +1,6 @@
 package com.mygdx.game;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +17,7 @@ public class Player extends Creature {
 	
 	private int facing;
 	
+	Item[] inventory = new Item[6];
 
 	public Player() {
 		super();
@@ -39,8 +42,26 @@ public class Player extends Creature {
 		
 		if (newTile.isCanCollide() == false) {
 			
+<<<<<<< HEAD
 			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
 			oldTile.setOccupant(null);
+=======
+		
+		xPos += Tile.WIDTH * x;
+		yPos += Tile.HEIGHT * y;
+		
+		newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
+		
+		if(newTile.getOccupant().getClass()==Item.class){
+			Item itemGet = (Item) newTile.getOccupant();
+			itemGet.pickUp(this);
+		}
+		
+		newTile.setOccupant(MyGdxGame.testPlayer);
+		
+		//System.out.println("PlayerX: " + (this.xPos/Tile.WIDTH));
+		//System.out.println("PlayerY: " + (this.yPos/Tile.HEIGHT));
+>>>>>>> origin/master
 			
 			mapX +=x;
 			mapY +=y;
