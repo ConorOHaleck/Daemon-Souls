@@ -42,10 +42,8 @@ public class Player extends Creature {
 		
 		if (newTile.isCanCollide() == false) {
 			
-<<<<<<< HEAD
 			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
 			oldTile.setOccupant(null);
-=======
 		
 		xPos += Tile.WIDTH * x;
 		yPos += Tile.HEIGHT * y;
@@ -61,7 +59,6 @@ public class Player extends Creature {
 		
 		//System.out.println("PlayerX: " + (this.xPos/Tile.WIDTH));
 		//System.out.println("PlayerY: " + (this.yPos/Tile.HEIGHT));
->>>>>>> origin/master
 			
 			mapX +=x;
 			mapY +=y;
