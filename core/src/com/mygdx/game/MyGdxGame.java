@@ -46,13 +46,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.update();
 		batch = new SpriteBatch();
 
-		img =  Assets.playerImage.get(0);
-		testPlayer = new Barbarian("Sir test", img);
+		testPlayer = new Barbarian("Sir test", Sprites.P_DOWN);
 		
 		reticleImg = Assets.playerImage.get(2);
-		//testPlayer = new Wizard("Sir test", img);
 
-		testEnemy =  new Imp(img);
+		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
 		generateFloor();
 	}
@@ -102,31 +100,37 @@ public class MyGdxGame extends ApplicationAdapter {
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
 		testEnemy.Draw(batch);
-
 		for (int i = 0; i < testDungeon.populants.size(); i++)
 		{
 			testDungeon.populants.get(i).Draw(batch);
 		}
+
+		//batch.draw(Assets.playerImage.get(0), 25, 200);
+
 		
 		if (getGameState() == PLAYER_TURN) {
 			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+					testPlayer.img = Sprites.P_LEFT;
 					testPlayer.setFacing(Player.LEFT);
 					testPlayer.move(-1f, 0);
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+					testPlayer.img = Sprites.P_RIGHT;
 					testPlayer.setFacing(Player.RIGHT);
 					testPlayer.move(1f, 0);
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+					testPlayer.img = Sprites.P_DOWN;
 					testPlayer.setFacing(Player.DOWN);
 					testPlayer.move(0, -.5f);
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+					testPlayer.img = Sprites.P_UP;
 					testPlayer.setFacing(Player.UP);
 					testPlayer.move(0, .5f);
 				}
