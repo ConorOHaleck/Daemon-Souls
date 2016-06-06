@@ -35,7 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	       float h = Gdx.graphics.getHeight();   
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
 		playerCam.position.set(0, 0, 0);
-		playerCam.zoom = 15;
+		playerCam.zoom = 100;
 		playerCam.update();
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
@@ -91,6 +91,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
 		testEnemy.Draw(batch);
+		for (int i = 0; i < testDungeon.populants.size(); i++)
+		{
+			testDungeon.populants.get(i).Draw(batch);
+		}
 		//batch.draw(img, 25, 200);
 		
 		if (getGameState() == PLAYER_TURN) {
@@ -108,12 +112,12 @@ public class MyGdxGame extends ApplicationAdapter {
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 					testPlayer.setFacing(Player.DOWN);
-					testPlayer.move(0, -1f);
+					testPlayer.move(0, -.5f);
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 					testPlayer.setFacing(Player.UP);
-					testPlayer.move(0, 1f);
+					testPlayer.move(0, .5f);
 				}
 				
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {

@@ -1,20 +1,50 @@
 package com.mygdx.game;
 import java.util.ArrayList;
+import java.util.Random;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Map {
-	
+
 	//all units are for map measurement are 1 tile from here on out
 	ArrayList<Tile> tiles = new ArrayList<Tile>();
 	public static final int MAP_WIDTH = 200; //change me for maps 
+	ArrayList<Rectangle> rooms = new ArrayList<Rectangle>();
 	
+	//any and all non-player entities that exist on this Map
+	ArrayList<Entity> populants = new ArrayList<Entity>();
+	Random rng = new Random();
+
 	//Adds a tile to the map without any position information.
 	public void addTile(Tile tile)
 	{
 		tiles.add(tile);
 	}
-	
+
+	//Adds a geometric representation of a room to the map. Used for spawning monsters, items
+	public void addRoom(Rectangle room)
+	{
+		rooms.add(room);
+	}
+
+	public void populateRooms()
+	{
+		for (int i = 0; i < rooms.size(); i++)
+		{
+			Rectangle room = rooms.get(i);
+			int xPos = (int) (rng.nextInt((int) room.getWidth()) + room.getX());
+			int yPos = (int) (rng.nextInt((int) room.getHeight()) + room.getY());
+			Imp monster = new Imp(new Texture("badlogic.jpg"));
+			
+			monster.setPos(xPos *32, yPos * 32);
+			getTileAt(xPos, yPos).setOccupant(monster);
+			populants.add(monster);
+		}
+	}
+
+
 	//return the tile at the specified X,Y location. Assumes each tile is being added top to bottom, left to right.
 	//Otherwise, you'll get garbage.
 	public Tile getTileAt(int xpos, int ypos)
@@ -25,13 +55,13 @@ public class Map {
 		//System.out.println("Tile Y: " + tiles.get(ypos + xpos * MAP_WIDTH).getY());
 		return tiles.get(ypos + xpos * MAP_WIDTH);
 	}
-	
+
 	//Gets all tiles that belong to this Map.
 	public ArrayList<Tile> getTiles()
 	{
 		return this.tiles;
 	}
-	
+
 	//Draws the tile using the specified spritebatch.
 	public void Draw(SpriteBatch bat)
 	{

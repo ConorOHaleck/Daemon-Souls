@@ -50,7 +50,8 @@ public class Player extends Creature {
 		
 		newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
 		
-		if(newTile.getOccupant().getClass()==Item.class){
+		//unsafe
+		if(newTile.getOccupant() != null && newTile.getOccupant().getClass()==Item.class){
 			Item itemGet = (Item) newTile.getOccupant();
 			itemGet.pickUp(this);
 		}
