@@ -1,12 +1,12 @@
 package com.mygdx.game;
 
-<<<<<<< HEAD
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 =======
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
->>>>>>> origin/master
+
 
 public class Wizard extends Player{
 	

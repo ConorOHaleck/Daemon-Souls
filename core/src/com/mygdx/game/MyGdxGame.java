@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-<<<<<<< HEAD
+
 	TextureRegion img;
-=======
+
 	Texture img;
 	Texture reticleImg;
->>>>>>> origin/master
+
 	static Map testDungeon;  
 	static Wizard testPlayer;
 	static Imp testEnemy;
@@ -45,14 +45,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.zoom = 15;
 		playerCam.update();
 		batch = new SpriteBatch();
-<<<<<<< HEAD
+
 		img =  Assets.playerImage.get(0);
 		testPlayer = new Barbarian("Sir test", img);
-=======
+
 		img = new Texture("badlogic.jpg");
 		reticleImg = new Texture("Dunno 2.0.jpg");
 		testPlayer = new Wizard("Sir test", img);
->>>>>>> origin/master
+
 		testEnemy =  new Imp(img);
 		playerReticle = new Reticle(reticleImg);
 		generateFloor();
