@@ -14,6 +14,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion img;
 	TextureRegion reticleImg;
 
+
 	static Map testDungeon;  
 	static Barbarian testPlayer;
 	static Imp testEnemy;
@@ -29,6 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	private static int controlState = 0;
 	private static int reticleType = 0;
 	OrthographicCamera playerCam;
+	private static int sec = 1;
 	
 	@Override
 	public void create () {
@@ -292,5 +294,14 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static void setReticleType(int reticleType) {
 		playerReticle.setPos(testPlayer.xPos, testPlayer.yPos);
 		MyGdxGame.reticleType = reticleType;
+	}
+	
+	//Pauses game for number of seconds
+	private static void slowYourRollBro(int sec){
+		try {
+			Thread.sleep(sec*1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
