@@ -78,13 +78,13 @@ public class Assets {
 
 		// Initialize Floor Tiles
 		for (AtlasRegion image : floor.getRegions()) {
-			Floor floor = new Floor(image, 0, 0);
+			Floor floor = new Floor(image);
 			floorTiles.add(floor);
 		}
 
 		// Initialize Wall Tiles
 		for (AtlasRegion image : wall.getRegions()) {
-			Wall wall = new Wall(image, 0, 0);
+			Wall wall = new Wall(image);
 			wallTiles.add(wall);
 		}
 
