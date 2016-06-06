@@ -74,8 +74,6 @@ public class DungeonGenerator {
 				}
 			}
 		}
-
-		dungeonMap.populateRooms();
 		return dungeonMap;
 	}
 }

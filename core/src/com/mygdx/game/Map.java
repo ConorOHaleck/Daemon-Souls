@@ -29,14 +29,16 @@ public class Map {
 		rooms.add(room);
 	}
 
-	public void populateRooms()
+	public void populateRooms(ArrayList<Creature> monsters)
 	{
 		for (int i = 0; i < rooms.size(); i++)
 		{
 			Rectangle room = rooms.get(i);
 			int xPos = (int) (rng.nextInt((int) room.getWidth()) + room.getX());
 			int yPos = (int) (rng.nextInt((int) room.getHeight()) + room.getY());
-			Imp monster = new Imp(new Texture("badlogic.jpg"));
+			
+			
+			Creature monster = monsters.get(rng.nextInt(monsters.size()));
 			
 			monster.setPos(xPos *32, yPos * 32);
 			getTileAt(xPos, yPos).setOccupant(monster);
