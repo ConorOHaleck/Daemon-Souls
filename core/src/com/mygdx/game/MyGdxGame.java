@@ -13,8 +13,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 
 	TextureRegion img;
-
 	//Texture img;
+	Texture img1;
 	TextureRegion reticleImg;
 
 	static Map testDungeon;  

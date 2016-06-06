@@ -15,13 +15,18 @@ public class Reticle extends Entity {
 	}
 	
 	public void drawFour(SpriteBatch bat) {
+
 		bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT);
 	}
 	
 	public void drawOne(SpriteBatch bat) {
 		bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT);
-		
+		bat.draw(this.img, this.xPos, this.yPos, 0, 0, (Tile.WIDTH * 2), (Tile.HEIGHT * 2), 1, 1, 0, false);
 	}
+	
+	//public void drawOne(SpriteBatch bat) {
+	//	bat.draw(this.img, this.xPos, this.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0, false);
+	//}
 	
 	public void move(float x, float y) {
 		
