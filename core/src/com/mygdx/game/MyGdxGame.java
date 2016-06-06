@@ -13,9 +13,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 
 	TextureRegion img;
-
-	Texture img;
-	Texture reticleImg;
+	Texture img1;
+	TextureRegion reticleImg;
 
 	static Map testDungeon;  
 	static Wizard testPlayer;
@@ -47,10 +46,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		img =  Assets.playerImage.get(0);
-		testPlayer = new Barbarian("Sir test", img);
+		testPlayer = new Wizard("Sir test", img);
 
-		img = new Texture("badlogic.jpg");
-		reticleImg = new Texture("Dunno 2.0.jpg");
+		img1 = new Texture("badlogic.jpg");
+		reticleImg = new TextureRegion(new Texture("Dunno 2.0.jpg"));
 		testPlayer = new Wizard("Sir test", img);
 
 		testEnemy =  new Imp(img);

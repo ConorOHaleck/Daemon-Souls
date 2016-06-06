@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Item extends Entity {
 	
@@ -18,7 +18,7 @@ public class Item extends Entity {
 		equippedOn = hasIt;
 	}
 
-	public Item(Texture img, int x, int y) {
+	public Item(TextureRegion img, int x, int y) {
 		super(img, x, y);
 		// TODO Auto-generated constructor stub
 	}
