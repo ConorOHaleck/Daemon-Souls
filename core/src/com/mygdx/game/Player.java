@@ -40,7 +40,24 @@ public class Player extends Creature {
 
 			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
 			oldTile.setOccupant(null);
+			xPos += Tile.WIDTH * x;
+			yPos += Tile.HEIGHT * y;
 
+			newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
+
+			//unsafe
+			if(newTile.getOccupant() != null && newTile.getOccupant().getClass()==Item.class){
+				Item itemGet = (Item) newTile.getOccupant();
+				itemGet.pickUp(this);
+			}
+
+			newTile.setOccupant(MyGdxGame.testPlayer);
+
+			//System.out.println("PlayerX: " + (this.xPos/Tile.WIDTH));
+			//System.out.println("PlayerY: " + (this.yPos/Tile.HEIGHT));
+
+			mapX +=x;
+			mapY +=y;
 			xPos += Tile.WIDTH * x;
 			yPos += Tile.HEIGHT * y;
 

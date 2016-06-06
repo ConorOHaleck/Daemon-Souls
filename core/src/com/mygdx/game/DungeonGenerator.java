@@ -16,6 +16,7 @@ public class DungeonGenerator {
 		data.link();
 		ArrayList<DungeonTree> tree = data.traverse(data, new ArrayList<DungeonTree>());
 		ArrayList<Rectangle> dungeonRects = new ArrayList<Rectangle>();
+		
 		Map dungeonMap = new Map();
 		for (int i = 0; i < tree.size(); i++)
 		{
@@ -43,7 +44,11 @@ public class DungeonGenerator {
 		ArrayList<Rectangle> dungeonRects = generateRectangles();
 		Map dungeonMap = new Map();
 
-		
+		for (int i = 0; i < dungeonRects.size(); i++)
+		{
+			if (dungeonRects.get(i).getWidth() > 0 && dungeonRects.get(i).getHeight() > 0)
+			dungeonMap.addRoom(dungeonRects.get(i));
+		}
 		for (int x = 0; x < Map.MAP_WIDTH; x++)
 		{
 			for (int y = 0; y < 200; y++)
@@ -51,6 +56,7 @@ public class DungeonGenerator {
 				boolean tileFound = false;
 				for (int i = 0; i < dungeonRects.size(); i++)
 				{
+					
 					if (dungeonRects.get(i).contains(x,y))
 					{
 						tileFound = true;
@@ -68,7 +74,6 @@ public class DungeonGenerator {
 				}
 			}
 		}
-
 		return dungeonMap;
 	}
 }
