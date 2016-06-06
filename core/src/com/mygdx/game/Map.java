@@ -37,7 +37,7 @@ public class Map {
 	{
 		for (int i = 0; i < tiles.size(); i++)
 		{
-			bat.draw(tiles.get(i).getTexture(), tiles.get(i).getX() * Tile.WIDTH, tiles.get(i).getY() * Tile.HEIGHT);
+			bat.draw(tiles.get(i).getImg(), tiles.get(i).getX() * Tile.WIDTH, tiles.get(i).getY() * Tile.HEIGHT);
 		}
 	}
 }

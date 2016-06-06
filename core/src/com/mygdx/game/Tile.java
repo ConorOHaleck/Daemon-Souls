@@ -7,7 +7,6 @@ public class Tile extends Entity {
 	
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
-	private TextureRegion img;
 	private boolean canCollide = false;
 	private int x;
 	private int y;

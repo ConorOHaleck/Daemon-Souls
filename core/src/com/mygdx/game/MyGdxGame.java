@@ -14,11 +14,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	TextureRegion img;
 
-	Texture img;
-	Texture reticleImg;
+	//Texture img;
+	TextureRegion reticleImg;
 
 	static Map testDungeon;  
-	static Wizard testPlayer;
+	static Barbarian testPlayer;
 	static Imp testEnemy;
 	static Reticle playerReticle;
 	public static final int PLAYER_TURN = 0;
@@ -48,10 +48,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		img =  Assets.playerImage.get(0);
 		testPlayer = new Barbarian("Sir test", img);
-
-		img = new Texture("badlogic.jpg");
-		reticleImg = new Texture("Dunno 2.0.jpg");
-		testPlayer = new Wizard("Sir test", img);
+		
+		reticleImg = Assets.playerImage.get(2);
+		//testPlayer = new Wizard("Sir test", img);
 
 		testEnemy =  new Imp(img);
 		playerReticle = new Reticle(reticleImg);
@@ -67,11 +66,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		{
 			if (testDungeon.getTiles().get(i).walkable())
 			{
-				testDungeon.getTiles().get(i).setImg(Sprites.DUNGEON_FLOOR_PLAIN);
+				testDungeon.getTiles().get(i).setImg(Assets.floorTiles.get(0).getImg());
 			}
 			else
 			{
-				testDungeon.getTiles().get(i).setImg(Sprites.DUNGEON_FLOOR_EMPTY);
+				testDungeon.getTiles().get(i).setImg(Assets.floorTiles.get(35).getImg());
 			}
 		}
 		
@@ -169,7 +168,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					playerReticle.drawFour(batch);
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-						testPlayer.fireball();
+						//testPlayer.fireball();
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -188,7 +187,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-						testPlayer.iceLance();
+						//testPlayer.iceLance();
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
