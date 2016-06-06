@@ -1,16 +1,7 @@
-/*
- * Hey guys! I have extra resources that are usable (effect, items, spell, trap, utility, water)
- * I just wanted to get you the main things (walls, floors, players). I'm thinking of just lumping
- * the other resources into classes based on boolean canCollide..
- * 
- * Additionally, players are actually 64*64 blocks, but we can change this if needed.
- */
-
 package com.mygdx.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,21 +10,37 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
 
-	// AssetManager
-	public AssetManager manager = new AssetManager();
-
+	//Animations and player Images
+	public static Animation move_up;
+	public static Animation move_left;
+	public static Animation move_down;
+	public static Animation move_right;
+	
+	public static Animation spell_up;
+	public static Animation spell_left;
+	public static Animation spell_down;
+	public static Animation spell_right;
+	
+	public static Animation attack_up;
+	public static Animation attack_left;
+	public static Animation attack_down;
+	public static Animation attack_right;
+	
+	public static Animation death;
+	
+	public static TextureRegion player_up;
+	public static TextureRegion player_left;
+	public static TextureRegion player_down;
+	public static TextureRegion player_right;
+	
+	
 	// Array lists to store all assets
 	public static ArrayList<Floor> floorTiles = new ArrayList<Floor>();
 	public static ArrayList<Wall> wallTiles = new ArrayList<Wall>();
-	public static ArrayList<Animation> playerAnim = new ArrayList<Animation>();
-	public static ArrayList<TextureRegion> playerImage = new ArrayList<TextureRegion>();
 	public static ArrayList<Creature> creatureTiles = new ArrayList<Creature>();
 
 	// Variable to hold animation frame durations (change as necessary)
-	private static float time = 2F;
-
-	// This is the overall spritesheet with all tiles should you need it..
-	// private static Texture spriteSheet = new Texture("DungeonSprites.png");
+	private static float time = 0.025F;
 
 	// Texture atlases for all tiles used.
 	private static TextureAtlas creatures = new TextureAtlas("CurrentAssets/Creatures/creatures.atlas");
@@ -65,18 +72,6 @@ public class Assets {
 	private static int y = 0;
 	private static ArrayList<TextureRegion> list = new ArrayList<TextureRegion>();
 	private static TextureRegion arr[] = new TextureRegion[10];
-	private static TextureRegion faceUp;
-	private static TextureRegion faceLeft;
-	private static TextureRegion faceDown;
-	private static TextureRegion faceRight;
-
-	// Method to return this assetManager
-	public AssetManager getManager() {
-		return manager;
-	}
-
-	// Method to return ArrayList of Animations
-	// public static ArrayList
 
 	// Method to instantiate all assets and prime for use.
 	public static void initAssets() {
@@ -110,8 +105,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -120,8 +114,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -130,8 +123,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -140,8 +132,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 5);
@@ -150,8 +141,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -160,8 +150,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -170,8 +159,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -180,8 +168,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -190,8 +177,7 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(barbF, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y = 1536;
@@ -200,8 +186,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbF, x, y, bigSize, bigSize));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -210,8 +195,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbF, x, y, bigSize, bigSize));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -220,8 +204,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbF, x, y, bigSize, bigSize));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -230,17 +213,16 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbF, x, y, bigSize, bigSize));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(barbF, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(barbF, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(barbF, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(barbF, 0, (size * 11), size, size));
+		player_up = new TextureRegion(barbF, 0, (size * 8), size, size);
+		player_left = new TextureRegion(barbF, 0, (size * 9), size, size);
+		player_down = new TextureRegion(barbF, 0, (size * 10), size, size);
+		player_right = new TextureRegion(barbF, 0, (size * 11), size, size);
 		//faceLeft = new TextureRegion
 		y = 0; // (Just in case..)
 	}
@@ -252,8 +234,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -262,8 +243,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -272,8 +252,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -282,8 +261,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 5);
@@ -292,8 +270,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -302,8 +279,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -312,8 +288,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -322,8 +297,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -332,8 +306,7 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(barbM, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y = 1536;
@@ -342,8 +315,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbM, x, y, bigSize, bigSize));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -352,8 +324,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbM, x, y, bigSize, bigSize));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -362,8 +333,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbM, x, y, bigSize, bigSize));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -372,17 +342,16 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(barbM, x, y, bigSize, bigSize));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(barbM, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(barbM, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(barbM, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(barbM, 0, (size * 11), size, size));
+		player_up = new TextureRegion(barbM, 0, (size * 8), size, size);
+		player_left = new TextureRegion(barbM, 0, (size * 9), size, size);
+		player_down = new TextureRegion(barbM, 0, (size * 10), size, size);
+		player_right = new TextureRegion(barbM, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
 	}
 
@@ -394,8 +363,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -404,8 +372,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -414,8 +381,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -424,8 +390,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 5);
@@ -434,8 +399,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -444,8 +408,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -454,8 +417,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -464,8 +426,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -474,8 +435,7 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(knigF, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y = 1536;
@@ -484,8 +444,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigF, x, y, bigSize, bigSize));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -494,8 +453,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigF, x, y, bigSize, bigSize));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -504,8 +462,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigF, x, y, bigSize, bigSize));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -514,17 +471,16 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigF, x, y, bigSize, bigSize));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(knigF, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(knigF, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(knigF, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(knigF, 0, (size * 11), size, size));
+		player_up = new TextureRegion(knigF, 0, (size * 8), size, size);
+		player_left = new TextureRegion(knigF, 0, (size * 9), size, size);
+		player_down = new TextureRegion(knigF, 0, (size * 10), size, size);
+		player_right = new TextureRegion(knigF, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
 	}
 
@@ -535,8 +491,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -545,8 +500,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -555,8 +509,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -565,8 +518,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 5);
@@ -575,8 +527,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -585,8 +536,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -595,8 +545,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -605,8 +554,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -615,8 +563,7 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(knigM, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y = 1536;
@@ -625,8 +572,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigM, x, y, bigSize, bigSize));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -635,8 +581,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigM, x, y, bigSize, bigSize));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -645,8 +590,7 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigM, x, y, bigSize, bigSize));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
@@ -655,19 +599,17 @@ public class Assets {
 		for (int x = 0; x < 1152; x += bigSize) {
 			list.add(new TextureRegion(knigM, x, y, bigSize, bigSize));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += bigSize;
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(knigM, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(knigM, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(knigM, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(knigM, 0, (size * 11), size, size));
+		player_up = new TextureRegion(knigM, 0, (size * 8), size, size);
+		player_left = new TextureRegion(knigM, 0, (size * 9), size, size);
+		player_down = new TextureRegion(knigM, 0, (size * 10), size, size);
+		player_right = new TextureRegion(knigM, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
-
 	}
 
 	// Initialize Monk Players
@@ -678,8 +620,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -688,8 +629,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -698,8 +638,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -708,8 +647,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -718,8 +656,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -728,8 +665,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -738,8 +674,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -748,8 +683,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -758,8 +692,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -768,8 +701,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -778,8 +710,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -788,8 +719,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -798,16 +728,15 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(monkF, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(monkF, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(monkF, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(monkF, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(monkF, 0, (size * 11), size, size));
+		player_up = new TextureRegion(monkF, 0, (size * 8), size, size);
+		player_left = new TextureRegion(monkF, 0, (size * 9), size, size);
+		player_down = new TextureRegion(monkF, 0, (size * 10), size, size);
+		player_right = new TextureRegion(monkF, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
 	}
 
@@ -817,8 +746,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -827,8 +755,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -837,8 +764,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -847,8 +773,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -857,8 +782,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -867,8 +791,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -877,8 +800,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -887,8 +809,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -897,8 +818,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -907,8 +827,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -917,8 +836,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -927,8 +845,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -937,16 +854,15 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(monkM, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(monkM, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(monkM, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(monkM, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(monkM, 0, (size * 11), size, size));
+		player_up = new TextureRegion(monkM, 0, (size * 8), size, size);
+		player_left = new TextureRegion(monkM, 0, (size * 9), size, size);
+		player_down = new TextureRegion(monkM, 0, (size * 10), size, size);
+		player_right = new TextureRegion(monkM, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
 	}
 
@@ -958,8 +874,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -968,8 +883,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -978,8 +892,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -988,8 +901,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -998,8 +910,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1008,8 +919,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1018,8 +928,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1028,8 +937,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1038,8 +946,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1048,8 +955,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1058,18 +964,16 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
-
+		
 		// Right-facing movement
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -1078,16 +982,15 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(wizF, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(wizF, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(wizF, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(wizF, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(wizF, 0, (size * 11), size, size));
+		player_up = new TextureRegion(wizF, 0, (size * 8), size, size);
+		player_left = new TextureRegion(wizF, 0, (size * 9), size, size);
+		player_down = new TextureRegion(wizF, 0, (size * 10), size, size);
+		player_right = new TextureRegion(wizF, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
 	}
 
@@ -1098,8 +1001,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation upSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(upSpellCast);
+		spell_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1108,8 +1010,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation leftSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftSpellCast);
+		spell_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1118,8 +1019,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation downSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(downSpellCast);
+		spell_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1128,8 +1028,7 @@ public class Assets {
 		for (int x = 0; x < 448; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation rightSpellCast = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightSpellCast);
+		spell_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1138,8 +1037,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation upAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(upAttack);
+		attack_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1148,8 +1046,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation leftAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftAttack);
+		attack_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1158,8 +1055,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation downAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(downAttack);
+		attack_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1168,8 +1064,7 @@ public class Assets {
 		for (int x = 0; x < 512; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation rightAttack = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightAttack);
+		attack_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1178,8 +1073,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation upMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(upMove);
+		move_up = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1188,8 +1082,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation leftMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(leftMove);
+		move_left = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1198,8 +1091,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation downMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(downMove);
+		move_down = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += size;
@@ -1208,8 +1100,7 @@ public class Assets {
 		for (int x = 0; x < 576; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation rightMove = new Animation(time, list.toArray(arr));
-		playerAnim.add(rightMove);
+		move_right = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 		y += (size * 9);
@@ -1218,16 +1109,15 @@ public class Assets {
 		for (int x = 0; x < 384; x += size) {
 			list.add(new TextureRegion(wizM, x, y, size, size));
 		}
-		Animation death = new Animation(time, list.toArray(arr));
-		playerAnim.add(death);
+		death = new Animation(time, list.toArray(arr));
 		list = new ArrayList<TextureRegion>();
 		arr = new TextureRegion[10];
 
 		// Images
-		playerImage.add(faceUp = new TextureRegion(wizM, 0, (size * 8), size, size));
-		playerImage.add(faceLeft = new TextureRegion(wizM, 0, (size * 9), size, size));
-		playerImage.add(faceDown = new TextureRegion(wizM, 0, (size * 10), size, size));
-		playerImage.add(faceRight = new TextureRegion(wizM, 0, (size * 11), size, size));
+		player_up = new TextureRegion(wizM, 0, (size * 8), size, size);
+		player_left = new TextureRegion(wizM, 0, (size * 9), size, size);
+		player_down = new TextureRegion(wizM, 0, (size * 10), size, size);
+		player_right = new TextureRegion(wizM, 0, (size * 11), size, size);
 		y = 0; // (Just in case..)
 	}
 

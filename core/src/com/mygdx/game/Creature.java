@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 //A note to anyone changing this, the print statements are all for reference only, feel free to remove them if they become intrusive.

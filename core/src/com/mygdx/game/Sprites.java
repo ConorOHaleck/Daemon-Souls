@@ -2,6 +2,7 @@
 //It might be better to serialize them in a data file or something
 
 package com.mygdx.game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -16,27 +17,18 @@ public class Sprites {
 		public static final TextureRegion DUNGEON_FLOOR_EMPTY = Assets.wallTiles.get(0).getImg();
 		
 		//Player stand-still images.
-		public static final TextureRegion P_UP = Assets.playerImage.get(0);
-		public static final TextureRegion P_LEFT = Assets.playerImage.get(1);
-		public static final TextureRegion P_DOWN = Assets.playerImage.get(2);
-		public static final TextureRegion P_RIGHT = Assets.playerImage.get(3);
+		public static final TextureRegion P_UP = Assets.player_up;
+		public static final TextureRegion P_LEFT = Assets.player_left;
+		public static final TextureRegion P_DOWN = Assets.player_down;
+		public static final TextureRegion P_RIGHT = Assets.player_right;
 		
 		//Player animations.
-		public static final Animation SPELL_UP = Assets.playerAnim.get(0);
-		public static final Animation SPELL_LEFT = Assets.playerAnim.get(1);
-		public static final Animation SPELL_DOWN = Assets.playerAnim.get(2);
-		public static final Animation SPELL_RIGHT = Assets.playerAnim.get(3);
+		private static float stateTime = 0f;
 		
-		public static final Animation MOVE_UP = Assets.playerAnim.get(4);
-		public static final Animation MOVE_LEFT = Assets.playerAnim.get(5);
-		public static final Animation MOVE_DOWN = Assets.playerAnim.get(6);
-		public static final Animation MOVE_RIGHT = Assets.playerAnim.get(7);
-		
-		public static final Animation ATTACK_UP = Assets.playerAnim.get(8);
-		public static final Animation ATTACK_LEFT = Assets.playerAnim.get(9);
-		public static final Animation ATTACK_DOWN = Assets.playerAnim.get(10);
-		public static final Animation ATTACK_RIGHT = Assets.playerAnim.get(11);
-		
+		public static final TextureRegion playerAnimate(Animation action){
+			stateTime += Gdx.graphics.getDeltaTime();
+			return action.getKeyFrame(stateTime, true);
+		}
 		
 		
 		//Some example monster assets to play with. I think they should look okay for testing purposes.

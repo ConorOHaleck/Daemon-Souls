@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -13,8 +12,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 
 	TextureRegion img;
-	//Texture img;
-	Texture img1;
 	TextureRegion reticleImg;
 
 	static Map testDungeon;  
@@ -48,7 +45,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		testPlayer = new Barbarian("Sir test", Sprites.P_DOWN);
 		
-		reticleImg = Assets.playerImage.get(2);
+		reticleImg = Sprites.P_DOWN;
 
 		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
@@ -112,27 +109,31 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-					testPlayer.img = Sprites.P_LEFT;
+					testPlayer.img = Sprites.playerAnimate(Assets.move_left);
 					testPlayer.setFacing(Player.LEFT);
 					testPlayer.move(-1f, 0);
+					testPlayer.img = Sprites.P_LEFT;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-					testPlayer.img = Sprites.P_RIGHT;
+					testPlayer.img = Sprites.playerAnimate(Assets.move_right);
 					testPlayer.setFacing(Player.RIGHT);
 					testPlayer.move(1f, 0);
+					testPlayer.img = Sprites.P_RIGHT;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-					testPlayer.img = Sprites.P_DOWN;
+					testPlayer.img = Sprites.playerAnimate(Assets.move_down);
 					testPlayer.setFacing(Player.DOWN);
 					testPlayer.move(0, -.5f);
+					testPlayer.img = Sprites.P_DOWN;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-					testPlayer.img = Sprites.P_UP;
+					testPlayer.img = Sprites.playerAnimate(Assets.move_up);
 					testPlayer.setFacing(Player.UP);
 					testPlayer.move(0, .5f);
+					testPlayer.img = Sprites.P_UP;
 				}
 				
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
