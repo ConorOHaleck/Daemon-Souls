@@ -3,10 +3,14 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -16,9 +20,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 	static Map testDungeon;  
-	static Barbarian testPlayer;
+	static Wizard testPlayer;
 	static Imp testEnemy;
 	static Reticle playerReticle;
+	//static TextField combatLog;
+	//Skin skin;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
 	public static final int PLAYER_MOVEMENT = 0;
@@ -39,13 +45,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.graphics.setTitle("extremely good video game");
 		  float w = Gdx.graphics.getWidth();                                      
 	       float h = Gdx.graphics.getHeight();   
+	    //skin = new Skin(Gdx.files.internal("yC0rv.png"));
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
+		//combatLog = new TextField("Combat Log: ", skin);
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 100;
 		playerCam.update();
 		batch = new SpriteBatch();
 
-		testPlayer = new Barbarian("Sir test", Sprites.P_DOWN);
+		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
 		
 		reticleImg = Sprites.P_DOWN;
 
@@ -127,14 +135,14 @@ public class MyGdxGame extends ApplicationAdapter {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_down);
 					testPlayer.setFacing(Player.DOWN);
-					testPlayer.move(0, -.5f);
+					testPlayer.move(0, -1f);
 					testPlayer.img = Sprites.P_DOWN;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_up);
 					testPlayer.setFacing(Player.UP);
-					testPlayer.move(0, .5f);
+					testPlayer.move(0, 1f);
 					testPlayer.img = Sprites.P_UP;
 				}
 				
@@ -179,7 +187,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					playerReticle.drawFour(batch);
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-						//testPlayer.fireball();
+						testPlayer.fireball();
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -198,7 +206,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-						//testPlayer.iceLance();
+						testPlayer.iceLance();
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
@@ -276,6 +284,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		if (player.getSerenityCD() > 0) {
 			player.setSerenityCD(player.getSerenityCD() - 1);
+		}
+		
+		if (player.getTeleCD() > 0) {
+			player.setTeleCD(player.getTeleCD() - 1);
 		}
 	}
 

@@ -32,44 +32,23 @@ public class Player extends Creature {
 		int x2 = xPos;
 		int y2 = yPos;	
 		int newX = x2 += Tile.WIDTH * x;
-		int newY = y2 += Tile.WIDTH * y;
+		int newY = y2 += Tile.HEIGHT * y;
 
-		newTile = MyGdxGame.testDungeon.getTileAt((newX/Tile.WIDTH), (newY/Tile.WIDTH));
+		newTile = MyGdxGame.testDungeon.getTileAt((newX/Tile.WIDTH), (newY/Tile.HEIGHT));
 
 		if (newTile.isCanCollide() == false) {
 
-			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
+			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
 			oldTile.setOccupant(null);
 			xPos += Tile.WIDTH * x;
 			yPos += Tile.HEIGHT * y;
-
-			newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
-
-			//unsafe
-			if(newTile.getOccupant() != null && newTile.getOccupant().getClass()==Item.class){
-				Item itemGet = (Item) newTile.getOccupant();
-				itemGet.pickUp(this);
-			}
-
-			newTile.setOccupant(MyGdxGame.testPlayer);
-
-			//System.out.println("PlayerX: " + (this.xPos/Tile.WIDTH));
-			//System.out.println("PlayerY: " + (this.yPos/Tile.HEIGHT));
-
-			mapX +=x;
-			mapY +=y;
-			xPos += Tile.WIDTH * x;
-			yPos += Tile.HEIGHT * y;
-
-			newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.WIDTH));
-
+			
 			if (newTile.getOccupant() != null) {
 				if(newTile.getOccupant().getClass()==Item.class){
 					Item itemGet = (Item) newTile.getOccupant();
 					itemGet.pickUp(this);
 				}
 			}
-
 
 			newTile.setOccupant(MyGdxGame.testPlayer);
 
@@ -279,7 +258,14 @@ public class Player extends Creature {
 
 		} else if (WizClass.isInstance(MyGdxGame.testPlayer)) {            //I'll deal with this later
 			System.out.println("Teleport");
-			//MyGdxGame.testPlayer.Teleport();
+			
+			if (MyGdxGame.testPlayer.getTeleCD() <= 0) {
+				((Wizard) player).teleport();
+				MyGdxGame.testPlayer.setTeleCD(50);
+
+			} else {
+				System.out.println("That ability is on cooldown.");
+			}
 
 		} else {
 			System.out.println("Error");

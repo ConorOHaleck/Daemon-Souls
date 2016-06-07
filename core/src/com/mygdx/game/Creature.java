@@ -34,6 +34,7 @@ public class Creature extends Entity{
 	private int bashCd = 0;
 	private int flurryCD = 0;
 	private int serenityCD = 0;
+	private int teleCD = 0;
 	
 	//flags
 	public static final int JUST_ACTIVATED = 4;
@@ -337,5 +338,13 @@ public class Creature extends Entity{
 
 	public void setSerenityCD(int serenityCD) {
 		this.serenityCD = serenityCD;
+	}
+
+	public int getTeleCD() {
+		return teleCD;
+	}
+
+	public void setTeleCD(int teleCD) {
+		this.teleCD = teleCD;
 	}
 }
