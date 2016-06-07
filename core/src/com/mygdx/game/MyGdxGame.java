@@ -20,7 +20,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	UI ui = new UI();
 	static Map testDungeon;  
-	static Wizard testPlayer;
 	static Imp testEnemy;
 	static Reticle playerReticle;
 	//static TextField combatLog;
@@ -37,12 +36,16 @@ public class MyGdxGame extends ApplicationAdapter {
 	private static int reticleType = 0;
 	OrthographicCamera playerCam;
 	private static int sec = 1;
+	static String name = "nothing";
+	private static int classChoice = -1;
+	//static Player testPlayer;
+	static Wizard testPlayer;
 	
 	@Override
 	public void create () {
 		Assets.initAssets(); //Must call before accessing tiles.
-		ui.create();
-		Assets.initBarbarianM();//Must call (appropriate method) before accessing player assets.
+		//ui.create();
+		Assets.initKnightM();
 		Gdx.graphics.setTitle("extremely good video game");
 		  float w = Gdx.graphics.getWidth();                                      
 	       float h = Gdx.graphics.getHeight();   
@@ -104,7 +107,20 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		//ui.render();
+//		do{ classChoice = ui.render();}
+//		while( classChoice < 0);
+//		switch(classChoice){
+//		case 0:{
+//			testPlayer = new Barbarian(name, Sprites.P_DOWN);
+//		} case 1: {
+//			testPlayer = new Knight(name, Sprites.P_DOWN);
+//		} case 2: {
+//			testPlayer = new Monk(name, Sprites.P_DOWN);
+//		} case 3: {
+//			testPlayer = new Wizard(name, Sprites.P_DOWN);
+//		}
+//		}
+		
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);

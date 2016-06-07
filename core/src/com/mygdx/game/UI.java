@@ -191,17 +191,21 @@ public class UI {
 						}
 					} 
 					}
-				if(finished) btnFinished.setText("Loading Excitement");
+				if(finished){
+					MyGdxGame.name = name;
+					btnFinished.setText("Loading Excitement");
+				}
 			}
 		});
 	}
 
-	public void render ()  {
+	public int render ()  {
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
-		//if (finished) kill switch
+		
+		return num;
 	}
 
 	public void resize (int width, int height) {
