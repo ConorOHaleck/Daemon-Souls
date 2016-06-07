@@ -3,10 +3,14 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -14,11 +18,13 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion img;
 	TextureRegion reticleImg;
 
-
+	UI ui;
 	static Map testDungeon;  
-	static Barbarian testPlayer;
+	static Wizard testPlayer;
 	static Imp testEnemy;
 	static Reticle playerReticle;
+	//static TextField combatLog;
+	//Skin skin;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
 	public static final int PLAYER_MOVEMENT = 0;
@@ -35,17 +41,21 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Assets.initAssets(); //Must call before accessing tiles.
-		Assets.initBarbarianM();//Must call (appropriate method) before accessing player assets.
+		Assets.initWizardM();//Must call (appropriate method) before accessing player assets.
 		Gdx.graphics.setTitle("extremely good video game");
 		  float w = Gdx.graphics.getWidth();                                      
 	       float h = Gdx.graphics.getHeight();   
+	    //skin = new Skin(Gdx.files.internal("yC0rv.png"));
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
+		//combatLog = new TextField("Combat Log: ", skin);
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 100;
 		playerCam.update();
 		batch = new SpriteBatch();
-
-		testPlayer = new Barbarian("Sir test", Sprites.P_DOWN);
+		ui = new UI();
+		ui.create();
+		
+		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
 		
 		reticleImg = Sprites.P_DOWN;
 
@@ -95,6 +105,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		//ui.render();
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
@@ -111,30 +122,30 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_left);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_left);
 					testPlayer.setFacing(Player.LEFT);
 					testPlayer.move(-1f, 0);
 					testPlayer.img = Sprites.P_LEFT;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_right);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_right);
 					testPlayer.setFacing(Player.RIGHT);
 					testPlayer.move(1f, 0);
 					testPlayer.img = Sprites.P_RIGHT;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_down);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_down);
 					testPlayer.setFacing(Player.DOWN);
-					testPlayer.move(0, -.5f);
+					testPlayer.move(0, -1f);
 					testPlayer.img = Sprites.P_DOWN;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_up);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_up);
 					testPlayer.setFacing(Player.UP);
-					testPlayer.move(0, .5f);
+					testPlayer.move(0, 1f);
 					testPlayer.img = Sprites.P_UP;
 				}
 				
@@ -179,7 +190,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					playerReticle.drawFour(batch);
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-						//testPlayer.fireball();
+						testPlayer.fireball();
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -198,7 +209,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-						//testPlayer.iceLance();
+						testPlayer.iceLance();
 					}
 					
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
@@ -276,6 +287,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		if (player.getSerenityCD() > 0) {
 			player.setSerenityCD(player.getSerenityCD() - 1);
+		}
+		
+		if (player.getTeleCD() > 0) {
+			player.setTeleCD(player.getTeleCD() - 1);
 		}
 	}
 

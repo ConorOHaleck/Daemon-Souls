@@ -13,8 +13,8 @@ public class Sprites {
 //	public static final Texture PLAYER = new Texture("playerFix.png");
 //	public static final Texture DUNGEON_FLOOR_EMPTY = new Texture("empty.png");
 
-		public static final TextureRegion DUNGEON_FLOOR_PLAIN = Assets.floorTiles.get(0).getImg();
-		public static final TextureRegion DUNGEON_FLOOR_EMPTY = Assets.wallTiles.get(0).getImg();
+//		public static final TextureRegion DUNGEON_FLOOR_PLAIN = Assets.floorTiles.get(0).getImg();
+//		public static final TextureRegion DUNGEON_FLOOR_EMPTY = Assets.wallTiles.get(0).getImg();
 		
 		//Player stand-still images.
 		public static final TextureRegion P_UP = Assets.player_up;
@@ -25,13 +25,16 @@ public class Sprites {
 		//Player animations.
 		private static float stateTime = 0f;
 		
-		public static final TextureRegion playerAnimate(Animation action){
-			stateTime += Gdx.graphics.getDeltaTime();
-			return action.getKeyFrame(stateTime, true);
-		}
+//		public static final TextureRegion playerAnimate(Player p,Animation action){
+//			stateTime += Gdx.graphics.getDeltaTime();
+//			TextureRegion a = action.getKeyFrame(stateTime, true);
+//			int x = p.xPos;
+//			int y = p.yPos;
+//			
+//		}
 		
 		
-		//Some example monster assets to play with. I think they should look okay for testing purposes.
+		//Some example monster assets to play with. They look nothing like what they should, but are okay for testing purposes.
 		public static final TextureRegion IMP = Assets.creatureTiles.get(9).img;
 		public static final TextureRegion APE_MAN = Assets.creatureTiles.get(5).img;
 		public static final TextureRegion OGRE = Assets.creatureTiles.get(34).img;
