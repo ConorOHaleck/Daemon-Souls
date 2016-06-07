@@ -27,7 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 
 public class UI {
-	private Skin skin;
+	private static Skin skin;
 	private Stage stage;
 	private Table table;
 	private Label lblmOrF;
@@ -227,7 +227,7 @@ public class UI {
 		getSkin().dispose();
 	}
 
-	public Skin getSkin() {
+	public static Skin getSkin() {
 		return skin;
 	}
 
