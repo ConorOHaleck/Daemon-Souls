@@ -18,7 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion img;
 	TextureRegion reticleImg;
 
-
+	UI ui = new UI();
 	static Map testDungeon;  
 	static Wizard testPlayer;
 	static Imp testEnemy;
@@ -41,6 +41,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Assets.initAssets(); //Must call before accessing tiles.
+		ui.create();
 		Assets.initBarbarianM();//Must call (appropriate method) before accessing player assets.
 		Gdx.graphics.setTitle("extremely good video game");
 		  float w = Gdx.graphics.getWidth();                                      
@@ -103,6 +104,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		//ui.render();
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
