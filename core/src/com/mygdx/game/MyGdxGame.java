@@ -14,11 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
+	SpriteBatch menuBatch;
 
 	TextureRegion img;
 	TextureRegion reticleImg;
 
-	//UI ui = new UI();
+	UI ui = new UI();
 	static Map testDungeon;  
 	static Imp testEnemy;
 	static Reticle playerReticle;
@@ -26,12 +27,14 @@ public class MyGdxGame extends ApplicationAdapter {
 	//Skin skin;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
+	public static final int MENU = -1;
 	public static final int PLAYER_MOVEMENT = 0;
 	public static final int TARGETING_RANGED = 1;
+	public static final int INIT_PLAYER = 2;
 	public static final int FIREBALL = 0;
 	public static final int ICE_LANCE = 1;
 	public static final int IMP = 0;
-	private static int gameState = 0;
+	private static int gameState = MENU;
 	private static int controlState = 0;
 	private static int reticleType = 0;
 	OrthographicCamera playerCam;
@@ -44,8 +47,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Assets.initAssets(); //Must call before accessing tiles.
-		//ui.create();
-		Assets.initKnightM();
+		ui.create();
+		Assets.initKnightM(); //Also, with the menu in place, this code shouldn't be here.
+		//Removing it, however, breaks the game.
 		Gdx.graphics.setTitle("Daemon Souls");
 		float w = Gdx.graphics.getWidth();                                      
 		float h = Gdx.graphics.getHeight();   
@@ -55,6 +59,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 20;
 		playerCam.update();
+		menuBatch = new SpriteBatch();
 		batch = new SpriteBatch();
 
 		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
@@ -83,9 +88,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 		}
 
-		Tile startTile = testDungeon.getTileAt((int)testDungeon.rooms.get(1).x, (int)testDungeon.rooms.get(1).y);
-		startTile.setOccupant(testPlayer);
-		testPlayer.setPos(startTile.getX() * 32, startTile.getY() * 32);
+		
 
 		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
 		enemyTile.setOccupant(testEnemy);
@@ -105,22 +108,67 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 0, 1); //Also, if we change the values of this constructor, the hideous red could become black.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-//		do{ classChoice = ui.render();}
-//		while( classChoice < 0);
-//		switch(classChoice){
-//		case 0:{
-//			testPlayer = new Barbarian(name, Sprites.P_DOWN);
-//		} case 1: {
-//			testPlayer = new Knight(name, Sprites.P_DOWN);
-//		} case 2: {
-//			testPlayer = new Monk(name, Sprites.P_DOWN);
-//		} case 3: {
-//			testPlayer = new Wizard(name, Sprites.P_DOWN);
-//		}
-//		}
+
+		if (gameState == MENU)
+		{
+			menuBatch.begin(); //I created a separate batch to open and end for the beginning menu
+			// in the hopes that we could then proceed with the game.
+
+			classChoice = ui.render();		//This chunk of code is what is meant to ensure testPlayer has been assigned
+			//if( classChoice >= 0)// a class, but for the problem of exiting the menu, it is irrelevant.
+			//switch(classChoice){
+			//case 0:{
+			//	testPlayer = new Barbarian(name, Sprites.P_DOWN);
+			//	
+			//} case 1: {
+			//	testPlayer = new Knight(name, Sprites.P_DOWN);
+			//	System.out.println("Created Knight");
+			//} case 2: {
+			//	testPlayer = new Monk(name, Sprites.P_DOWN);
+			//	System.out.println("Created Monk");
+			//} case 3: {
+			//	testPlayer = new Wizard(name, Sprites.P_DOWN);
+			//	System.out.println("Created Wizard");
+			//}
+			//}
+			menuBatch.end();
+		}
+		
+		if (gameState == INIT_PLAYER)
+		{
+			classChoice = ui.getNum();
+			if (classChoice == 0)
+			{
+				testPlayer = new Barbarian(name, Assets.player_down);
+				System.out.println("Created barbarian");
+			}
+			
+			if (classChoice == 1)
+			{
+				testPlayer = new Knight(name, Assets.player_down);
+				System.out.println("Created knight");
+			}
+			
+			if (classChoice == 2)
+			{
+				testPlayer = new Monk(name, Assets.player_down);
+				System.out.println("Created monk");
+			}
+			
+			if (classChoice == 3)
+			{
+				testPlayer = new Wizard(name, Assets.player_down);
+				System.out.println("Created wiz");
+			}
+			Tile startTile = testDungeon.getTileAt((int)testDungeon.rooms.get(1).x, (int)testDungeon.rooms.get(1).y);
+			startTile.setOccupant(testPlayer);
+			testPlayer.setPos(startTile.getX() * 32, (startTile.getY()) * 32);
+			gameState = PLAYER_TURN;
+		}
+
 
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
@@ -141,28 +189,28 @@ public class MyGdxGame extends ApplicationAdapter {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_left);
 					testPlayer.setFacing(Player.LEFT);
 					testPlayer.move(-1f, 0);
-					testPlayer.img = Sprites.P_LEFT;
+					testPlayer.img = Assets.player_left;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_right);
 					testPlayer.setFacing(Player.RIGHT);
 					testPlayer.move(1f, 0);
-					testPlayer.img = Sprites.P_RIGHT;
+					testPlayer.img = Assets.player_right;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_down);
 					testPlayer.setFacing(Player.DOWN);
 					testPlayer.move(0, -1f);
-					testPlayer.img = Sprites.P_DOWN;
+					testPlayer.img = Assets.player_down;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_up);
 					testPlayer.setFacing(Player.UP);
 					testPlayer.move(0, 1f);
-					testPlayer.img = Sprites.P_UP;
+					testPlayer.img = Assets.player_up;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {

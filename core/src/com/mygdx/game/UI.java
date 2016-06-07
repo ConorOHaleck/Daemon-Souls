@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,8 +18,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+
+
+/*
+ * I still need to add a text box that the user can set their player name with.
+ * 
+ */
+
+
 public class UI {
-	private Skin skin;
+	private static Skin skin;
 	private Stage stage;
 	private Table table;
 	private Label lblmOrF;
@@ -194,6 +201,10 @@ public class UI {
 				if(finished){
 					MyGdxGame.name = name;
 					btnFinished.setText("Loading Excitement");
+					MyGdxGame.setGameState(MyGdxGame.INIT_PLAYER);
+					
+					
+					//Either something needs to be added here to 'DO STUFF' ... or (look in render() )
 				}
 			}
 		});
@@ -205,6 +216,9 @@ public class UI {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
 		
+		
+		
+		//I'd hope that returning a value would break out of render(), but it doesn't seem to.
 		return num;
 	}
 
@@ -217,11 +231,16 @@ public class UI {
 		getSkin().dispose();
 	}
 
-	public Skin getSkin() {
+	public static Skin getSkin() {
 		return skin;
 	}
 
 	public void setSkin(Skin skin) {
 		this.skin = skin;
+	}
+
+	public int getNum() {
+		// TODO Auto-generated method stub
+		return num;
 	}
 }
