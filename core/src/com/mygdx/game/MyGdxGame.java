@@ -142,25 +142,25 @@ public class MyGdxGame extends ApplicationAdapter {
 			classChoice = ui.getNum();
 			if (classChoice == 0)
 			{
-				testPlayer = new Barbarian(name, Sprites.P_DOWN);
+				testPlayer = new Barbarian(name, Assets.player_down);
 				System.out.println("Created barbarian");
 			}
 			
 			if (classChoice == 1)
 			{
-				testPlayer = new Knight(name, Sprites.P_DOWN);
+				testPlayer = new Knight(name, Assets.player_down);
 				System.out.println("Created knight");
 			}
 			
 			if (classChoice == 2)
 			{
-				testPlayer = new Monk(name, Sprites.P_DOWN);
+				testPlayer = new Monk(name, Assets.player_down);
 				System.out.println("Created monk");
 			}
 			
 			if (classChoice == 3)
 			{
-				testPlayer = new Wizard(name, Sprites.P_DOWN);
+				testPlayer = new Wizard(name, Assets.player_down);
 				System.out.println("Created wiz");
 			}
 			Tile startTile = testDungeon.getTileAt((int)testDungeon.rooms.get(1).x, (int)testDungeon.rooms.get(1).y);
@@ -189,28 +189,28 @@ public class MyGdxGame extends ApplicationAdapter {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_left);
 					testPlayer.setFacing(Player.LEFT);
 					testPlayer.move(-1f, 0);
-					testPlayer.img = Sprites.P_LEFT;
+					testPlayer.img = Assets.player_left;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_right);
 					testPlayer.setFacing(Player.RIGHT);
 					testPlayer.move(1f, 0);
-					testPlayer.img = Sprites.P_RIGHT;
+					testPlayer.img = Assets.player_right;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_down);
 					testPlayer.setFacing(Player.DOWN);
 					testPlayer.move(0, -1f);
-					testPlayer.img = Sprites.P_DOWN;
+					testPlayer.img = Assets.player_down;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_up);
 					testPlayer.setFacing(Player.UP);
 					testPlayer.move(0, 1f);
-					testPlayer.img = Sprites.P_UP;
+					testPlayer.img = Assets.player_up;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
