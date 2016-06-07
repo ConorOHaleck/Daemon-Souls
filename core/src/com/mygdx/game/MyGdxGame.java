@@ -14,11 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-
+	SpriteBatch menuBatch;
+	
 	TextureRegion img;
 	TextureRegion reticleImg;
 
-	//UI ui = new UI();
+	UI ui = new UI();
 	static Map testDungeon;  
 	static Imp testEnemy;
 	static Reticle playerReticle;
@@ -44,8 +45,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Assets.initAssets(); //Must call before accessing tiles.
-		//ui.create();
-		Assets.initKnightM();
+		ui.create();
+		Assets.initKnightM(); //Also, with the menu in place, this code shouldn't be here.
+								//Removing it, however, breaks the game.
 		Gdx.graphics.setTitle("Daemon Souls");
 		float w = Gdx.graphics.getWidth();                                      
 		float h = Gdx.graphics.getHeight();   
@@ -55,8 +57,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 20;
 		playerCam.update();
+		menuBatch = new SpriteBatch();
 		batch = new SpriteBatch();
-
+		
 		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
 
 		reticleImg = Sprites.P_DOWN;
@@ -105,23 +108,27 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 0, 1); //Also, if we change the values of this constructor, the hideous red could become black.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-//		do{ classChoice = ui.render();}
-//		while( classChoice < 0);
+		menuBatch.begin(); //I created a separate batch to open and end for the beginning menu
+						// in the hopes that we could then proceed with the game.
+		classChoice = ui.render();
+//		do{ classChoice = ui.render();}			//This chunk of code is what is meant to ensure testPlayer has been assigned
+//		while( classChoice < 0);				// a class, but for the problem of exiting the menu, it is irrelevant.
 //		switch(classChoice){
 //		case 0:{
-//			testPlayer = new Barbarian(name, Sprites.P_DOWN);
+//			//testPlayer = new Barbarian(name, Sprites.P_DOWN);
 //		} case 1: {
-//			testPlayer = new Knight(name, Sprites.P_DOWN);
+//			//testPlayer = new Knight(name, Sprites.P_DOWN);
 //		} case 2: {
-//			testPlayer = new Monk(name, Sprites.P_DOWN);
+//			//testPlayer = new Monk(name, Sprites.P_DOWN);
 //		} case 3: {
-//			testPlayer = new Wizard(name, Sprites.P_DOWN);
+//			//testPlayer = new Wizard(name, Sprites.P_DOWN);
 //		}
 //		}
-
+		menuBatch.end();
+		
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
