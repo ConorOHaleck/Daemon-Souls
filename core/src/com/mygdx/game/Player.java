@@ -34,11 +34,11 @@ public class Player extends Creature {
 		int newX = x2 += Tile.WIDTH * x;
 		int newY = y2 += Tile.HEIGHT * y;
 
-		newTile = MyGdxGame.testDungeon.getTileAt((newX/Tile.WIDTH), (newY/Tile.HEIGHT));
+		newTile = MyGdxGame.testDungeon.getTileAt((newX-Tile.WIDTH)/Tile.WIDTH, (newY/Tile.HEIGHT));
 
 		if (newTile.isCanCollide() == false) {
 
-			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
+			oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos-Tile.WIDTH)/Tile.WIDTH, (this.yPos/Tile.HEIGHT));
 			oldTile.setOccupant(null);
 			xPos += Tile.WIDTH * x;
 			yPos += Tile.HEIGHT * y;
