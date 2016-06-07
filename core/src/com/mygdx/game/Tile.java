@@ -13,9 +13,9 @@ public class Tile extends Entity {
 	private Entity occupant;
 	
 	
-	public Tile(boolean walkable, int posX, int posY) {
+	public Tile(boolean canCollide, int posX, int posY) {
 		// TODO Auto-generated constructor stub
-		this.walkable = walkable;
+		this.canCollide = canCollide;
 		this.x = posX;
 		this.y = posY;
 	}

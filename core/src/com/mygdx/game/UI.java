@@ -42,27 +42,27 @@ public class UI {
 
 	public void create() {
 		stage = new Stage();
-		skin = new Skin();
+		setSkin(new Skin());
 		Gdx.input.setInputProcessor(stage);
 
 		//Create "white" Texture
 		Pixmap pixWhite = new Pixmap(1, 1, Format.RGBA8888);
 		pixWhite.setColor(Color.WHITE);
 		pixWhite.fill();
-		skin.add("white", new Texture(pixWhite));
+		getSkin().add("white", new Texture(pixWhite));
 		
 		//Create "black" Texture
 		Pixmap pixBlack = new Pixmap(1,1, Format.RGBA8888);
 		pixBlack.setColor(Color.BLACK);
 		pixBlack.fill();
-		skin.add("black", new Texture(pixBlack));
+		getSkin().add("black", new Texture(pixBlack));
 
 		// Store the default libgdx font under the name "default".
-		skin.add("default", new BitmapFont());
+		getSkin().add("default", new BitmapFont());
 
 		//Configure labelStyle
 		LabelStyle lblStyle = new LabelStyle();
-		lblStyle.font = skin.getFont("default");
+		lblStyle.font = getSkin().getFont("default");
 		lblStyle.fontColor = Color.WHITE;
 		
 		//Add Labels
@@ -71,21 +71,21 @@ public class UI {
 		
 		//Configure btnStyleMale
 		TextButtonStyle btnStyleMale = new TextButtonStyle();
-		btnStyleMale.up = skin.newDrawable("white", Color.CYAN);
-		btnStyleMale.down = skin.newDrawable("white");
-		btnStyleMale.checked = skin.getDrawable("white");
-		btnStyleMale.font = skin.getFont("default");
+		btnStyleMale.up = getSkin().newDrawable("white", Color.CYAN);
+		btnStyleMale.down = getSkin().newDrawable("white");
+		btnStyleMale.checked = getSkin().getDrawable("white");
+		btnStyleMale.font = getSkin().getFont("default");
 		btnStyleMale.downFontColor = Color.BLACK;
-		skin.add("maleStyle", btnStyleMale);
+		getSkin().add("maleStyle", btnStyleMale);
 		
 		//Configure btnStyleFemale
 		TextButtonStyle btnStyleFemale = new TextButtonStyle(btnStyleMale);
-		btnStyleFemale.up = skin.newDrawable("white", Color.PINK);
-		skin.add("femaleStyle", btnStyleFemale);
+		btnStyleFemale.up = getSkin().newDrawable("white", Color.PINK);
+		getSkin().add("femaleStyle", btnStyleFemale);
 		
 		//Create gender buttons
-		btnFemale = new TextButton("Female", skin, "femaleStyle");
-		btnMale = new TextButton("Male", skin, "maleStyle");
+		btnFemale = new TextButton("Female", getSkin(), "femaleStyle");
+		btnMale = new TextButton("Male", getSkin(), "maleStyle");
 		
 		//Create genderBtnGroup and add gender buttons
 		genderBtnGroup = new ButtonGroup<TextButton>(btnMale, btnFemale);
@@ -93,23 +93,23 @@ public class UI {
 		
 		//Configure class button styles
 		TextButtonStyle btnStyleBarb = new TextButtonStyle(btnStyleFemale);
-		btnStyleBarb.up = skin.newDrawable("white", Color.ORANGE);
-		skin.add("barbStyle", btnStyleBarb);
+		btnStyleBarb.up = getSkin().newDrawable("white", Color.ORANGE);
+		getSkin().add("barbStyle", btnStyleBarb);
 		TextButtonStyle btnStyleKnight = new TextButtonStyle(btnStyleFemale);
-		btnStyleKnight.up = skin.newDrawable("white", Color.GREEN);
-		skin.add("knightStyle", btnStyleKnight);
+		btnStyleKnight.up = getSkin().newDrawable("white", Color.GREEN);
+		getSkin().add("knightStyle", btnStyleKnight);
 		TextButtonStyle btnStyleMonk = new TextButtonStyle(btnStyleFemale);
-		btnStyleMonk.up = skin.newDrawable("white", Color.YELLOW);
-		skin.add("monkStyle", btnStyleMonk);
+		btnStyleMonk.up = getSkin().newDrawable("white", Color.YELLOW);
+		getSkin().add("monkStyle", btnStyleMonk);
 		TextButtonStyle btnStyleWiz = new TextButtonStyle(btnStyleFemale);
-		btnStyleWiz.up = skin.newDrawable("white", Color.BLUE);
-		skin.add("wizStyle", btnStyleWiz);		
+		btnStyleWiz.up = getSkin().newDrawable("white", Color.BLUE);
+		getSkin().add("wizStyle", btnStyleWiz);		
 		
 		//Create class buttons
-		btnBarbarian = new TextButton("Barbarian", skin, "barbStyle");
-		btnKnight = new TextButton("Knight", skin, "knightStyle");
-		btnMonk = new TextButton("Monk", skin, "monkStyle");
-		btnWizard = new TextButton("Wizard", skin, "wizStyle");
+		btnBarbarian = new TextButton("Barbarian", getSkin(), "barbStyle");
+		btnKnight = new TextButton("Knight", getSkin(), "knightStyle");
+		btnMonk = new TextButton("Monk", getSkin(), "monkStyle");
+		btnWizard = new TextButton("Wizard", getSkin(), "wizStyle");
 	
 		//Create classBtnGroup and add class buttons.
 		classBtnGroup = new ButtonGroup<TextButton>(
@@ -118,11 +118,11 @@ public class UI {
 		
 		//Configure btnStyleFin
 		TextButtonStyle btnStyleFin = new TextButtonStyle(btnStyleWiz);
-		btnStyleFin.up = skin.newDrawable("white", Color.GOLD);
-		skin.add("styleFin", btnStyleFin);
+		btnStyleFin.up = getSkin().newDrawable("white", Color.GOLD);
+		getSkin().add("styleFin", btnStyleFin);
 		
 		//Create finish button
-		btnFinished = new TextButton("I'm done choosing. Let's play!", skin, "styleFin");
+		btnFinished = new TextButton("I'm done choosing. Let's play!", getSkin(), "styleFin");
 		
 		// Create a table that fills the screen. Everything else will go inside this table.
 		table = new Table();
@@ -214,6 +214,14 @@ public class UI {
 
 	public void dispose () {
 		stage.dispose();
-		skin.dispose();
+		getSkin().dispose();
+	}
+
+	public Skin getSkin() {
+		return skin;
+	}
+
+	public void setSkin(Skin skin) {
+		this.skin = skin;
 	}
 }

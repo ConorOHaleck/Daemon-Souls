@@ -12,7 +12,7 @@ public class DungeonGenerator {
 	public static ArrayList<Rectangle> generateRectangles()
 	{
 		DungeonTree data = new DungeonTree(new Rectangle(0,0, Map.MAP_WIDTH,200), new Random());
-		data.split(4, .55f, .65f);
+		data.split(8, .55f, .65f);
 		data.link();
 		ArrayList<DungeonTree> tree = data.traverse(data, new ArrayList<DungeonTree>());
 		ArrayList<Rectangle> dungeonRects = new ArrayList<Rectangle>();
@@ -65,12 +65,12 @@ public class DungeonGenerator {
 				
 				if (tileFound)
 				{
-					dungeonMap.addTile(new Tile(true, x, y));
+					dungeonMap.addTile(new Tile(false, x, y));
 				}
 				
 				if (!tileFound)
 				{
-					dungeonMap.addTile(new Tile(false, x, y));
+					dungeonMap.addTile(new Tile(true, x, y));
 				}
 			}
 		}

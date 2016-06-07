@@ -18,7 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion img;
 	TextureRegion reticleImg;
 
-	UI ui = new UI();
+	//UI ui = new UI();
 	static Map testDungeon;  
 	static Imp testEnemy;
 	static Reticle playerReticle;
@@ -38,27 +38,27 @@ public class MyGdxGame extends ApplicationAdapter {
 	private static int sec = 1;
 	static String name = "nothing";
 	private static int classChoice = -1;
-	//static Player testPlayer;
-	static Wizard testPlayer;
-	
+	static Player testPlayer;
+	//static Wizard testPlayer;
+
 	@Override
 	public void create () {
 		Assets.initAssets(); //Must call before accessing tiles.
 		//ui.create();
 		Assets.initKnightM();
-		Gdx.graphics.setTitle("extremely good video game");
-		  float w = Gdx.graphics.getWidth();                                      
-	       float h = Gdx.graphics.getHeight();   
-	    //skin = new Skin(Gdx.files.internal("yC0rv.png"));
+		Gdx.graphics.setTitle("Daemon Souls");
+		float w = Gdx.graphics.getWidth();                                      
+		float h = Gdx.graphics.getHeight();   
+		//ui.setSkin(new Skin(Gdx.files.internal("yC0rv.png")));
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
 		//combatLog = new TextField("Combat Log: ", skin);
 		playerCam.position.set(0, 0, 0);
-		playerCam.zoom = 100;
+		playerCam.zoom = 20;
 		playerCam.update();
 		batch = new SpriteBatch();
 
 		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
-		
+
 		reticleImg = Sprites.P_DOWN;
 
 		testEnemy =  new Imp(Sprites.IMP);
@@ -68,12 +68,12 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void generateFloor() {
 		DungeonGenerator mapGen = new DungeonGenerator();
-		
+
 		testDungeon = mapGen.generateDungeon();
-		
+
 		for (int i = 0; i < testDungeon.tiles.size(); i++)
 		{
-			if (testDungeon.getTiles().get(i).walkable())
+			if (!testDungeon.getTiles().get(i).isCanCollide())
 			{
 				testDungeon.getTiles().get(i).setImg(Assets.floorTiles.get(0).getImg());
 			}
@@ -82,14 +82,15 @@ public class MyGdxGame extends ApplicationAdapter {
 				testDungeon.getTiles().get(i).setImg(Assets.floorTiles.get(35).getImg());
 			}
 		}
-		
-		Tile startTile = testDungeon.getTileAt(0, 0);
+
+		Tile startTile = testDungeon.getTileAt((int)testDungeon.rooms.get(1).x, (int)testDungeon.rooms.get(1).y);
 		startTile.setOccupant(testPlayer);
-		
+		testPlayer.setPos(startTile.getX() * 32, startTile.getY() * 32);
+
 		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
 		enemyTile.setOccupant(testEnemy);
-				
-		
+
+
 		/*for (int x = 0; x < 200; x++)
 		{
 			for (int y = 0; y < 200; y++)
@@ -120,7 +121,7 @@ public class MyGdxGame extends ApplicationAdapter {
 //			testPlayer = new Wizard(name, Sprites.P_DOWN);
 //		}
 //		}
-		
+
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
@@ -132,9 +133,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		//batch.draw(Assets.playerImage.get(0), 25, 200);
 
-		
+
 		if (getGameState() == PLAYER_TURN) {
-			
+
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_left);
@@ -163,28 +164,28 @@ public class MyGdxGame extends ApplicationAdapter {
 					testPlayer.move(0, 1f);
 					testPlayer.img = Sprites.P_UP;
 				}
-				
+
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 					testPlayer.ability1(testPlayer);
 				}
-				
+
 				if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
 					testPlayer.ability2(testPlayer);
 				}
-				
+
 				if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 					testPlayer.ability3(testPlayer);
 				}
-				
+
 				if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
 					MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 				}
 				playerCam.position.set(testPlayer.xPos, testPlayer.yPos, 0);
 				playerCam.update();
-				
+
 			} else if (getControlState() == TARGETING_RANGED) {
-				
-				
+
+
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
 					playerReticle.move(-1f, 0);
 				}
@@ -200,56 +201,56 @@ public class MyGdxGame extends ApplicationAdapter {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 					playerReticle.move(0, 1f);
 				}
-				
+
 				if (getReticleType() == FIREBALL) {
 					playerReticle.drawFour(batch);
-					
+
 					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-						testPlayer.fireball();
+						//testPlayer.fireball();
 					}
-					
+
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
 						testPlayer.ability2(testPlayer);
 					}
-					
+
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 						testPlayer.ability3(testPlayer);
 					}
-					
+
 				} else if (getReticleType() == ICE_LANCE) {
 					playerReticle.drawOne(batch);
-					
+
 					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 						testPlayer.ability1(testPlayer);
 					}
-					
+
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-						testPlayer.iceLance();
+						//testPlayer.iceLance();
 					}
-					
+
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 						testPlayer.ability3(testPlayer);
 					}
 				}
-				
+
 				if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
 					MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 				}
 			}
 		}
-		
+
 		if (getGameState() == ENEMY_TURN) {
-			
+
 			if (testEnemy.tryAttack() == IMP) {
 				testEnemy.cut(testPlayer);
 				setGameState(PLAYER_TURN);
-				
+
 			} else {
 				testEnemy.chase();
 			}
-			
+
 			newTurn(testPlayer);
-			
+
 		}
 
 		batch.end();
@@ -262,48 +263,48 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static void setGameState(int gameState) {
 		MyGdxGame.gameState = gameState;
 	}
-	
+
 	public static void newTurn(Creature player) {
 		if (player.isBulwarkActive() == Creature.ENABLED) {
 			player.setBulwarkDuration(player.getBulwarkDuration() - 1);
-			
+
 			if (player.getBulwarkDuration() <= 0) {
 				player.setBulwarkActive(Creature.DISABLED);
 			}
-			
+
 		} else if (player.getRageActive() == Creature.ENABLED) {
 			player.setRageDuration(player.getRageDuration() - 1);
-			
+
 			if (player.getRageDuration() <= 0) {
 				player.setRageActive(Creature.DISABLED);
 				player.rageDeactive();
 			}
 		}
-		
+
 		if (player.getBashCd() > 0) {                    //I'll clean this up later
 			player.setBashCd(player.getBashCd() - 1);
 		}
-		
+
 		if (player.getFireballCD() > 0) {
 			player.setFireballCD(player.getFireballCD() - 1);
 		}
-		
+
 		if (player.getBulwarkCD() > 0) {
 			player.setBulwarkCD(player.getBulwarkCD() - 1);
 		}
-		
+
 		if (player.getCleaveCD() > 0) {
 			player.setCleaveCD(player.getCleaveCD() - 1);
 		}
-		
+
 		if (player.getFlurryCD() > 0) {
 			player.setFlurryCD(player.getFlurryCD() - 1);
 		}
-		
+
 		if (player.getSerenityCD() > 0) {
 			player.setSerenityCD(player.getSerenityCD() - 1);
 		}
-		
+
 		if (player.getTeleCD() > 0) {
 			player.setTeleCD(player.getTeleCD() - 1);
 		}
@@ -325,7 +326,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerReticle.setPos(testPlayer.xPos, testPlayer.yPos);
 		MyGdxGame.reticleType = reticleType;
 	}
-	
+
 	//Pauses game for number of seconds
 	private static void slowYourRollBro(int sec){
 		try {
