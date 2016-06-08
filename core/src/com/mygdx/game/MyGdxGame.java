@@ -3,14 +3,10 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -19,12 +15,12 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion img;
 	TextureRegion reticleImg;
 
+	boolean x = true;
+	HUD hud = new HUD();
 	UI ui = new UI();
 	static Map testDungeon;  
 	static Imp testEnemy;
 	static Reticle playerReticle;
-	//static TextField combatLog;
-	//Skin skin;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
 	public static final int MENU = -1;
@@ -42,14 +38,12 @@ public class MyGdxGame extends ApplicationAdapter {
 	static String name = "nothing";
 	private static int classChoice = -1;
 	static Player testPlayer;
-	//static Wizard testPlayer;
 
 	@Override
 	public void create () {
-		Assets.initAssets(); //Must call before accessing tiles.
+		Assets.initAssets();
 		ui.create();
-		Assets.initKnightM(); //Also, with the menu in place, this code shouldn't be here.
-		//Removing it, however, breaks the game.
+		Assets.initKnightM();
 		Gdx.graphics.setTitle("Daemon Souls");
 		float w = Gdx.graphics.getWidth();                                      
 		float h = Gdx.graphics.getHeight();   
@@ -61,11 +55,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		playerCam.update();
 		menuBatch = new SpriteBatch();
 		batch = new SpriteBatch();
-
 		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
-
 		reticleImg = Sprites.P_DOWN;
-
 		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
 		generateFloor();
@@ -88,12 +79,9 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 		}
 
-		
-
 		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
 		enemyTile.setOccupant(testEnemy);
-
-
+		
 		/*for (int x = 0; x < 200; x++)
 		{
 			for (int y = 0; y < 200; y++)
@@ -114,26 +102,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		if (gameState == MENU)
 		{
-			menuBatch.begin(); //I created a separate batch to open and end for the beginning menu
-			// in the hopes that we could then proceed with the game.
-
-			classChoice = ui.render();		//This chunk of code is what is meant to ensure testPlayer has been assigned
-			//if( classChoice >= 0)// a class, but for the problem of exiting the menu, it is irrelevant.
-			//switch(classChoice){
-			//case 0:{
-			//	testPlayer = new Barbarian(name, Sprites.P_DOWN);
-			//	
-			//} case 1: {
-			//	testPlayer = new Knight(name, Sprites.P_DOWN);
-			//	System.out.println("Created Knight");
-			//} case 2: {
-			//	testPlayer = new Monk(name, Sprites.P_DOWN);
-			//	System.out.println("Created Monk");
-			//} case 3: {
-			//	testPlayer = new Wizard(name, Sprites.P_DOWN);
-			//	System.out.println("Created Wizard");
-			//}
-			//}
+			menuBatch.begin();
+			classChoice = ui.render();
 			menuBatch.end();
 		}
 		
@@ -179,11 +149,15 @@ public class MyGdxGame extends ApplicationAdapter {
 			testDungeon.populants.get(i).Draw(batch);
 		}
 
-		//batch.draw(Assets.playerImage.get(0), 25, 200);
-
-
 		if (getGameState() == PLAYER_TURN) {
-
+			if (x){
+				hud.create();
+				x = false;
+			} if (!x){
+				batch.setProjectionMatrix(hud.hudStage.getCamera().combined);
+				hud.hudStage.draw();
+			}
+			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
 					testPlayer.img = Sprites.playerAnimate(Assets.move_left);

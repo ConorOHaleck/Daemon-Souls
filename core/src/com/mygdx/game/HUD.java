@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -40,14 +41,16 @@ public class HUD {
 		//Make button
 		ImageButton btn = new ImageButton(hudSkin, "imgBtnStyle");
 		
+		hudSkin.add("defaultFont", new BitmapFont());
 		
 		//Create combatLog's textFieldStyle
 		TextFieldStyle textStyle = new TextFieldStyle();
 		textStyle.fontColor = Color.BLUE;
+		textStyle.font = hudSkin.getFont("defaultFont");
 		hudSkin.add("textStyle", textStyle);
 		
 		//Create log
-		combatLog = new TextField(log, hudSkin, "textStyle");
+		combatLog = new TextField("log", hudSkin, "textStyle");
 		combatLog.setText(log);
 		
 		//Create table and add combatLog
