@@ -15,8 +15,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion img;
 	TextureRegion reticleImg;
 
-	boolean x = true;
-	HUD hud = new HUD();
 	UI ui = new UI();
 	static Map testDungeon;  
 	static Imp testEnemy;
@@ -150,13 +148,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (getGameState() == PLAYER_TURN) {
-			if (x){
-				hud.create();
-				x = false;
-			} if (!x){
-				batch.setProjectionMatrix(hud.hudStage.getCamera().combined);
-				hud.hudStage.draw();
-			}
 			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
