@@ -72,11 +72,18 @@ public class UI {
 		lblStyle.font = getSkin().getFont("default");
 		lblStyle.fontColor = Color.WHITE;
 		
+		LabelStyle lblStyleGame = new LabelStyle(lblStyle);
+		
+		
+		
 		//Add Labels
 		lblmOrF = new Label("Gender Preference: ", lblStyle);
 		lblClass = new Label("Player Class Preference: ", lblStyle);
 		lblName = new Label("Name: ", lblStyle);
-		lblGame = new Label("DAEMON SOULS", lblStyle);
+		lblGame = new Label("DAEMON SOULS", lblStyleGame);
+		lblGame.setSize(stage.getWidth(), 100);
+		//lblGame.setFontScaleX(stage.getWidth());
+		//lblGame.setFontScaleY(100);
 		
 		//Configure btnStyleMale
 		TextButtonStyle btnStyleMale = new TextButtonStyle();
@@ -142,11 +149,10 @@ public class UI {
 		//Create textField
 		txtName = new TextField("", skin, "textStyle");
 		txtName.setMessageText(message);
-		txtName.setPosition(stage.getViewport().getScreenX()/3, stage.getViewport().getScreenY()/3);
+		//txtName.setPosition(stage.getViewport().getScreenX()/3, stage.getViewport().getScreenY()/3);
 		txtName.setTextFieldListener(new TextFieldListener() {
 			public void keyTyped(TextField txtName, char c) {
 				name = ""+c;
-				
 			}
 		});
 		
@@ -155,6 +161,8 @@ public class UI {
 		table.setFillParent(true);
 		stage.addActor(table);
 
+		table.add(lblGame);
+		table.row();
 		table.add(lblName, txtName);
 		table.row();
 		table.add(lblmOrF, btnMale, btnFemale);
