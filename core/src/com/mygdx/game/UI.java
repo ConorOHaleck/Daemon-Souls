@@ -136,20 +136,17 @@ public class UI {
 		table.setFillParent(true);
 		stage.addActor(table);
 
-		
 		table.add(lblmOrF, btnMale, btnFemale);
 		table.row();
 		table.add( lblClass, btnBarbarian, btnKnight, btnMonk, btnWizard);
 		table.row();
 		table.add(btnFinished);
 		
-		
 		btnFinished.addListener(new ChangeListener() {
 			public void changed (ChangeEvent event, Actor actor) {
 				
 				gender = genderBtnGroup.getChecked();
 				classChoice = classBtnGroup.getChecked();
-				
 				
 				if (gender != null && classChoice != null){
 					if(classChoice == btnBarbarian){
@@ -202,9 +199,6 @@ public class UI {
 					MyGdxGame.name = name;
 					btnFinished.setText("Loading Excitement");
 					MyGdxGame.setGameState(MyGdxGame.INIT_PLAYER);
-					
-					
-					//Either something needs to be added here to 'DO STUFF' ... or (look in render() )
 				}
 			}
 		});
@@ -215,10 +209,6 @@ public class UI {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
-		
-		
-		
-		//I'd hope that returning a value would break out of render(), but it doesn't seem to.
 		return num;
 	}
 
