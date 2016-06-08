@@ -132,6 +132,10 @@ public class MyGdxGame extends ApplicationAdapter {
 				System.out.println("Created wiz");
 			}
 			Tile startTile = testDungeon.getTileAt((int)testDungeon.rooms.get(1).x, (int)testDungeon.rooms.get(1).y);
+			if (startTile.isCanCollide())
+			{
+				startTile = testDungeon.getTileAt(startTile.getX()+1, startTile.getY()+1);
+			}
 			startTile.setOccupant(testPlayer);
 			testPlayer.setPos(startTile.getX() * 32, (startTile.getY()) * 32);
 			gameState = PLAYER_TURN;
