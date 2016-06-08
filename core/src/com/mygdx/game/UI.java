@@ -260,7 +260,6 @@ public class UI {
 	}
 
 	public int getNum() {
-		// TODO Auto-generated method stub
 		return num;
 	}
 }

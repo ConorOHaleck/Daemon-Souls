@@ -21,43 +21,30 @@ public class HUD {
 	static Stage hudStage;
 	private static Table hudTable;
 	private static TextField combatLog;
-	static String log;
+	private static String log = "Combat Log: ";
 	
 	
 	public static void create(){
 		hudStage = new Stage();
 		hudSkin = new Skin();
-		Gdx.input.setInputProcessor(hudStage);
-		
-		
-		final TextureRegion blankTile = new TextureRegion(Assets.wallTiles.get(0).getImg());
-		
-		
-		//Configure a style
-		ImageButtonStyle imgStyle = new ImageButtonStyle();
-		imgStyle.imageUp = new TextureRegionDrawable(blankTile);
-		hudSkin.add("imgBtnStyle", imgStyle);
-		
-		//Make button
-		ImageButton btn = new ImageButton(hudSkin, "imgBtnStyle");
-		
-		hudSkin.add("defaultFont", new BitmapFont());
+		//Gdx.input.setInputProcessor(hudStage);
+
+		hudSkin.add("default", new BitmapFont());
 		
 		//Create combatLog's textFieldStyle
 		TextFieldStyle textStyle = new TextFieldStyle();
-		textStyle.fontColor = Color.BLUE;
-		textStyle.font = hudSkin.getFont("defaultFont");
+		textStyle.fontColor = Color.CYAN;
+		textStyle.font = hudSkin.getFont("default");
 		hudSkin.add("textStyle", textStyle);
 		
 		//Create log
-		combatLog = new TextField("log", hudSkin, "textStyle");
+		combatLog = new TextField(log, hudSkin, "textStyle");
 		combatLog.setText(log);
+		combatLog.setMessageText(log);
+		combatLog.setOrigin(Align.center);
 		
-		//Create table and add combatLog
-		hudTable = new Table();
-		hudTable.setFillParent(true);
-		hudStage.addActor(hudTable);
-		hudTable.add(combatLog).bottom().align(Align.right); //Choose where you want the actor
+		//Add actors to hudStage
+		hudStage.addActor(combatLog);
 		
 	}
 	
@@ -65,8 +52,8 @@ public class HUD {
 	
 
 	public void render ()  {
-		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		hudStage.draw();
 		
@@ -89,7 +76,9 @@ public class HUD {
 		this.hudSkin = skin;
 	}
 	
-	
+	public void setLog(String log){
+		this.log = log;
+	}
 	
 	
 	
