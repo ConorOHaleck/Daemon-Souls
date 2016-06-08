@@ -37,6 +37,11 @@ public class Assets {
 	public static Animation fireball;
 	public static Animation iceball;
 	
+	public static TextureRegion iconQ = new TextureRegion();
+	public static TextureRegion iconW = new TextureRegion();
+	public static TextureRegion iconE = new TextureRegion();
+	
+	
 	// Array lists to store all assets
 	public static ArrayList<Floor> floorTiles = new ArrayList<Floor>();
 	public static ArrayList<Wall> wallTiles = new ArrayList<Wall>();
@@ -108,6 +113,11 @@ public class Assets {
 	// Initialize Barbarian Players
 	// Female
 	public static void initBarbarianF() {
+		
+		iconQ = spell.findRegion("earth/maxwells_silver_hammer");
+		iconW = items.findRegion("weapon/demon_blade");
+		iconE = spell.findRegion("enchantment/berserker_rage");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -237,6 +247,11 @@ public class Assets {
 
 	// Male
 	public static void initBarbarianM() {
+		
+		iconQ = spell.findRegion("earth/maxwells_silver_hammer");
+		iconW = items.findRegion("weapon/demon_blade");
+		iconE = spell.findRegion("enchantment/berserker_rage");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -366,6 +381,11 @@ public class Assets {
 	// Initialize Knight Players
 	// Female
 	public static void initKnightF() {
+		
+		iconQ = spell.findRegion("enchantment/sure_blade");
+		iconW = items.findRegion("armour/shields/shield3_round");
+		iconE = creatures.findRegion("holy/paladin");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -494,6 +514,11 @@ public class Assets {
 
 	// Male
 	public static void initKnightM() {
+		
+		iconQ = spell.findRegion("enchantment/sure_blade");
+		iconW = items.findRegion("armour/shields/shield3_round");
+		iconE = creatures.findRegion("holy/paladin");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -623,6 +648,11 @@ public class Assets {
 	// Initialize Monk Players
 	// Female
 	public static void initMonkF() {
+		
+		iconQ = spell.findRegion("earth/stone_arrow");
+		iconW = items.findRegion("weapon/trishula");
+		iconE = spell.findRegion("necromancy/regeneration");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -749,6 +779,11 @@ public class Assets {
 	}
 
 	public static void initMonkM() {
+		
+		iconQ = spell.findRegion("earth/stone_arrow");
+		iconW = items.findRegion("weapon/trishula");
+		iconE = spell.findRegion("necromancy/regeneration");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -877,6 +912,11 @@ public class Assets {
 	// Initialize Wizard Players
 	// Female
 	public static void initWizardF() {
+		
+		iconQ = spell.findRegion("fire/fireball");
+		iconW = spell.findRegion("ice/throw_icicle");
+		iconE = spell.findRegion("translocation/banishment");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
@@ -1004,6 +1044,11 @@ public class Assets {
 
 	// Male
 	public static void initWizardM() {
+		
+		iconQ = spell.findRegion("fire/fireball");
+		iconW = spell.findRegion("ice/throw_icicle");
+		iconE = spell.findRegion("translocation/banishment");
+		
 		// Animations
 		// Upward-facing spellcast
 		for (int x = 0; x < 448; x += size) {
