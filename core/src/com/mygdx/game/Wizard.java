@@ -33,6 +33,7 @@ public class Wizard extends Player{
 		target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 
 		if (target != null) {
+			Sprites.effectAnimate(Assets.iceball);
 			this.iceLance(target);
 			MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
@@ -65,13 +66,15 @@ public class Wizard extends Player{
 		targetList.add(target2);
 		targetList.add(target3);
 		targetList.add(target4);
-
+		
+		Sprites.effectAnimate(Assets.fireball);
+		
 		for (Creature t : targetList) {
 			if (t != null) {
 				this.fireball(t);
 			}
 		}
-
+		
 		MyGdxGame.testPlayer.setFireballCD(3);
 		MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 		MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);

@@ -33,6 +33,9 @@ public class Assets {
 	public static TextureRegion player_down;
 	public static TextureRegion player_right;
 	
+	public static TextureRegion reticleImg;
+	public static Animation fireball;
+	public static Animation iceball;
 	
 	// Array lists to store all assets
 	public static ArrayList<Floor> floorTiles = new ArrayList<Floor>();
@@ -93,6 +96,11 @@ public class Assets {
 			Creature creature = new Creature(image, 0, 0);
 			creatureTiles.add(creature);
 		}
+		
+		reticleImg = new TextureRegion(effect.findRegion("sanctuary"));
+		
+		fireball = new Animation(time, (effect.findRegion("cloud_fire0")), (effect.findRegion("cloud_fire1")), (effect.findRegion("cloud_fire2")));
+		iceball = new Animation(time, effect.findRegion("cloud_cold0"), effect.findRegion("cloud_cold1"), effect.findRegion("cloud_cold2"));
 	}
 
 	// Initialize Players..

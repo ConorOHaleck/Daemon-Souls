@@ -26,9 +26,25 @@ public class Sprites {
 		private static float stateTime = 0f;
 		
 		public static final TextureRegion playerAnimate(Animation action){
+			
+			
 			stateTime += Gdx.graphics.getDeltaTime();
 			return action.getKeyFrame(stateTime, true);
+		
+		
 		}
+		
+		//This method SHOULD play an effect animation through once, maybe twice. ;)
+		public static final void effectAnimate(Animation effect){
+			TextureRegion old = new TextureRegion(MyGdxGame.playerReticle.img);
+			stateTime += Gdx.graphics.getDeltaTime();
+			while (true){
+			 MyGdxGame.playerReticle.img = effect.getKeyFrame(stateTime, true);
+			 if (effect.isAnimationFinished(stateTime)) break;
+			}
+			MyGdxGame.playerReticle.img = old;
+		}
+		
 		
 		
 		//Some example monster assets to play with. I think they should look okay for testing purposes.

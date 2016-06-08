@@ -54,7 +54,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		menuBatch = new SpriteBatch();
 		batch = new SpriteBatch();
 		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
-		reticleImg = Sprites.P_DOWN;
+		reticleImg = Assets.reticleImg;
 		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
 		generateFloor();
@@ -155,28 +155,28 @@ public class MyGdxGame extends ApplicationAdapter {
 			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_left);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_left);
 					testPlayer.setFacing(Player.LEFT);
 					testPlayer.move(-1f, 0);
 					testPlayer.img = Assets.player_left;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_right);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_right);
 					testPlayer.setFacing(Player.RIGHT);
 					testPlayer.move(1f, 0);
 					testPlayer.img = Assets.player_right;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_down);
+					//testPlayer.img = Sprites.playerAnimate(Assets.move_down);
 					testPlayer.setFacing(Player.DOWN);
 					testPlayer.move(0, -1f);
 					testPlayer.img = Assets.player_down;
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-					testPlayer.img = Sprites.playerAnimate(Assets.move_up);
+					//Sprites.playerAnimate(Assets.move_up);
 					testPlayer.setFacing(Player.UP);
 					testPlayer.move(0, 1f);
 					testPlayer.img = Assets.player_up;

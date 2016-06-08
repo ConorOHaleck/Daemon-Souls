@@ -13,13 +13,13 @@ public class Reticle extends Entity {
 		mapY = MyGdxGame.testPlayer.mapY;
 	}
 	
-	public void drawFour(SpriteBatch bat) {
+	public void drawOne(SpriteBatch bat) {
 
 		bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT);
 	}
 	
-	public void drawOne(SpriteBatch bat) {
-		bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT);
+	public void drawFour(SpriteBatch bat) {
+		//bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT); //this was causing wierd double-draw
 		bat.draw(this.img, this.xPos, this.yPos, 0, 0, (Tile.WIDTH * 2), (Tile.HEIGHT * 2), 1, 1, 0, false);
 	}
 	
