@@ -16,15 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-
-
-
-/*
- * I still need to add a text box that the user can set their player name with.
- * 
- */
-
 
 public class UI {
 	private static Skin skin;
@@ -32,6 +27,9 @@ public class UI {
 	private Table table;
 	private Label lblmOrF;
 	private Label lblClass;
+	private Label lblGame;
+	private Label lblName;
+	private TextField txtName;
 	private TextButton btnFemale;
 	private TextButton btnMale;
 	private TextButton btnBarbarian;
@@ -43,10 +41,12 @@ public class UI {
 	private TextButton classChoice;
 	private ButtonGroup<TextButton> classBtnGroup;
 	private ButtonGroup<TextButton> genderBtnGroup;
-	private String name = "testHorse";
+	private String name;
 	private int num = -1;
 	private boolean finished = false;
-
+	private String empty = "";
+	private String message = "What is your name?";
+	
 	public void create() {
 		stage = new Stage();
 		setSkin(new Skin());
@@ -75,6 +75,8 @@ public class UI {
 		//Add Labels
 		lblmOrF = new Label("Gender Preference: ", lblStyle);
 		lblClass = new Label("Player Class Preference: ", lblStyle);
+		lblName = new Label("Name: ", lblStyle);
+		lblGame = new Label("DAEMON SOULS", lblStyle);
 		
 		//Configure btnStyleMale
 		TextButtonStyle btnStyleMale = new TextButtonStyle();
@@ -131,11 +133,30 @@ public class UI {
 		//Create finish button
 		btnFinished = new TextButton("I'm done choosing. Let's play!", getSkin(), "styleFin");
 		
+		//Create textFieldStyle
+		TextFieldStyle textStyle = new TextFieldStyle();
+		textStyle.font = skin.getFont("default");
+		textStyle.fontColor = Color.CHARTREUSE;
+		skin.add("textStyle", textStyle);
+		
+		//Create textField
+		txtName = new TextField("", skin, "textStyle");
+		txtName.setMessageText(message);
+		txtName.setPosition(stage.getViewport().getScreenX()/3, stage.getViewport().getScreenY()/3);
+		txtName.setTextFieldListener(new TextFieldListener() {
+			public void keyTyped(TextField txtName, char c) {
+				name = ""+c;
+				
+			}
+		});
+		
 		// Create a table that fills the screen. Everything else will go inside this table.
 		table = new Table();
 		table.setFillParent(true);
 		stage.addActor(table);
 
+		table.add(lblName, txtName);
+		table.row();
 		table.add(lblmOrF, btnMale, btnFemale);
 		table.row();
 		table.add( lblClass, btnBarbarian, btnKnight, btnMonk, btnWizard);
@@ -148,7 +169,8 @@ public class UI {
 				gender = genderBtnGroup.getChecked();
 				classChoice = classBtnGroup.getChecked();
 				
-				if (gender != null && classChoice != null){
+				if (gender != null && classChoice != null && name != message
+						&& name != empty){
 					if(classChoice == btnBarbarian){
 						num = 0;
 						if (gender == btnMale){
