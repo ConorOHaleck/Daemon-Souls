@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Undead.Zombie;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -22,7 +23,11 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion reticleImg;
 
 	static ArrayList<Monster> enemyList;
+<<<<<<< HEAD
 	public static final int DUNGEON_TOTAL = 1;
+=======
+	public static final int DUNGEON_TOTAL = 100;
+>>>>>>> refs/remotes/origin/master
 
 	UI ui = new UI();
 	static Map testDungeon;  
@@ -108,28 +113,18 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		ArrayList<Monster> testList = generateHorde();
+<<<<<<< HEAD
 		
 		
+=======
+>>>>>>> refs/remotes/origin/master
 		testDungeon.populateRooms(testList);
 		
 		enemyList = testDungeon.populants;
 
-		//Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
-		//enemyTile.setOccupant(testEnemy);
 		testDungeon.makeStairs();
 		System.out.println(stairX/Tile.WIDTH);
 		System.out.println(stairY/Tile.HEIGHT);
-
-		/*for (int x = 0; x < 200; x++)
-		{
-			for (int y = 0; y < 200; y++)
-			{
-				testDungeon.getTileAt(x, y);
-			}
-		} */
-		//for (int i = 1; i < 20; i++) {
-		//	testDungeon.getTiles().get(i).setCanCollide(false);
-		//}
 	}
 
 	@Override
@@ -148,43 +143,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		if (gameState == INIT_PLAYER)
 		{
-			classChoice = ui.getNum();
-			if (classChoice == 0)
-			{
-				testPlayer = new Barbarian(name, Assets.player_down);
-				System.out.println("Created barbarian");
-			}
-
-			if (classChoice == 1)
-			{
-				testPlayer = new Knight(name, Assets.player_down);
-				System.out.println("Created knight");
-			}
-
-			if (classChoice == 2)
-			{
-				testPlayer = new Monk(name, Assets.player_down);
-				System.out.println("Created monk");
-			}
-
-			if (classChoice == 3)
-			{
-				testPlayer = new Wizard(name, Assets.player_down);
-				System.out.println("Created wiz");
-			}
-			Tile startTile = testDungeon.getTileAt((int)testDungeon.rooms.get(1).x, (int)testDungeon.rooms.get(1).y);
-			if (startTile.isCanCollide())
-			{
-				startTile = testDungeon.getTileAt(startTile.getX()+1, startTile.getY()+1);
-			}
-			startTile.setOccupant(testPlayer);
-			testPlayer.setPos(startTile.getX() * 32, (startTile.getY()) * 32);
-
-			for (Monster monster : enemyList) {
-				monster.pCharacter = testPlayer;
-			}
-
-			gameState = PLAYER_TURN;
+			initializeCreatures();
 		}
 
 
@@ -342,9 +301,14 @@ public class MyGdxGame extends ApplicationAdapter {
 					currentMonster.updateProx();
 					currentMonster.turn();
 
+<<<<<<< HEAD
 					if(enemyList.get(i).xProx<15&&enemyList.get(i).yProx<15){
 						slowYourRollBro(1);
 						System.out.println("Getting slooooowed");
+=======
+					if(enemyList.get(i).xProx<15||enemyList.get(i).yProx<15){
+					//	slowYourRollBro(1);
+>>>>>>> refs/remotes/origin/master
 					}
 				}
 
@@ -364,6 +328,49 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		batch.end();
+	}
+
+	public void initializeCreatures() {
+		classChoice = ui.getNum();
+		if (classChoice == 0)
+		{
+			testPlayer = new Barbarian(name, Assets.player_down);
+			System.out.println("Created barbarian");
+		}
+
+		if (classChoice == 1)
+		{
+			testPlayer = new Knight(name, Assets.player_down);
+			System.out.println("Created knight");
+		}
+
+		if (classChoice == 2)
+		{
+			testPlayer = new Monk(name, Assets.player_down);
+			System.out.println("Created monk");
+		}
+
+		if (classChoice == 3)
+		{
+			testPlayer = new Wizard(name, Assets.player_down);
+			System.out.println("Created wiz");
+		}
+		
+		Vector2 center = new Vector2();
+		center = testDungeon.rooms.get(0).getCenter(center);
+		Tile startTile = testDungeon.getTileAt((int)center.x, (int)center.y);
+		if (startTile.isCanCollide())
+		{
+			startTile = testDungeon.getTileAt(startTile.getX()+1, startTile.getY()+1);
+		}
+		startTile.setOccupant(testPlayer);
+		testPlayer.setPos(startTile.getX() * 32, (startTile.getY()) * 32);
+
+		for (Monster monster : enemyList) {
+			monster.pCharacter = testPlayer;
+		}
+
+		gameState = PLAYER_TURN;
 	}
 
 	public int getGameState() {
@@ -438,13 +445,13 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	//Pauses game for number of seconds
-	public static void slowYourRollBro(int sec){
-		try {
-			Thread.sleep(sec*100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+	//public static void slowYourRollBro(int sec){
+	//	try {
+	//		Thread.sleep(sec*100);
+	//	} catch (InterruptedException e) {
+	//		e.printStackTrace();
+	//	}
+	//}
 
 	public static void updateLog(String input) {
 		if (logLines < 7) {
@@ -466,8 +473,13 @@ public class MyGdxGame extends ApplicationAdapter {
 		while(i < DUNGEON_TOTAL){
 			
 
+<<<<<<< HEAD
 			Zombie newZomb = new Zombie(testPlayer);
 			System.out.println("Well we built one");
+=======
+			Zombie newZomb = new Zombie(Assets.creatureTiles.get(30).img,0,0,testPlayer);
+			//System.out.println("Well we built one");
+>>>>>>> refs/remotes/origin/master
 			returner.add(newZomb);
 			i++;
 		}
