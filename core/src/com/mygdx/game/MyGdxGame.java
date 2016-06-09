@@ -223,7 +223,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					playerReticle.drawFour(batch);
 
 					if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-						//testPlayer.fireball();
+						((Wizard) testPlayer).fireball();
 					}
 
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -231,6 +231,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					}
 
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+						MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 						testPlayer.ability3(testPlayer);
 					}
 
@@ -242,10 +243,11 @@ public class MyGdxGame extends ApplicationAdapter {
 					}
 
 					if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-						//testPlayer.iceLance();
+						((Wizard) testPlayer).iceLance();
 					}
 
 					if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+						MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 						testPlayer.ability3(testPlayer);
 					}
 				}

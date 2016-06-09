@@ -67,7 +67,9 @@ public class Wizard extends Player{
 		targetList.add(target3);
 		targetList.add(target4);
 		
-		Sprites.effectAnimate(Assets.fireball);
+		Sprites.effectAnimate(Assets.fireball);  //this line right here
+		
+		System.out.println(this.getName() + " tosses out a huge fireball!");
 		
 		for (Creature t : targetList) {
 			if (t != null) {
@@ -82,7 +84,6 @@ public class Wizard extends Player{
 
 	public void fireball(Creature target) {
 		int damage = (int) (0.8*this.getIntelligence());
-		System.out.println(this.getName() + " tosses out a huge fireball!");
 		target.getHit(damage);
 	}
 
@@ -90,8 +91,8 @@ public class Wizard extends Player{
 		Random rng = new Random();
 		Tile oldTile;
 		Tile newTile;
-		int newX = rng.nextInt(Tile.WIDTH * Map.MAP_WIDTH);
-		int newY = rng.nextInt(Tile.WIDTH * Map.MAP_WIDTH);
+		int newX = rng.nextInt(Map.MAP_WIDTH)*Tile.WIDTH;
+		int newY = rng.nextInt(Map.MAP_WIDTH)*Tile.HEIGHT;
 
 		newTile = MyGdxGame.testDungeon.getTileAt((newX/Tile.WIDTH), (newY/Tile.HEIGHT));
 
