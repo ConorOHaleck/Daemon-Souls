@@ -22,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	static Map testDungeon;  
 	static Imp testEnemy;
 	static Reticle playerReticle;
-	static String combatLogStr = "Combat Log";
+	static String combatLogStr = "";
 	static BitmapFont combatLog;
 	static int logLines = 1;
 	public static final int PLAYER_TURN = 0;
@@ -42,6 +42,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	static String name = "nothing";
 	private static int classChoice = -1;
 	static Player testPlayer;
+	Texture stairs;
+	static int stairX;
+	static int stairY;
+	static int floorCount = 1;
 	
 	
 	@Override
@@ -64,10 +68,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		reticleImg = Assets.reticleImg;
 		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
+		stairs = new Texture("BCA_StairsRock94_CG_bg.png");
 		generateFloor();
 	}
 
-	public void generateFloor() {
+	public static void generateFloor() {
 		DungeonGenerator mapGen = new DungeonGenerator();
 
 		testDungeon = mapGen.generateDungeon();
@@ -87,6 +92,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
 		enemyTile.setOccupant(testEnemy);
 		testDungeon.makeStairs();
+		System.out.println(stairX/Tile.WIDTH);
+		System.out.println(stairY/Tile.HEIGHT);
 		
 		/*for (int x = 0; x < 200; x++)
 		{
@@ -158,10 +165,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		combatLog.draw(batch, combatLogStr, (testPlayer.xPos - (5*Tile.WIDTH)), (testPlayer.yPos+ (7*Tile.HEIGHT)));
 		
+		
 		for (int i = 0; i < testDungeon.populants.size(); i++)
 		{
 			testDungeon.populants.get(i).Draw(batch);
 		}
+		
+		combatLog.draw(batch, "Stairs Go Here", stairX, stairY); //Please someone actually draw the stairs lol.
+		combatLog.draw(batch, "Floor: " + floorCount, (testPlayer.xPos - (8*Tile.WIDTH)), (testPlayer.yPos+ (7*Tile.HEIGHT)));
 
 		if (getGameState() == PLAYER_TURN) {
 			
@@ -203,9 +214,9 @@ public class MyGdxGame extends ApplicationAdapter {
 					testPlayer.img = Assets.player_up;
 				}
 				
-				if(Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-					generateFloor();
-				}
+				//if(Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+				//	generateFloor();
+				//}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 					testPlayer.ability1(testPlayer);
@@ -296,6 +307,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			newTurn(testPlayer);
 
 		}
+		
+		
 
 		batch.end();
 	}
@@ -381,7 +394,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 	
 	public static void updateLog(String input) {
-		if (logLines < 6) {
+		if (logLines < 7) {
 			combatLogStr += ("\n" + input);
 			logLines ++;
 			

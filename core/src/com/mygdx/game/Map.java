@@ -82,9 +82,11 @@ public class Map {
 		
 		if (tile.isCanCollide() == false) {
 			tile.setStairs(true);
+			MyGdxGame.stairX = stairX;
+			MyGdxGame.stairY = stairY;
 			
 		} else {
-			tile.img = Assets.stairs;
+			makeStairs();
 		}
 	}
 }

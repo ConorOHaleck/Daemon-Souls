@@ -18,7 +18,7 @@ public class Enemy extends Creature {
 		Tile oldTile;
 		Tile newTile;
 		
-		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos-Tile.WIDTH)/Tile.WIDTH, (this.yPos/Tile.HEIGHT));
+		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos)/Tile.WIDTH, (this.yPos/Tile.HEIGHT));
 		oldTile.setOccupant(null);
 		oldTile.setCanCollide(false);
 		
@@ -27,7 +27,7 @@ public class Enemy extends Creature {
 		xPos += Tile.WIDTH * x;
 		yPos += Tile.HEIGHT * y;
 		
-		newTile = MyGdxGame.testDungeon.getTileAt((this.xPos-Tile.WIDTH)/Tile.WIDTH, (this.yPos/Tile.HEIGHT));
+		newTile = MyGdxGame.testDungeon.getTileAt((this.xPos)/Tile.WIDTH, (this.yPos/Tile.HEIGHT));
 		newTile.setOccupant(MyGdxGame.testEnemy);
 		newTile.setCanCollide(true);
 		//System.out.println("EnemyX: " + (this.xPos/Tile.WIDTH));

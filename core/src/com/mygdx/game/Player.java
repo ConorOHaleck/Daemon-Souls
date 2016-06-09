@@ -51,7 +51,8 @@ public class Player extends Creature {
 			}
 			
 			if (newTile.isStairs()) {
-				
+				MyGdxGame.generateFloor();
+				MyGdxGame.floorCount ++;
 			}
 
 			newTile.setOccupant(MyGdxGame.testPlayer);
@@ -134,7 +135,7 @@ public class Player extends Creature {
 				MyGdxGame.setReticleType(MyGdxGame.FIREBALL);
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getFireballCD() + " rounds left");
 			}
 
 
@@ -184,7 +185,7 @@ public class Player extends Creature {
 				}
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getBashCd() + " rounds left");
 			}
 
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
@@ -197,7 +198,7 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setCleaveCD(1);
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getCleaveCD() + " rounds left");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN); //This looks different because target acquisition for cleave is handled differently.
 
@@ -214,11 +215,11 @@ public class Player extends Creature {
 				}
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getFlurryCD() + " rounds left");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
-		} else if (WizClass.isInstance(MyGdxGame.testPlayer)) {        //To finish when I do ranged combat
+		} else if (WizClass.isInstance(MyGdxGame.testPlayer)) {
 			System.out.println("Ice Lance");
 			MyGdxGame.setControlState(MyGdxGame.TARGETING_RANGED);
 			MyGdxGame.setReticleType(MyGdxGame.ICE_LANCE);
@@ -239,7 +240,7 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setBulwarkCD(3);
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getBulwarkCD() + " rounds left");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -256,7 +257,7 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setSerenityCD(3);
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getSerenityCD() + " rounds left");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -265,10 +266,10 @@ public class Player extends Creature {
 			
 			if (MyGdxGame.testPlayer.getTeleCD() <= 0) {
 				((Wizard) player).teleport();
-				MyGdxGame.testPlayer.setTeleCD(50);
+				//MyGdxGame.testPlayer.setTeleCD(50);
 
 			} else {
-				MyGdxGame.updateLog("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getTeleCD() + " rounds left");
 			}
 
 		} else {
