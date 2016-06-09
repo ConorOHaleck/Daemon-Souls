@@ -152,7 +152,7 @@ public class Creature extends Entity{
 	}
 	
 	public void die() {
-		System.out.println(this.getName() + " dies.");
+		MyGdxGame.playerAlive = false;
 	}
 	
 	public void defenseUpdate() {

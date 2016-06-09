@@ -269,7 +269,7 @@ public class Player extends Creature {
 			
 			if (MyGdxGame.testPlayer.getTeleCD() <= 0) {
 				((Wizard) player).teleport();
-				//MyGdxGame.testPlayer.setTeleCD(50);
+				MyGdxGame.testPlayer.setTeleCD(50);
 
 			} else {
 				MyGdxGame.updateLog("That ability is on cooldown. " + MyGdxGame.testPlayer.getTeleCD() + " rounds left");
@@ -294,4 +294,6 @@ public class Player extends Creature {
 	public void setFacing(int facing) {
 		this.facing = facing;
 	}
+	
+	
 }
