@@ -3,8 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -19,6 +22,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	static Map testDungeon;  
 	static Imp testEnemy;
 	static Reticle playerReticle;
+	static String combatLogStr = "Combat Log";
+	static BitmapFont combatLog;
+	static int logLines = 1;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
 	public static final int MENU = -1;
@@ -36,7 +42,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	static String name = "nothing";
 	private static int classChoice = -1;
 	static Player testPlayer;
-
+	
+	
 	@Override
 	public void create () {
 		Assets.initAssets();
@@ -47,7 +54,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		float h = Gdx.graphics.getHeight();   
 		//ui.setSkin(new Skin(Gdx.files.internal("yC0rv.png")));
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
-		//combatLog = new TextField("Combat Log: ", skin);
+		combatLog = new BitmapFont();
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 20;
 		playerCam.update();
@@ -79,6 +86,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
 		enemyTile.setOccupant(testEnemy);
+		testDungeon.makeStairs();
 		
 		/*for (int x = 0; x < 200; x++)
 		{
@@ -146,6 +154,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
 		testEnemy.Draw(batch);
+		
+		combatLog.draw(batch, combatLogStr, (testPlayer.xPos - (5*Tile.WIDTH)), (testPlayer.yPos+ (7*Tile.HEIGHT)));
+		
 		for (int i = 0; i < testDungeon.populants.size(); i++)
 		{
 			testDungeon.populants.get(i).Draw(batch);
@@ -180,6 +191,10 @@ public class MyGdxGame extends ApplicationAdapter {
 					testPlayer.setFacing(Player.UP);
 					testPlayer.move(0, 1f);
 					testPlayer.img = Assets.player_up;
+				}
+				
+				if(Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+					generateFloor();
 				}
 
 				if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
@@ -347,11 +362,22 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	//Pauses game for number of seconds
-	private static void slowYourRollBro(int sec){
+	public static void slowYourRollBro(int sec){
 		try {
 			Thread.sleep(sec*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void updateLog(String input) {
+		if (logLines < 6) {
+			combatLogStr += ("\n" + input);
+			logLines ++;
+			
+		} else {
+			combatLogStr = input;
+			logLines = 1;
 		}
 	}
 }

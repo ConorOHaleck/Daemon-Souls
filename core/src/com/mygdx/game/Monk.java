@@ -22,12 +22,12 @@ public class Monk extends Player {
 	public void jab(Creature target) {
 		int damage = (int) ((0.4*this.getStrength()) + (0.3*this.getAgility()));
 		damage = this.flagCheckOffense(damage);
-		System.out.println(this.getName() + " attacks " + target.getName() + " with a quick jab!");
+		MyGdxGame.updateLog(this.getName() + " attacks " + target.getName() + " with a quick jab!");
 		target.getHit(damage);
 	}
 	
 	public void flurry(Creature target) {
-		System.out.println(this.getName() + " attacks " + target.getName() + " with a flurry of blows!");
+		MyGdxGame.updateLog(this.getName() + " attacks " + target.getName() + " with a flurry of blows!");
 		this.jab(target);
 		this.jab(target);
 		this.jab(target);

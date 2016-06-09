@@ -24,7 +24,7 @@ public class Barbarian extends Player{
 	public void chop(Creature target) {
 		int damage = (int) (0.7*this.getStrength());
 		damage = this.flagCheckOffense(damage);
-		System.out.println(this.getName() + " attacks " + target.getName() + " with a mighty chop!");
+		MyGdxGame.updateLog(this.getName() + " attacks " + target.getName() + " with a mighty chop!");
 		target.getHit(damage);
 	}
 	
@@ -93,12 +93,12 @@ public class Barbarian extends Player{
 	public void cleave(Creature target) {
 		int damage = (int) (0.5*this.getStrength());
 		damage = this.flagCheckOffense(damage);
-		System.out.println(this.getName() + " cleaves to  " + target.getName() + " !");
+		MyGdxGame.updateLog(this.getName() + " cleaves to  " + target.getName() + " !");
 		target.getHit(damage);
 	}
 	
 	public void rage() {
-		System.out.println(this.getName() + " goes into a raging frenzy!");
+		MyGdxGame.updateLog(this.getName() + " goes into a raging frenzy!");
 		this.rageActive();
 		this.setRageDuration(3);
 	}

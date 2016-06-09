@@ -49,6 +49,10 @@ public class Player extends Creature {
 					itemGet.pickUp(this);
 				}
 			}
+			
+			if (newTile.isStairs()) {
+				
+			}
 
 			newTile.setOccupant(MyGdxGame.testPlayer);
 
@@ -76,14 +80,14 @@ public class Player extends Creature {
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 
 		} else if (MyGdxGame.testPlayer.getFacing() == LEFT) {
-			targetX = (this.xPos/Tile.WIDTH) - 1;
+			targetX = (this.xPos/Tile.WIDTH) - 2;
 			targetY = (this.yPos/Tile.HEIGHT);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 
 
 		} else if (MyGdxGame.testPlayer.getFacing() == DOWN) {
 			targetX = (this.xPos/Tile.WIDTH);
-			targetY = (this.yPos/Tile.HEIGHT) - 1;
+			targetY = (this.yPos/Tile.HEIGHT) - 2;
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 		}
 
@@ -94,7 +98,7 @@ public class Player extends Creature {
 				((Knight) player).stab(target);
 
 			} catch (NullPointerException e) {
-				System.out.println("The attack missed!");
+				MyGdxGame.updateLog("The attack missed!");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -105,7 +109,7 @@ public class Player extends Creature {
 				((Barbarian) player).chop(target);
 
 			} catch (NullPointerException e) {
-				System.out.println("The attack missed!");
+				MyGdxGame.updateLog("The attack missed!");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -117,7 +121,7 @@ public class Player extends Creature {
 				((Monk) player).jab(target);
 
 			} catch (NullPointerException e) {
-
+				MyGdxGame.updateLog("The attack missed!");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -130,7 +134,7 @@ public class Player extends Creature {
 				MyGdxGame.setReticleType(MyGdxGame.FIREBALL);
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 
 
@@ -157,13 +161,13 @@ public class Player extends Creature {
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 
 		} else if (MyGdxGame.testPlayer.getFacing() == LEFT) {
-			targetX = (this.xPos/Tile.WIDTH) - 1;
+			targetX = (this.xPos/Tile.WIDTH) - 2;
 			targetY = (this.yPos/Tile.HEIGHT);
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 
 		} else if (MyGdxGame.testPlayer.getFacing() == DOWN) {
 			targetX = (this.xPos/Tile.WIDTH);
-			targetY = (this.yPos/Tile.HEIGHT) - 1;
+			targetY = (this.yPos/Tile.HEIGHT) - 2;
 			target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 		}
 
@@ -176,11 +180,11 @@ public class Player extends Creature {
 					MyGdxGame.testPlayer.setBashCd(2);
 
 				} catch (NullPointerException e) {
-					System.out.println("The attack missed!");
+					MyGdxGame.updateLog("The attack missed!");
 				}
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
@@ -193,7 +197,7 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setCleaveCD(1);
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN); //This looks different because target acquisition for cleave is handled differently.
 
@@ -206,11 +210,11 @@ public class Player extends Creature {
 					MyGdxGame.testPlayer.setFlurryCD(2);
 
 				} catch (NullPointerException e) {
-					System.out.println("The attack missed!");
+					MyGdxGame.updateLog("The attack missed!");
 				}
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -220,7 +224,7 @@ public class Player extends Creature {
 			MyGdxGame.setReticleType(MyGdxGame.ICE_LANCE);
 
 		} else {
-			System.out.println("Error");
+			MyGdxGame.updateLog("Error");
 		}
 	}
 
@@ -235,7 +239,7 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setBulwarkCD(3);
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -252,7 +256,7 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setSerenityCD(3);
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
 
@@ -264,11 +268,11 @@ public class Player extends Creature {
 				MyGdxGame.testPlayer.setTeleCD(50);
 
 			} else {
-				System.out.println("That ability is on cooldown.");
+				MyGdxGame.updateLog("That ability is on cooldown.");
 			}
 
 		} else {
-			System.out.println("Error");
+			//MyGdxGame.updateLog("Error");
 		}
 	}
 

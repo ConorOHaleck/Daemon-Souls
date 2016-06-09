@@ -29,7 +29,7 @@ public class Imp extends Enemy {
 	public void cut(Creature target) {
 		int damage = (int) (1*this.getStrength()); //base damage values for ability is calculated first
 		damage = this.flagCheckOffense(damage); //call attack flag checker for extra modifiers.
-		System.out.println(this.getName() + " slices at " + target.getName() + "!");
+		MyGdxGame.updateLog(this.getName() + " slices at " + target.getName() + "!");
 		target.getHit(damage);
 	}
 

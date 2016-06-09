@@ -15,12 +15,12 @@ public class Reticle extends Entity {
 	
 	public void drawOne(SpriteBatch bat) {
 
-		bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT);
+		bat.draw(this.img, (this.xPos - Tile.WIDTH), this.yPos, Tile.WIDTH, Tile.HEIGHT);
 	}
 	
 	public void drawFour(SpriteBatch bat) {
 		//bat.draw(this.img, this.xPos, this.yPos, Tile.WIDTH, Tile.HEIGHT); //this was causing wierd double-draw
-		bat.draw(this.img, this.xPos, this.yPos, 0, 0, (Tile.WIDTH * 2), (Tile.HEIGHT * 2), 1, 1, 0, false);
+		bat.draw(this.img, (this.xPos - Tile.WIDTH), this.yPos, 0, 0, (Tile.WIDTH * 2), (Tile.HEIGHT * 2), 1, 1, 0, false);
 	}
 	
 	//public void drawOne(SpriteBatch bat) {

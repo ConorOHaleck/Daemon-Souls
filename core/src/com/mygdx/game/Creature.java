@@ -61,17 +61,17 @@ public class Creature extends Entity{
 		damage = this.flagCheckDefense(damage);
 		int hit = damage - this.defense;
 		if (this.checkDeath(hit)) {
+			MyGdxGame.updateLog(this.getName() + " takes " + hit + " damage!");
 			die();
-			System.out.println(this.getName() + " takes " + hit + " damage!");
 			//Set gui hp to zero
 		} else if (hit < 0) {
 			//might do something here, this block only exists to prevent negative damage from healing you.
 			//System.out.println(this.getName() + " hp: " + health);
-			System.out.println(this.getName() + " takes " + 0 + " damage!");
+			MyGdxGame.updateLog(this.getName() + " takes " + 0 + " damage!");
 		} else {
 			this.health -= hit;
 			//System.out.println(this.getName() + " hp: " + health);
-			System.out.println(this.getName() + " takes " + hit + " damage!");
+			MyGdxGame.updateLog(this.getName() + " takes " + hit + " damage!");
 			//update gui hp normally
 		}
 	}
@@ -81,10 +81,10 @@ public class Creature extends Entity{
 		health += healing;
 		if (health >= this.getMaxHp()) {
 			this.setHealth(maxHp);
-			System.out.println(this.getName() + " hp: " + this.getHealth());
+			MyGdxGame.updateLog(this.getName() + " heals for " + healing);
 		} else {
 			this.setHealth(health);
-			System.out.println(this.getName() + " hp: " + this.getHealth());
+			MyGdxGame.updateLog(this.getName() + " heals for " + healing);
 		}
 	}
 	
@@ -157,7 +157,7 @@ public class Creature extends Entity{
 	public int monkDefense(int damage) {
 		if ((damage - defense) > 10) {
 			damage = 10;
-			System.out.println(this.getName() + " softens the blow!"); // I'm not sure if monks should benefit from defense or how that works with monk defense
+			MyGdxGame.updateLog(this.getName() + " softens the blow!"); // I'm not sure if monks should benefit from defense or how that works with monk defense
 			this.setDefense(0);
 			return damage;
 		} else {

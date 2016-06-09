@@ -11,6 +11,7 @@ public class Tile extends Entity {
 	private int y;
 	private boolean walkable = false;
 	private Entity occupant;
+	private boolean isStairs = false;
 	
 	
 	public Tile(boolean canCollide, int posX, int posY) {
@@ -77,6 +78,14 @@ public class Tile extends Entity {
 	
 	public void setOccupant(Entity occupant) {
 		this.occupant = occupant;
+	}
+
+	public boolean isStairs() {
+		return isStairs;
+	}
+
+	public void setStairs(boolean isStairs) {
+		this.isStairs = isStairs;
 	}
 	
 	

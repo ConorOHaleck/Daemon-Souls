@@ -33,7 +33,7 @@ public class Wizard extends Player{
 		target = (Creature) MyGdxGame.testDungeon.getTileAt(targetX, targetY).getOccupant();
 
 		if (target != null) {
-			Sprites.effectAnimate(Assets.iceball);
+			//Sprites.effectAnimate(Assets.iceball);
 			this.iceLance(target);
 			MyGdxGame.setControlState(MyGdxGame.PLAYER_MOVEMENT);
 			MyGdxGame.setGameState(MyGdxGame.ENEMY_TURN);
@@ -42,7 +42,7 @@ public class Wizard extends Player{
 
 	public void iceLance(Creature target) {
 		int damage = (int) (0.75*this.getIntelligence());
-		System.out.println(this.getName() + " fires a lance of ice!");
+		MyGdxGame.updateLog(this.getName() + " fires a lance of ice!");
 		target.getHit(damage);
 	}
 
@@ -67,9 +67,9 @@ public class Wizard extends Player{
 		targetList.add(target3);
 		targetList.add(target4);
 		
-		Sprites.effectAnimate(Assets.fireball);  //this line right here
+		//Sprites.effectAnimate(Assets.fireball);  //this line right here
 		
-		System.out.println(this.getName() + " tosses out a huge fireball!");
+		MyGdxGame.updateLog(this.getName() + " tosses out a huge fireball!");
 		
 		for (Creature t : targetList) {
 			if (t != null) {

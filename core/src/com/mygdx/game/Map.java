@@ -71,4 +71,20 @@ public class Map {
 			bat.draw(tiles.get(i).getImg(), tiles.get(i).getX() * Tile.WIDTH, tiles.get(i).getY() * Tile.HEIGHT);
 		}
 	}
+	
+	public void makeStairs() {
+		Random rng = new Random();
+		Tile tile;
+		int stairX = rng.nextInt(Map.MAP_WIDTH)*Tile.WIDTH;
+		int stairY = rng.nextInt(Map.MAP_WIDTH)*Tile.HEIGHT;
+		
+		tile = MyGdxGame.testDungeon.getTileAt((stairX/Tile.WIDTH), (stairY/Tile.HEIGHT));
+		
+		if (tile.isCanCollide() == false) {
+			tile.setStairs(true);
+			
+		} else {
+			makeStairs();
+		}
+	}
 }
