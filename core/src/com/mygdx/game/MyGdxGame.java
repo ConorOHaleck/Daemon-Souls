@@ -207,9 +207,10 @@ public class MyGdxGame extends ApplicationAdapter {
 			testDungeon.populants.get(i).Draw(batch);
 		}
 		
-		combatLog.draw(batch, "Stairs Go Here", stairX, stairY); //Please someone actually draw the stairs lol.
+		//combatLog.draw(batch, "Stairs Go Here", stairX, stairY); //Please someone actually draw the stairs lol.
 		combatLog.draw(batch, "Floor: " + floorCount, (testPlayer.xPos - (8*Tile.WIDTH)), (testPlayer.yPos+ (7*Tile.HEIGHT)));
-
+		batch.draw(Assets.stairs, stairX, stairY, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0);
+		
 		if (getGameState() == PLAYER_TURN) {
 			
 			int x = testPlayer.xPos - Tile.WIDTH;

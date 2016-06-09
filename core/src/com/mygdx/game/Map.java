@@ -85,7 +85,6 @@ public class Map {
 			tile.setStairs(true);
 			MyGdxGame.stairX = stairX;
 			MyGdxGame.stairY = stairY;
-			
 		} else {
 			makeStairs();
 		}
