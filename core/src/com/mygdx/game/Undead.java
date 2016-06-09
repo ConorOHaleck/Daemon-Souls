@@ -39,12 +39,16 @@ public class Undead extends Monster {
 		
 		boolean isMove;
 		
-		public Zombie(TextureRegion img, int i, int j, Player testPlayer) {
-			super(img, i, j, testPlayer);
+		public Zombie(Player testPlayer) {
+			super(Assets.creatureTiles.get(30).img, 0, 0, testPlayer);
+			
+			this.setName("Zombie");
+			this.setMaxHp(10);
+			this.setHealth(10);
+			this.setDefense(5);
 		}
 
 		public void turn(){
-			System.out.println("It got a turn?");
 			isMove = !isMove;
 			
 			updateProx();
@@ -64,8 +68,17 @@ public class Undead extends Monster {
 	
 	public static class Wight extends Undead{
 		
+		public Wight(Player testPlayer) {
+			super(Assets.creatureTiles.get(100).img, 0, 0, testPlayer);
+			
+			this.setName("Wight");
+			this.setMaxHp(10);
+			this.setHealth(10);
+			this.setDefense(5);
+		}
+		
 		public void turn(){
-			System.out.println("It got a turn?");
+
 			
 			updateProx();
 			
@@ -84,6 +97,15 @@ public class Undead extends Monster {
 	}
 	
 	public static class Banshee extends Undead{
+		
+		public Banshee(Player testPlayer) {
+			super(Assets.creatureTiles.get(100).img, 0, 0, testPlayer);
+			
+			this.setName("Banshee");
+			this.setMaxHp(10);
+			this.setHealth(10);
+			this.setDefense(5);
+		}
 		
 		static final int CHASE_TETHER = 5;
 		static final int AURA_TETHER = 2;

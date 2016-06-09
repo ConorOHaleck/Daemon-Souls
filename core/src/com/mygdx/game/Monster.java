@@ -229,8 +229,6 @@ public class Monster extends Creature {
 	public void updateProx(){
 		
 		xProx = (int) Math.abs(pCharacter.xPos - this.xPos);
-		System.out.println("pCharacter map X = " + pCharacter.xPos);
-		System.out.println("this map X" + this.xPos);
 		yProx = (int) Math.abs(pCharacter.yPos - this.yPos);
 		
 	}

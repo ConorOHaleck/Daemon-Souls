@@ -466,7 +466,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		while(i < DUNGEON_TOTAL){
 			
 
-			Zombie newZomb = new Zombie(Assets.creatureTiles.get(30).img,0,0,testPlayer);
+			Zombie newZomb = new Zombie(testPlayer);
 			System.out.println("Well we built one");
 			returner.add(newZomb);
 			i++;
