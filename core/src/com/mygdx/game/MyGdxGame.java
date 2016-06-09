@@ -295,10 +295,10 @@ public class MyGdxGame extends ApplicationAdapter {
 			{
 				Monster currentMonster = enemyList.get(i);
 				currentMonster.turn();
-				System.out.println("HEY!");
+
 				currentMonster.updateProx();
-				System.out.println(currentMonster.pCharacter);
 				System.out.println(enemyList.get(i).getxProx() + ", " + enemyList.get(i).getyProx());
+				
 				if(enemyList.get(i).xProx<15||enemyList.get(i).yProx<15){
 					slowYourRollBro(1);
 				}
