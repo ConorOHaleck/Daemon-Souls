@@ -76,7 +76,7 @@ public class Monster extends Creature {
 		Tile oldTile;
 		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
 		Tile newTile;
-		newTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
+		newTile = MyGdxGame.testDungeon.getTileAt(((this.xPos/Tile.WIDTH)+(command.x*32)), ((this.yPos/Tile.HEIGHT))+(command.y*32));
 		
 		if(!newTile.isCanCollide()){
 			oldTile.setOccupant(null);
