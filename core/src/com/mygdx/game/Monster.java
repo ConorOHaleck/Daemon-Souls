@@ -64,6 +64,15 @@ public class Monster extends Creature {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void defenseUpdate(){
+		//Does nothing because Monster's defenses never update
+	}
+	
+	public void die(){
+		MyGdxGame.enemyList.remove(this);
+		MyGdxGame.testDungeon.populants.remove(this);
+		MyGdxGame.updateLog(this.getName() + " die with a bloodcurdling screech!");
+	}
 
 
 	public void turn(){
