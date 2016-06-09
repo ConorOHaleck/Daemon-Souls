@@ -25,16 +25,21 @@ public class Sprites {
 		//Player animations.
 		private static float stateTime = 0f;
 		
-		public static final TextureRegion playerAnimate(Animation action){		
-			stateTime += Gdx.graphics.getDeltaTime();
-			return action.getKeyFrame(stateTime, true);
-		}
+//		public static final void playerAniMove(int direction){
+//			Animation action;
+//			
+//			
+//			
+//			stateTime += Gdx.graphics.getDeltaTime();
+//			TextureRegion anim = action.getKeyFrame(stateTime, true);
+//			MyGdxGame.batch.draw(anim, MyGdxGame.testPlayer.xPos, MyGdxGame.testPlayer.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0);
+//			stateTime = 0f;
+//		}
 		
 		//This method SHOULD play an effect animation through once, maybe twice. ;)
 		public static final void effectAnimate(Animation effect){
 			for(int x = 0; x < 500; x++){
 				stateTime += Gdx.graphics.getDeltaTime();
-//				TextureRegion anim = effect.getKeyFrame(stateTime, false);
 			if (effect == Assets.fireball){
 				TextureRegion anim = effect.getKeyFrame(stateTime, false);
 				MyGdxGame.batch.draw(anim, MyGdxGame.playerReticle.xPos, MyGdxGame.playerReticle.yPos, 0, 0, (Tile.WIDTH * 2), (Tile.HEIGHT * 2), 1, 1, 0, false);
@@ -45,9 +50,52 @@ public class Sprites {
 			} else {
 				return;
 			}
-			stateTime = 0;
+			stateTime = 0f;
 			}
 		}
+//		
+//		public static void animateSpell(int facing){
+//			Animation anim = null;
+//			switch(facing){
+//			case (Player.UP): {
+//				anim = Assets.spell_up;
+//			} case(Player.LEFT): {
+//				anim = Assets.spell_left;
+//			} case(Player.DOWN): {
+//				anim = Assets.spell_down;
+//			} case(Player.RIGHT): {
+//				anim = Assets.spell_right;
+//			}
+//			}
+//			stateTime += Gdx.graphics.getDeltaTime();
+//			
+//			TextureRegion animation = anim.getKeyFrame(stateTime, true);
+//			
+//			MyGdxGame.testPlayer.img = animation;
+//			//MyGdxGame.batch.draw(animation, MyGdxGame.testPlayer.xPos, MyGdxGame.testPlayer.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0);
+//			stateTime = 0f;
+//		}
+//
+//		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

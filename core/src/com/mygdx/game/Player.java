@@ -253,6 +253,9 @@ public class Player extends Creature {
 			System.out.println("Serenity");
 
 			if (MyGdxGame.testPlayer.getSerenityCD() <= 0) {
+				
+				//Sprites.animateSpell(facing);
+				
 				((Monk) player).serenity();
 				MyGdxGame.testPlayer.setSerenityCD(3);
 
