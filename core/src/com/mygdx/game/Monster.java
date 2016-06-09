@@ -85,13 +85,19 @@ public class Monster extends Creature {
 	public void move(Movement command){
 		
 		Tile oldTile;
+		System.out.println(this.xPos);
+		System.out.println(this.yPos);
 		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
 		Tile newTile;
 		
-		if (oldTile.getX() + command.x < 0 || oldTile.getY()+command.y < 0 && oldTile.getX() + command.x > 200 || oldTile.getY()+command.y > 200  )
+		if (oldTile.getX() + command.x <= 0 || oldTile.getY()+command.y <= 0 && oldTile.getX() + command.x >= 200 || oldTile.getY()+command.y >= 200  )
 			return;
 			
-		newTile = MyGdxGame.testDungeon.getTileAt(oldTile.getX() + command.x, oldTile.getY() + command.y);
+		try {
+			newTile = MyGdxGame.testDungeon.getTileAt(oldTile.getX() + command.x, oldTile.getY() + command.y);
+		} catch (Exception e) {
+			return;
+		}
 		
 		if(!newTile.isCanCollide()){
 			oldTile.setOccupant(null);
@@ -232,8 +238,6 @@ public class Monster extends Creature {
 	public void updateProx(){
 		
 		xProx = (int) Math.abs(pCharacter.xPos - this.xPos);
-		System.out.println("pCharacter map X = " + pCharacter.xPos);
-		System.out.println("this map X" + this.xPos);
 		yProx = (int) Math.abs(pCharacter.yPos - this.yPos);
 		
 	}
