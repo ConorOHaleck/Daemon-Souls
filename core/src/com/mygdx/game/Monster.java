@@ -71,7 +71,9 @@ public class Monster extends Creature {
 	public void die(){
 		MyGdxGame.enemyList.remove(this);
 		MyGdxGame.testDungeon.populants.remove(this);
-		MyGdxGame.updateLog(this.getName() + " die with a bloodcurdling screech!");
+		MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT)).setOccupant(null);
+		MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT)).setCanCollide(false);
+		MyGdxGame.updateLog(this.getName() + " dies with a bloodcurdling screech!");
 	}
 
 
@@ -85,7 +87,11 @@ public class Monster extends Creature {
 		Tile oldTile;
 		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
 		Tile newTile;
-		newTile = MyGdxGame.testDungeon.getTileAt(((this.xPos/Tile.WIDTH)+(command.x)), ((this.yPos/Tile.HEIGHT))+(command.y));
+		
+		if (oldTile.getX() + command.x < 0 || oldTile.getY()+command.y < 0 && oldTile.getX() + command.x > 200 || oldTile.getY()+command.y > 200  )
+			return;
+			
+		newTile = MyGdxGame.testDungeon.getTileAt(oldTile.getX() + command.x, oldTile.getY() + command.y);
 		
 		if(!newTile.isCanCollide()){
 			oldTile.setOccupant(null);

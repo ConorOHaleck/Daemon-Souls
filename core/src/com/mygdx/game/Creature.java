@@ -374,8 +374,8 @@ public class Creature extends Entity{
 		int y;
 		
 		Movement(int X, int Y){
-			x = X;
-			y = Y;
+			this.x = X;
+			this.y = Y;
 		}
 	}
 }
