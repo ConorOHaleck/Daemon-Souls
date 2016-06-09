@@ -106,6 +106,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 
+		
 		if (gameState == MENU)
 		{
 			menuBatch.begin();
@@ -163,6 +164,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (getGameState() == PLAYER_TURN) {
+			
+			int x = testPlayer.xPos - Tile.WIDTH;
+			int y = testPlayer.yPos - (7*Tile.HEIGHT);
+			batch.draw(Assets.iconQ, x, y, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0);
+			x+= Tile.WIDTH;
+			batch.draw(Assets.iconW, x, y, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0);
+			x+=Tile.WIDTH;
+			batch.draw(Assets.iconE, x, y, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0);
+			
 			
 			if (getControlState() == PLAYER_MOVEMENT) {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
