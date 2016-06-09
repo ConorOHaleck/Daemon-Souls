@@ -41,7 +41,7 @@ public class UI {
 	private TextButton classChoice;
 	private ButtonGroup<TextButton> classBtnGroup;
 	private ButtonGroup<TextButton> genderBtnGroup;
-	private String name;
+	private String name = "";
 	private int num = -1;
 	private boolean finished = false;
 	private String empty = "";
@@ -152,7 +152,7 @@ public class UI {
 		//txtName.setPosition(stage.getViewport().getScreenX()/3, stage.getViewport().getScreenY()/3);
 		txtName.setTextFieldListener(new TextFieldListener() {
 			public void keyTyped(TextField txtName, char c) {
-				name = ""+c;
+				name = name+c;
 			}
 		});
 		

@@ -4,15 +4,15 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Timer;
 
 
 public class Sprites {
-	
-//	public static final Texture DUNGEON_FLOOR_PLAIN = new Texture("max.jpg");
-//	public static final Texture PLAYER = new Texture("playerFix.png");
-//	public static final Texture DUNGEON_FLOOR_EMPTY = new Texture("empty.png");
 
+	
+		Timer time = new Timer();
 		public static final TextureRegion DUNGEON_FLOOR_PLAIN = Assets.floorTiles.get(0).getImg();
 		public static final TextureRegion DUNGEON_FLOOR_EMPTY = Assets.wallTiles.get(0).getImg();
 		
@@ -25,24 +25,28 @@ public class Sprites {
 		//Player animations.
 		private static float stateTime = 0f;
 		
-		public static final TextureRegion playerAnimate(Animation action){
-			
-			
+		public static final TextureRegion playerAnimate(Animation action){		
 			stateTime += Gdx.graphics.getDeltaTime();
 			return action.getKeyFrame(stateTime, true);
-		
-		
 		}
 		
 		//This method SHOULD play an effect animation through once, maybe twice. ;)
 		public static final void effectAnimate(Animation effect){
-			TextureRegion old = new TextureRegion(MyGdxGame.playerReticle.img);
-			stateTime += Gdx.graphics.getDeltaTime();
-			while (true){
-			 MyGdxGame.playerReticle.img = effect.getKeyFrame(stateTime, true);
-			 if (effect.isAnimationFinished(stateTime)) break;
+			for(int x = 0; x < 500; x++){
+				stateTime += Gdx.graphics.getDeltaTime();
+//				TextureRegion anim = effect.getKeyFrame(stateTime, false);
+			if (effect == Assets.fireball){
+				TextureRegion anim = effect.getKeyFrame(stateTime, false);
+				MyGdxGame.batch.draw(anim, MyGdxGame.playerReticle.xPos, MyGdxGame.playerReticle.yPos, 0, 0, (Tile.WIDTH * 2), (Tile.HEIGHT * 2), 1, 1, 0, false);
+				
+			} else if (effect == Assets.iceball){
+				TextureRegion anim = effect.getKeyFrame(stateTime, false);
+				MyGdxGame.batch.draw(anim, MyGdxGame.playerReticle.xPos, MyGdxGame.playerReticle.yPos, 0, 0, Tile.WIDTH, Tile.HEIGHT, 1, 1, 0, false);
+			} else {
+				return;
 			}
-			MyGdxGame.playerReticle.img = old;
+			stateTime = 0;
+			}
 		}
 		
 		

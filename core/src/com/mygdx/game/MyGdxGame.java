@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
+	public static SpriteBatch batch;
 	SpriteBatch menuBatch;
 
 	TextureRegion img;
