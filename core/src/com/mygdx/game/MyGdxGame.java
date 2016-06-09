@@ -24,6 +24,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	static Reticle playerReticle;
 	static String combatLogStr = "Combat Log";
 	static BitmapFont combatLog;
+	static BitmapFont redFont;
 	static int logLines = 1;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
@@ -42,7 +43,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	static String name = "nothing";
 	private static int classChoice = -1;
 	static Player testPlayer;
-	
+	static String hudHp;
+	private static int health;
 	
 	@Override
 	public void create () {
@@ -55,6 +57,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		//ui.setSkin(new Skin(Gdx.files.internal("yC0rv.png")));
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
 		combatLog = new BitmapFont();
+		redFont = new BitmapFont();
+		redFont.setColor(Color.RED);
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 20;
 		playerCam.update();
@@ -65,6 +69,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
 		generateFloor();
+		health = testPlayer.getHealth();
+		hudHp = "Health: "+health;
 	}
 
 	public void generateFloor() {
@@ -157,6 +163,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		testEnemy.Draw(batch);
 		
 		combatLog.draw(batch, combatLogStr, (testPlayer.xPos - (5*Tile.WIDTH)), (testPlayer.yPos+ (7*Tile.HEIGHT)));
+		redFont.draw(batch, hudHp, (testPlayer.xPos - (5*Tile.WIDTH)), (float) (testPlayer.yPos- (6.5*Tile.HEIGHT)));
 		
 		for (int i = 0; i < testDungeon.populants.size(); i++)
 		{
@@ -389,5 +396,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			combatLogStr = input;
 			logLines = 1;
 		}
+		health = testPlayer.getHealth();
+		hudHp = "Health: "+health;
 	}
 }
