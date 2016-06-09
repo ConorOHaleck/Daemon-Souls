@@ -84,7 +84,7 @@ public class Map {
 			tile.setStairs(true);
 			
 		} else {
-			makeStairs();
+			tile.img = Assets.stairs;
 		}
 	}
 }

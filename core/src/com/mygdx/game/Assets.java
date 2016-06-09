@@ -41,6 +41,7 @@ public class Assets {
 	public static TextureRegion iconW = new TextureRegion();
 	public static TextureRegion iconE = new TextureRegion();
 	
+	public static TextureRegion stairs = new TextureRegion(new Texture("BCA_StairsRock94_CG_bg.png"));
 	
 	// Array lists to store all assets
 	public static ArrayList<Floor> floorTiles = new ArrayList<Floor>();
