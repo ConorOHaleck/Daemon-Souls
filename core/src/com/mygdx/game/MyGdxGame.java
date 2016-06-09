@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.Undead.Zombie;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static SpriteBatch batch;
@@ -17,13 +20,17 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	TextureRegion img;
 	TextureRegion reticleImg;
+	
+	static ArrayList<Monster> enemyList;
+	public static final int ENEMY_POP_SWING = 10;
 
 	UI ui = new UI();
 	static Map testDungeon;  
-	static Imp testEnemy;
+	//static Imp testEnemy;
 	static Reticle playerReticle;
 	static String combatLogStr = "";
 	static BitmapFont combatLog;
+	static BitmapFont redFont;
 	static int logLines = 1;
 	public static final int PLAYER_TURN = 0;
 	public static final int ENEMY_TURN = 1;
@@ -42,11 +49,15 @@ public class MyGdxGame extends ApplicationAdapter {
 	static String name = "nothing";
 	private static int classChoice = -1;
 	static Player testPlayer;
+
 	Texture stairs;
 	static int stairX;
 	static int stairY;
 	static int floorCount = 1;
 	
+
+	static String hudHp;
+	private static int health;
 	
 	@Override
 	public void create () {
@@ -59,17 +70,22 @@ public class MyGdxGame extends ApplicationAdapter {
 		//ui.setSkin(new Skin(Gdx.files.internal("yC0rv.png")));
 		playerCam = new OrthographicCamera(32, 32 * (h/w));
 		combatLog = new BitmapFont();
+		redFont = new BitmapFont();
+		redFont.setColor(Color.RED);
 		playerCam.position.set(0, 0, 0);
 		playerCam.zoom = 20;
 		playerCam.update();
 		menuBatch = new SpriteBatch();
 		batch = new SpriteBatch();
 		testPlayer = new Wizard("Sir test", Sprites.P_DOWN);
+		reticleImg = Sprites.P_DOWN;
+		//testEnemy =  new Imp(Sprites.IMP);
 		reticleImg = Assets.reticleImg;
-		testEnemy =  new Imp(Sprites.IMP);
 		playerReticle = new Reticle(reticleImg);
 		stairs = new Texture("BCA_StairsRock94_CG_bg.png");
 		generateFloor();
+		health = testPlayer.getHealth();
+		hudHp = "Health: "+health;
 	}
 
 	public static void generateFloor() {
@@ -88,9 +104,24 @@ public class MyGdxGame extends ApplicationAdapter {
 				testDungeon.getTiles().get(i).setImg(Assets.floorTiles.get(35).getImg());
 			}
 		}
+		
+		Undead steven = new Undead(Assets.creatureTiles.get(18).img,0,0, testPlayer);
+		Undead michael = new Undead(Assets.creatureTiles.get(25).img,0,0, testPlayer);
+		Undead deaderd = new Undead(Assets.creatureTiles.get(55).img,0,0, testPlayer);
+		ArrayList<Monster> testList = new ArrayList<Monster>();
+		testList.add(steven);
+		testList.add(michael);
+		testList.add(deaderd);
+		
+		enemyList = testList;
+		
+		
+		testDungeon.populateRooms(testList);
+		
+		
 
-		Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
-		enemyTile.setOccupant(testEnemy);
+		//Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
+		//enemyTile.setOccupant(testEnemy);
 		testDungeon.makeStairs();
 		System.out.println(stairX/Tile.WIDTH);
 		System.out.println(stairY/Tile.HEIGHT);
@@ -154,6 +185,11 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 			startTile.setOccupant(testPlayer);
 			testPlayer.setPos(startTile.getX() * 32, (startTile.getY()) * 32);
+			
+			for (Monster monster : enemyList) {
+				monster.pCharacter = testPlayer;
+			}
+			
 			gameState = PLAYER_TURN;
 		}
 
@@ -161,11 +197,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(playerCam.combined);
 		testDungeon.Draw(batch);
 		testPlayer.Draw(batch);
-		testEnemy.Draw(batch);
-		
+		//testEnemy.Draw(batch);
 		combatLog.draw(batch, combatLogStr, (testPlayer.xPos - (5*Tile.WIDTH)), (testPlayer.yPos+ (7*Tile.HEIGHT)));
+		redFont.draw(batch, hudHp, (testPlayer.xPos - (5*Tile.WIDTH)), (float) (testPlayer.yPos- (6.5*Tile.HEIGHT)));
 		
-		
+
 		for (int i = 0; i < testDungeon.populants.size(); i++)
 		{
 			testDungeon.populants.get(i).Draw(batch);
@@ -296,14 +332,20 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		if (getGameState() == ENEMY_TURN) {
 
-			if (testEnemy.tryAttack() == IMP) {
-				testEnemy.cut(testPlayer);
-				setGameState(PLAYER_TURN);
+			for (int i = 0; i < enemyList.size(); i++)
+			{
+				Monster currentMonster = enemyList.get(i);
+				currentMonster.turn();
 
-			} else {
-				testEnemy.chase();
+				currentMonster.updateProx();
+				System.out.println(enemyList.get(i).getxProx() + ", " + enemyList.get(i).getyProx());
+				
+				if(enemyList.get(i).xProx<15||enemyList.get(i).yProx<15){
+					slowYourRollBro(1);
+				}
 			}
-
+			
+			setGameState(PLAYER_TURN);
 			newTurn(testPlayer);
 
 		}
@@ -387,7 +429,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	//Pauses game for number of seconds
 	public static void slowYourRollBro(int sec){
 		try {
-			Thread.sleep(sec*1000);
+			Thread.sleep(sec*100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -402,5 +444,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			combatLogStr = input;
 			logLines = 1;
 		}
+		health = testPlayer.getHealth();
+		hudHp = "Health: "+health;
 	}
 }

@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.mygdx.game.Creature.Movement;
 
 //A note to anyone changing this, the print statements are all for reference only, feel free to remove them if they become intrusive.
 public class Creature extends Entity{
@@ -48,12 +50,31 @@ public class Creature extends Entity{
 	public int statInt;
 	public int statVig;
 	
+	float mapX = 0;
+	float mapY = 0;
+	
+	//For monster AI
+	static final Movement UP = new Movement(0,1);
+	static final Movement DOWN = new Movement(0,-1);
+	static final Movement RIGHT = new Movement(1,0);
+	static final Movement LEFT = new Movement(-1,0);
+	static final Movement D_R_UP = new Movement(1,1);
+	static final Movement D_L_UP = new Movement(-1,1);
+	static final Movement D_R_DOWN = new Movement (1,-1);
+	static final Movement D_L_DOWN = new Movement (-1,-1);
+	
 	public Creature() {
+	}
+	
+	public Creature(TextureRegion img, int x, int y){
+		super(img, x, y);
 	}
 	
 	public Creature(AtlasRegion image, int x, int y) {
 		super(image, x, y);
 	}
+	
+	
 
 	//general methods
 	public void getHit(int damage) {
@@ -346,5 +367,15 @@ public class Creature extends Entity{
 
 	public void setTeleCD(int teleCD) {
 		this.teleCD = teleCD;
+	}
+	
+	protected static class Movement{
+		int x;
+		int y;
+		
+		Movement(int X, int Y){
+			x = X;
+			y = Y;
+		}
 	}
 }

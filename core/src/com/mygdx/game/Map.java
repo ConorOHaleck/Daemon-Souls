@@ -28,13 +28,14 @@ public class Map {
 		rooms.add(room);
 	}
 
-	public void populateRooms(ArrayList<Creature> monsters)
+	public void populateRooms(ArrayList<Monster> monsters)
 	{
 		for (int i = 0; i < rooms.size(); i++)
 		{
 			Rectangle room = rooms.get(i);
-			int xPos = (int) (rng.nextInt((int) room.getWidth()) + room.getX());
-			int yPos = (int) (rng.nextInt((int) room.getHeight()) + room.getY());
+			
+			int xPos = (int) (rng.nextInt((int) (Math.abs(room.getWidth()) + room.getX())));
+			int yPos = (int) (rng.nextInt((int) (Math.abs(room.getHeight()) + room.getY())));
 			
 			
 			Creature monster = monsters.get(rng.nextInt(monsters.size()));
