@@ -19,11 +19,16 @@ public class Undead extends Monster {
 	public Undead(TextureRegion img, int x, int y, Player pc){
 		super(img, x, y);
 		pCharacter = pc;
-		
-		this.setDefense(5);
-		this.setHealth(5);
-		this.setMaxHp(5);
-		this.setName("" + this.getClass());
+	}
+
+	public Undead(AtlasRegion image, int x, int y) {
+		super(image, x, y);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Undead(AtlasRegion img, int x, int y, Player pc) {
+		super(img, x, y, pc);
+		// TODO Auto-generated constructor stub
 	}
 	
 	public void attack(Creature target){	
@@ -32,14 +37,14 @@ public class Undead extends Monster {
 	
 	public static class Zombie extends Undead{
 		
-		public Zombie(TextureRegion img, int x, int y, Player pc){
-			super(img, x, y, pc);
-		}
-		
 		boolean isMove;
 		
+		public Zombie(TextureRegion img, int i, int j, Player testPlayer) {
+			super(img, i, j, testPlayer);
+		}
+
 		public void turn(){
-			
+			System.out.println("It got a turn?");
 			isMove = !isMove;
 			
 			updateProx();
@@ -59,11 +64,8 @@ public class Undead extends Monster {
 	
 	public static class Wight extends Undead{
 		
-		public Wight(TextureRegion img, int x, int y, Player pc){
-			super(img, x, y, pc);
-		}
-		
 		public void turn(){
+			System.out.println("It got a turn?");
 			
 			updateProx();
 			
@@ -82,10 +84,6 @@ public class Undead extends Monster {
 	}
 	
 	public static class Banshee extends Undead{
-		
-		public Banshee(TextureRegion img, int x, int y, Player pc){
-			super(img, x, y, pc);
-		}
 		
 		static final int CHASE_TETHER = 5;
 		static final int AURA_TETHER = 2;

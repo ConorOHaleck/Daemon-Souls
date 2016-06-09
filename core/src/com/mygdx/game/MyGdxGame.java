@@ -22,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion reticleImg;
 
 	static ArrayList<Monster> enemyList;
-	public static final int DUNGEON_TOTAL = 10;
+	public static final int DUNGEON_TOTAL = 1;
 
 	UI ui = new UI();
 	static Map testDungeon;  
@@ -108,9 +108,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		ArrayList<Monster> testList = generateHorde();
-
-		
-		
 		
 		
 		testDungeon.populateRooms(testList);
@@ -332,17 +329,22 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 			if (getGameState() == ENEMY_TURN) {
-
+				
+				enemyList.trimToSize();
+				
 				for (int i = 0; i < enemyList.size(); i++)
 				{
 					Monster currentMonster = enemyList.get(i);
+					
+					System.out.println("It should be getting a turn once...");
+					System.out.println(enemyList.size());
+					
+					currentMonster.updateProx();
 					currentMonster.turn();
 
-					currentMonster.updateProx();
-					System.out.println(enemyList.get(i).getxProx() + ", " + enemyList.get(i).getyProx());
-
-					if(enemyList.get(i).xProx<15||enemyList.get(i).yProx<15){
+					if(enemyList.get(i).xProx<15&&enemyList.get(i).yProx<15){
 						slowYourRollBro(1);
+						System.out.println("Getting slooooowed");
 					}
 				}
 

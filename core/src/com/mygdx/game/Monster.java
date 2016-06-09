@@ -83,8 +83,11 @@ public class Monster extends Creature {
 	public void move(Movement command){
 		
 		Tile oldTile;
+		System.out.println(this.xPos);
+		System.out.println(this.yPos);
 		oldTile = MyGdxGame.testDungeon.getTileAt((this.xPos/Tile.WIDTH), (this.yPos/Tile.HEIGHT));
 		Tile newTile;
+
 		newTile = MyGdxGame.testDungeon.getTileAt(((this.xPos/Tile.WIDTH)+(command.x)), ((this.yPos/Tile.HEIGHT))+(command.y));
 		
 		if(!newTile.isCanCollide()){
