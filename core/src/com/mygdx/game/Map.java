@@ -13,7 +13,7 @@ public class Map {
 	ArrayList<Rectangle> rooms = new ArrayList<Rectangle>();
 	
 	//any and all non-player entities that exist on this Map
-	ArrayList<Entity> populants = new ArrayList<Entity>();
+	ArrayList<Monster> populants = new ArrayList<Monster>();
 	Random rng = new Random();
 
 	//Adds a tile to the map without any position information.
@@ -38,7 +38,7 @@ public class Map {
 			int yPos = (int) (rng.nextInt((int) (Math.abs(room.getHeight()) + room.getY())));
 			
 			
-			Creature monster = monsters.get(rng.nextInt(monsters.size()));
+			Monster monster = monsters.get(rng.nextInt(monsters.size()));
 			
 			monster.setPos(xPos *32, yPos * 32);
 			getTileAt(xPos, yPos).setOccupant(monster);

@@ -22,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion reticleImg;
 
 	static ArrayList<Monster> enemyList;
-	public static final int ENEMY_POP_SWING = 10;
+	public static final int DUNGEON_TOTAL = 10;
 
 	UI ui = new UI();
 	static Map testDungeon;  
@@ -106,20 +106,16 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 		}
 
-		Undead steven = new Undead(Assets.creatureTiles.get(18).img,0,0, testPlayer);
-		Undead michael = new Undead(Assets.creatureTiles.get(25).img,0,0, testPlayer);
-		Undead deaderd = new Undead(Assets.creatureTiles.get(55).img,0,0, testPlayer);
-		ArrayList<Monster> testList = new ArrayList<Monster>();
-		testList.add(steven);
-		testList.add(michael);
-		testList.add(deaderd);
 
-		enemyList = testList;
+		ArrayList<Monster> testList = generateHorde();
 
-
+		
+		
+		
+		
 		testDungeon.populateRooms(testList);
-
-
+		
+		enemyList = testDungeon.populants;
 
 		//Tile enemyTile = testDungeon.getTileAt((testEnemy.xPos/Tile.WIDTH), (testEnemy.yPos/Tile.HEIGHT));
 		//enemyTile.setOccupant(testEnemy);
@@ -459,5 +455,21 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		health = testPlayer.getHealth();
 		hudHp = "Health: "+health;
+	}
+	
+	public static ArrayList<Monster> generateHorde(){
+		ArrayList<Monster> returner = new ArrayList<Monster>();
+		
+		int i = 0;
+		while(i < DUNGEON_TOTAL){
+			
+
+			Zombie newZomb = new Zombie(Assets.creatureTiles.get(30).img,0,0,testPlayer);
+			System.out.println("Well we built one");
+			returner.add(newZomb);
+			i++;
+		}
+	
+		return returner;
 	}
 }
