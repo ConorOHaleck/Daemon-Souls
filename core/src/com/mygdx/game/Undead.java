@@ -69,20 +69,18 @@ public class Undead extends Monster {
 	public static class Wight extends Undead{
 		
 		public Wight(Player testPlayer) {
-			super(Assets.creatureTiles.get(100).img, 0, 0, testPlayer);
+			super(Assets.creatureTiles.get(60).img, 0, 0, testPlayer);
 			
 			this.setName("Wight");
-			this.setMaxHp(10);
-			this.setHealth(10);
-			this.setDefense(5);
+			this.setMaxHp(15);
+			this.setHealth(15);
+			this.setDefense(8);
 		}
 		
 		public void turn(){
 
 			
 			updateProx();
-			
-			wander();
 			
 			if(xProx<=32&&yProx<=32){
 				attack(pCharacter);
@@ -99,12 +97,12 @@ public class Undead extends Monster {
 	public static class Banshee extends Undead{
 		
 		public Banshee(Player testPlayer) {
-			super(Assets.creatureTiles.get(100).img, 0, 0, testPlayer);
+			super(Assets.creatureTiles.get(95).img, 0, 0, testPlayer);
 			
 			this.setName("Banshee");
-			this.setMaxHp(10);
-			this.setHealth(10);
-			this.setDefense(5);
+			this.setMaxHp(5);
+			this.setHealth(5);
+			this.setDefense(1);
 		}
 		
 		static final int CHASE_TETHER = 5;
@@ -119,7 +117,7 @@ public class Undead extends Monster {
 			}
 			
 			else if(xProx<=(CHASE_TETHER*32)&&yProx<=(CHASE_TETHER*32)){
-				if(xProx<(AURA_TETHER*32)||yProx<(AURA_TETHER*32)){
+				if(xProx<(AURA_TETHER*32)&&yProx<(AURA_TETHER*32)){
 					spook(pCharacter);
 					flee();
 				}
@@ -146,6 +144,8 @@ public class Undead extends Monster {
 			} else if (this.yPos < pCharacter.yPos) {
 				pCharacter.move(0, 1);
 			}
+			
+			MyGdxGame.updateLog("You're too spooked by the banshee's wail!");
 		}
 	}
 

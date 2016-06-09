@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +14,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Ooze.Gelatin;
+import com.mygdx.game.Ooze.Creep;
+import com.mygdx.game.Ooze.Skuzz;
+import com.mygdx.game.Undead.Banshee;
 import com.mygdx.game.Undead.Zombie;
+import com.mygdx.game.Undead.Wight;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static SpriteBatch batch;
@@ -23,11 +29,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	TextureRegion reticleImg;
 
 	static ArrayList<Monster> enemyList;
-<<<<<<< HEAD
-	public static final int DUNGEON_TOTAL = 1;
-=======
-	public static final int DUNGEON_TOTAL = 100;
->>>>>>> refs/remotes/origin/master
+
+	public static final int DUNGEON_TOTAL = 150;
+
 
 	UI ui = new UI();
 	static Map testDungeon;  
@@ -113,11 +117,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		ArrayList<Monster> testList = generateHorde();
-<<<<<<< HEAD
-		
-		
-=======
->>>>>>> refs/remotes/origin/master
+
 		testDungeon.populateRooms(testList);
 		
 		enemyList = testDungeon.populants;
@@ -295,20 +295,13 @@ public class MyGdxGame extends ApplicationAdapter {
 				{
 					Monster currentMonster = enemyList.get(i);
 					
-					System.out.println("It should be getting a turn once...");
-					System.out.println(enemyList.size());
-					
 					currentMonster.updateProx();
 					currentMonster.turn();
 
-<<<<<<< HEAD
-					if(enemyList.get(i).xProx<15&&enemyList.get(i).yProx<15){
-						slowYourRollBro(1);
-						System.out.println("Getting slooooowed");
-=======
+
 					if(enemyList.get(i).xProx<15||enemyList.get(i).yProx<15){
 					//	slowYourRollBro(1);
->>>>>>> refs/remotes/origin/master
+
 					}
 				}
 
@@ -472,18 +465,49 @@ public class MyGdxGame extends ApplicationAdapter {
 		int i = 0;
 		while(i < DUNGEON_TOTAL){
 			
-
-<<<<<<< HEAD
-			Zombie newZomb = new Zombie(testPlayer);
-			System.out.println("Well we built one");
-=======
-			Zombie newZomb = new Zombie(Assets.creatureTiles.get(30).img,0,0,testPlayer);
+			Monster newGuy = randMob();
 			//System.out.println("Well we built one");
->>>>>>> refs/remotes/origin/master
-			returner.add(newZomb);
+
+			returner.add(newGuy);
 			i++;
 		}
 	
+		return returner;
+	}
+	
+	public static Monster randMob(){
+		Monster returner = null;
+		
+		Random rand = new Random();
+		
+		int switcher = rand.nextInt(6);
+		System.out.println(switcher);
+		
+		switch(switcher){
+		
+		case 0:
+			returner = new Zombie(testPlayer);
+			break;
+		case 1:
+			returner = new Wight(testPlayer);
+			break;
+		case 2:
+			returner = new Banshee(testPlayer);
+			break;
+		case 3:
+			returner = new Gelatin(testPlayer);
+			break;
+		case 4:
+			returner = new Skuzz(testPlayer);
+			break;
+		case 5:
+			returner = new Creep(testPlayer);
+			break;
+		default:
+			returner = new Zombie(testPlayer);
+			break;
+		}
+		
 		return returner;
 	}
 }
